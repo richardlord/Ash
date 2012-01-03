@@ -1,0 +1,28 @@
+# General
+bin/*
+docs/*
+swc/*
+
+# Eclipse
+.settings/*
+.project
+
+# Flash Builder
+html-template/*
+bin-debug/*
+bin-release/*
+.actionScriptProperties
+.flexProperties
+.flexLibProperties
+
+# FDT
+.as3_classpath
+
+# Source Mate
+.sourceMate
+.sourceMateMetadataSettings
+
+# OS X
+Icon
+Thumbs.db
+.DS_Store
