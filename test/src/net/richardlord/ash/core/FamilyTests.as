@@ -194,6 +194,51 @@ package net.richardlord.ash.core
 			}
 			assertThat( entities, emptyArray() );
 		}
+		
+		[Test]
+		public function addingNodeTriggersAddedSignal() : void
+		{
+			var nodes : NodeList = new NodeList();
+			var node : MockNode = new MockNode();
+			nodes.nodeAdded.add( async.add() );
+			nodes.add( node );
+		}
+		
+		[Test]
+		public function removingNodeTriggersRemovedSignal() : void
+		{
+			var nodes : NodeList = new NodeList();
+			var node : MockNode = new MockNode();
+			nodes.add( node );
+			nodes.nodeRemoved.add( async.add() );
+			nodes.remove( node );
+		}
+		
+		private var tempNode : Node;
+		
+		[Test]
+		public function componentAddedSignalContainsCorrectParameters() : void
+		{
+			var nodes : NodeList = new NodeList();
+			tempNode = new MockNode();
+			nodes.nodeAdded.add( async.add( testSignalContent, 10 ) );
+			nodes.add( tempNode );
+		}
+		
+		[Test]
+		public function componentRemovedSignalContainsCorrectParameters() : void
+		{
+			var nodes : NodeList = new NodeList();
+			tempNode = new MockNode();
+			nodes.add( tempNode );
+			nodes.nodeRemoved.add( async.add( testSignalContent, 10 ) );
+			nodes.remove( tempNode );
+		}
+		
+		private function testSignalContent( signalNode : Node ) : void
+		{
+			assertThat( signalNode, sameInstance( tempNode ) );
+		}
 	}
 }
 import net.richardlord.ash.core.Node;

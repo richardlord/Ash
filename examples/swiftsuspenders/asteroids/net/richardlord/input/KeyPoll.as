@@ -24,7 +24,7 @@
  * THE SOFTWARE.
  */
 
-package net.richardlord.utils
+package net.richardlord.input
 {
 	import flash.events.KeyboardEvent;
 	import flash.events.Event;

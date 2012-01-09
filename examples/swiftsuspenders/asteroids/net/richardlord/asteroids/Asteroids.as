@@ -1,5 +1,6 @@
 package net.richardlord.asteroids
 {
+	import flash.display.DisplayObjectContainer;
 	import net.richardlord.ash.core.Game;
 	import net.richardlord.ash.integration.swiftsuspenders.SwiftSuspendersGame;
 	import net.richardlord.ash.tick.FrameTickProvider;
@@ -12,11 +13,10 @@ package net.richardlord.asteroids
 	import net.richardlord.asteroids.systems.MovementSystem;
 	import net.richardlord.asteroids.systems.RenderSystem;
 	import net.richardlord.asteroids.systems.SystemPriorities;
-	import net.richardlord.utils.KeyPoll;
-
+	import net.richardlord.input.KeyPoll;
 	import org.swiftsuspenders.Injector;
 
-	import flash.display.DisplayObjectContainer;
+
 
 	public class Asteroids
 	{

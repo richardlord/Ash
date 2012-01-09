@@ -8,7 +8,7 @@ package net.richardlord.asteroids.systems
 	import net.richardlord.asteroids.components.GunControls;
 	import net.richardlord.asteroids.components.Position;
 	import net.richardlord.asteroids.nodes.GunControlNode;
-	import net.richardlord.utils.KeyPoll;
+	import net.richardlord.input.KeyPoll;
 
 	public class GunControlSystem extends System
 	{

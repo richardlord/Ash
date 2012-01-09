@@ -6,7 +6,7 @@ package net.richardlord.asteroids.systems
 	import net.richardlord.asteroids.components.MotionControls;
 	import net.richardlord.asteroids.components.Position;
 	import net.richardlord.asteroids.nodes.MotionControlNode;
-	import net.richardlord.utils.KeyPoll;
+	import net.richardlord.input.KeyPoll;
 
 	public class MotionControlSystem extends System
 	{

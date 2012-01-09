@@ -28,11 +28,6 @@ package net.richardlord.asteroids
 		
 		public function destroyEntity( entity : Entity ) : void
 		{
-			if ( entity.has( Display ) )
-			{
-				var display : Display = entity.get( Display );
-				display.displayObject.parent.removeChild( display.displayObject );
-			}
 			game.removeEntity( entity );
 		}
 

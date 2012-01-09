@@ -13,9 +13,9 @@ package net.richardlord.asteroids
 	import net.richardlord.asteroids.systems.MovementSystem;
 	import net.richardlord.asteroids.systems.RenderSystem;
 	import net.richardlord.asteroids.systems.SystemPriorities;
-	import net.richardlord.utils.KeyPoll;
-
+	import net.richardlord.input.KeyPoll;
 	import org.swiftsuspenders.Injector;
+
 
 	public class StartAsteroids
 	{

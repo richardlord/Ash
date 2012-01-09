@@ -25,6 +25,18 @@ package net.richardlord.asteroids.systems
 		override public function addToGame( game : Game ) : void
 		{
 			nodes = game.getFamily( RenderNode );
+			nodes.nodeAdded.add( addToDisplay );
+			nodes.nodeRemoved.add( removeFromDisplay );
+		}
+		
+		private function addToDisplay( node : RenderNode ) : void
+		{
+			container.addChild( node.display.displayObject );
+		}
+		
+		private function removeFromDisplay( node : RenderNode ) : void
+		{
+			container.removeChild( node.display.displayObject );
 		}
 		
 		override public function update( time : Number ) : void
@@ -40,10 +52,6 @@ package net.richardlord.asteroids.systems
 				displayObject = display.displayObject;
 				position = node.position;
 				
-				if( !displayObject.parent )
-				{
-					container.addChild( displayObject );
-				}
 				displayObject.x = position.position.x;
 				displayObject.y = position.position.y;
 				displayObject.rotation = position.rotation * 180 / Math.PI;

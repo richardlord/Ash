@@ -1,12 +1,13 @@
 package net.richardlord.asteroids.systems
 {
-	import flash.display.DisplayObject;
-	import flash.display.DisplayObjectContainer;
 	import net.richardlord.ash.core.NodeList;
 	import net.richardlord.ash.core.System;
 	import net.richardlord.asteroids.components.Display;
 	import net.richardlord.asteroids.components.Position;
 	import net.richardlord.asteroids.nodes.RenderNode;
+
+	import flash.display.DisplayObject;
+	import flash.display.DisplayObjectContainer;
 
 
 	public class RenderSystem extends System
@@ -16,6 +17,23 @@ package net.richardlord.asteroids.systems
 		
 		[Inject(nodeType="net.richardlord.asteroids.nodes.RenderNode")]
 		public var nodes : NodeList;
+
+		[PostConstruct]
+		public function setUpListeners() : void
+		{
+			nodes.nodeAdded.add( addToDisplay );
+			nodes.nodeRemoved.add( removeFromDisplay );
+		}
+		
+		private function addToDisplay( node : RenderNode ) : void
+		{
+			container.addChild( node.display.displayObject );
+		}
+		
+		private function removeFromDisplay( node : RenderNode ) : void
+		{
+			container.removeChild( node.display.displayObject );
+		}
 
 		override public function update( time : Number ) : void
 		{

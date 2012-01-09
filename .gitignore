@@ -22,6 +22,12 @@ bin-release/*
 .sourceMate
 .sourceMateMetadataSettings
 
+# IntelliJ
+.idea
+*.iml
+*.ipr
+*.iws
+
 # OS X
 Icon
 Thumbs.db
