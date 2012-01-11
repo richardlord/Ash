@@ -1,8 +1,5 @@
 package net.richardlord.ash.tick
 {
-	/**
-	 * @author richard
-	 */
 	public interface TickProvider
 	{
 		function add( listener : Function ) : void;

@@ -1,3 +1,7 @@
+/*
+ * Based on ideas used in Robert Penner's AS3-signals - https://github.com/robertpenner/as3-signals
+ */
+
 package net.richardlord.ash.signals
 {
 	public class Signal3 extends SignalBase

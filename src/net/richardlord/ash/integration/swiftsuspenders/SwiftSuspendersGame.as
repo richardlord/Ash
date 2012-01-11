@@ -6,9 +6,6 @@ package net.richardlord.ash.integration.swiftsuspenders
 
 	import org.swiftsuspenders.Injector;
 
-	/**
-	 * @author richard
-	 */
 	public class SwiftSuspendersGame extends Game
 	{
 		protected var injector : Injector;
