@@ -64,5 +64,17 @@ package net.richardlord.ash.core
 				system.next.previous = system.previous;
 			}
 		}
+		
+		internal function removeAll() : void
+		{
+			while( head )
+			{
+				var system : System = head;
+				head = head.next;
+				system.previous = null;
+				system.next = null;
+			}
+			tail = null;
+		}
 	}
 }

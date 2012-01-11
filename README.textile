@@ -6,11 +6,20 @@ h3. Source Code
 
 * "Ash":http://github.com/richardlord/Ash
 
+h3. Examples
+
+* "Asteroids":http://github.com/richardlord/Ash/tree/master/examples
+
 h3. Developers
 
 * "Richard Lord":http://www.richardlord.net/
 ** "Richard on Twitter":http://twitter.com/Richard_Lord
 ** "Richard on Github":http://github.com/richardlord
+
+h3. Thank you
+
+* Tom Davies, for "Ember":https://github.com/tdavies/Ember and "Ember2":https://github.com/tdavies/Ember2 and for the many discussions we've had about entity systems.
+* Alec McEachran, for "Xember":https://github.com/alecmce/xember and the discussions we've had about entity systems, particularly at "try{harder}":http://www.tryharder.org.uk/
 
 h2. License
 

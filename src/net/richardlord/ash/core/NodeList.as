@@ -16,7 +16,7 @@ package net.richardlord.ash.core
 			nodeRemoved = new Signal1( Node );
 		}
 		
-		public function add( node : Node ) : void
+		internal function add( node : Node ) : void
 		{
 			if( ! head )
 			{
@@ -31,7 +31,7 @@ package net.richardlord.ash.core
 			nodeAdded.dispatch( node );
 		}
 		
-		public function remove( node : Node ) : void
+		internal function remove( node : Node ) : void
 		{
 			if ( head == node)
 			{
@@ -52,6 +52,19 @@ package net.richardlord.ash.core
 				node.next.previous = node.previous;
 			}
 			nodeRemoved.dispatch( node );
+		}
+		
+		internal function removeAll() : void
+		{
+			while( head )
+			{
+				var node : Node = head;
+				head = node.next;
+				node.previous = null;
+				node.next = null;
+				nodeRemoved.dispatch( node );
+			}
+			tail = null;
 		}
 		
 		public function get empty() : Boolean

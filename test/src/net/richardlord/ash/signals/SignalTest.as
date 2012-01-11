@@ -128,26 +128,62 @@ package net.richardlord.ash.signals
 			dispatchSignal();
 		}
 
-		private function addListenerDuringDispatch( e : * = null ) : void
+		private function addListenerDuringDispatch() : void
 		{
 			signal.add( failIfCalled );
 		}
 
-		protected function dispatchSignal() : void
+		[Test]
+		public function dispatch2Listeners2ndListenerRemoves1stThen1stListenerIsNotCalled() : void
 		{
-			signal.dispatch();
-			//fail( 'Test should override dispatchSignal method' );
+			signal.add( failIfCalled );
+			signal.add( async.add( removeFailListener, 10 ) );
+			dispatchSignal();
+		}
+
+		private function removeFailListener( ...args ) : void
+		{
+			signal.remove( failIfCalled );
+		}
+		
+		[Test]
+		public function add2ListenersThenRemoveAllShouldLeaveNoListeners():void
+		{
+			signal.add( newEmptyHandler() );
+			signal.add( newEmptyHandler() );
+			signal.removeAll();
+			assertThat( signal.head, nullValue() );
+		}
+		
+		[Test]
+		public function removeAllDuringDispatchShouldStopAll():void
+		{
+			signal.add( newEmptyHandler() );
+			signal.add( failIfCalled );
+			signal.add( removeAllListeners );
+			dispatchSignal();
+		}
+
+		private function removeAllListeners( ...args ) : void
+		{
+			signal.removeAll();
 		}
 
 		// //// UTILITY METHODS // ////
-		protected static function newEmptyHandler() : Function
+
+		private function dispatchSignal() : void
+		{
+			signal.dispatch();
+		}
+
+		private static function newEmptyHandler() : Function
 		{
 			return function( ...args ) : void
 			{
 			};
 		}
 
-		protected static function failIfCalled( ...args ) : void
+		private static function failIfCalled( ...args ) : void
 		{
 			fail( 'This function should not have been called.' );
 		}

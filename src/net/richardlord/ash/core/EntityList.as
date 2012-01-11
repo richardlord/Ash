@@ -41,5 +41,17 @@ package net.richardlord.ash.core
 				entity.next.previous = entity.previous;
 			}
 		}
+		
+		internal function removeAll() : void
+		{
+			while( entity )
+			{
+				var entity : Entity = entity;
+				head = head.next;
+				entity.previous = null;
+				entity.next = null;
+			}
+			tail = null;
+		}
 	}
 }

@@ -58,6 +58,15 @@ package net.richardlord.ash.core
 			return family.nodes;
 		}
 		
+		public function releaseFamily( nodeClass : Class ) : void
+		{
+			if( families[nodeClass] )
+			{
+				families[nodeClass].cleanUp();
+			}
+			delete families[nodeClass];
+		}
+		
 		public function addSystemWithPriority( system : System, priority : int ) : void
 		{
 			system.priority = priority;

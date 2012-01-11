@@ -65,5 +65,17 @@ package net.richardlord.ash.signals
 				delete( nodes[ listener ] );
 			}
 		}
+		
+		public function removeAll() : void
+		{
+			while( head )
+			{
+				var listener : ListenerNode = head;
+				head = head.next;
+				listener.previous = null;
+				listener.next = null;
+			}
+			tail = null;
+		}
 	}
 }

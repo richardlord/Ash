@@ -239,6 +239,38 @@ package net.richardlord.ash.core
 		{
 			assertThat( signalNode, sameInstance( tempNode ) );
 		}
+		
+		[Test]
+		public function releaseFamilyEmptiesNodeList() : void
+		{
+			var entity : Entity = new Entity();
+			entity.add( new Point() );
+			entity.add( new Matrix() );
+			game.addEntity( entity );
+			game.removeEntity( entity );
+			var nodes : NodeList = game.getFamily( MockNode );
+			game.releaseFamily( MockNode );
+			assertThat( nodes.head, nullValue() );
+		}
+
+		[Test]
+		public function releaseFamilySetsNextNodeToNull() : void
+		{
+			var entities : Array = new Array();
+			for( var i : int = 0; i < 5; ++i )
+			{
+				var entity : Entity = new Entity();
+				entity.add( new Point() );
+				entity.add( new Matrix() );
+				entities.push( entity );
+				game.addEntity( entity );
+			}
+			
+			var nodes : NodeList = game.getFamily( MockNode );
+			var node : MockNode = nodes.head.next;
+			game.releaseFamily( MockNode );
+			assertThat( node.next, nullValue() );
+		}
 	}
 }
 import net.richardlord.ash.core.Node;

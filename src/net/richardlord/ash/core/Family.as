@@ -72,6 +72,16 @@ package net.richardlord.ash.core
 			}
 		}
 		
+		internal function cleanUp() : void
+		{
+			for( var node : Node = nodes.head; node; node = node.next )
+			{
+				node.entity.componentRemoved.remove( componentRemoved );
+				delete entities[node.entity];
+			}
+			nodes.removeAll();
+		}
+		
 		private function componentRemoved( entity : Entity, componentClass : Class ) : void
 		{
 			if( components[componentClass] )
