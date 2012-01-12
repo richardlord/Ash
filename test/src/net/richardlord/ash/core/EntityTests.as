@@ -3,30 +3,31 @@ package net.richardlord.ash.core
 	import asunit.framework.IAsync;
 
 	import org.hamcrest.assertThat;
+	import org.hamcrest.object.equalTo;
 	import org.hamcrest.object.isFalse;
 	import org.hamcrest.object.isTrue;
 	import org.hamcrest.object.nullValue;
 	import org.hamcrest.object.sameInstance;
-	
+
 	public class EntityTests
 	{
 		[Inject]
 		public var async : IAsync;
-		
+
 		private var entity : Entity;
-		
+
 		[Before]
 		public function createEntity() : void
 		{
 			entity = new Entity();
 		}
-		
+
 		[After]
 		public function clearEntity() : void
 		{
 			entity = null;
 		}
-		
+
 		[Test]
 		public function canStoreAndRetrieveComponent() : void
 		{
@@ -34,7 +35,7 @@ package net.richardlord.ash.core
 			entity.add( component );
 			assertThat( entity.get( MockComponent ), sameInstance( component ) );
 		}
-		
+
 		[Test]
 		public function canStoreAndRetrieveMultipleComponents() : void
 		{
@@ -45,7 +46,7 @@ package net.richardlord.ash.core
 			assertThat( entity.get( MockComponent ), sameInstance( component1 ) );
 			assertThat( entity.get( MockComponent2 ), sameInstance( component2 ) );
 		}
-		
+
 		[Test]
 		public function canReplaceComponent() : void
 		{
@@ -55,7 +56,7 @@ package net.richardlord.ash.core
 			entity.add( component2 );
 			assertThat( entity.get( MockComponent ), sameInstance( component2 ) );
 		}
-		
+
 		[Test]
 		public function canStoreBaseAndExtendedComponents() : void
 		{
@@ -66,7 +67,7 @@ package net.richardlord.ash.core
 			assertThat( entity.get( MockComponent ), sameInstance( component1 ) );
 			assertThat( entity.get( MockComponentExtended ), sameInstance( component2 ) );
 		}
-		
+
 		[Test]
 		public function canStoreExtendedComponentAsBaseType() : void
 		{
@@ -74,27 +75,27 @@ package net.richardlord.ash.core
 			entity.add( component, MockComponent );
 			assertThat( entity.get( MockComponent ), sameInstance( component ) );
 		}
-		
+
 		[Test]
 		public function getReturnNullIfNoComponent() : void
 		{
 			assertThat( entity.get( MockComponent ), nullValue() );
 		}
-		
+
 		[Test]
 		public function hasComponentIsFalseIfComponentTypeNotPresent() : void
 		{
 			entity.add( new MockComponent2() );
 			assertThat( entity.has( MockComponent ), isFalse() );
 		}
-		
+
 		[Test]
 		public function hasComponentIsTrueIfComponentTypeIsPresent() : void
 		{
 			entity.add( new MockComponent() );
 			assertThat( entity.has( MockComponent ), isTrue() );
 		}
-		
+
 		[Test]
 		public function canRemoveComponent() : void
 		{
@@ -103,7 +104,7 @@ package net.richardlord.ash.core
 			entity.remove( MockComponent );
 			assertThat( entity.has( MockComponent ), isFalse() );
 		}
-		
+
 		[Test]
 		public function storingComponentTriggersAddedSignal() : void
 		{
@@ -111,7 +112,7 @@ package net.richardlord.ash.core
 			entity.componentAdded.add( async.add() );
 			entity.add( component );
 		}
-		
+
 		[Test]
 		public function removingComponentTriggersRemovedSignal() : void
 		{
@@ -120,7 +121,7 @@ package net.richardlord.ash.core
 			entity.componentRemoved.add( async.add() );
 			entity.remove( MockComponent );
 		}
-		
+
 		[Test]
 		public function componentAddedSignalContainsCorrectParameters() : void
 		{
@@ -128,7 +129,7 @@ package net.richardlord.ash.core
 			entity.componentAdded.add( async.add( testSignalContent, 10 ) );
 			entity.add( component );
 		}
-		
+
 		[Test]
 		public function componentRemovedSignalContainsCorrectParameters() : void
 		{
@@ -137,7 +138,41 @@ package net.richardlord.ash.core
 			entity.componentRemoved.add( async.add( testSignalContent, 10 ) );
 			entity.remove( MockComponent );
 		}
-		
+
+		[Test]
+		public function cloneIsNewReference() : void
+		{
+			entity.add( new MockComponent() );
+			var clone : Entity = entity.clone();
+			assertThat( clone == entity, isFalse() );
+		}
+
+		[Test]
+		public function cloneHasChildComponent() : void
+		{
+			entity.add( new MockComponent() );
+			var clone : Entity = entity.clone();
+			assertThat( clone.has( MockComponent ), isTrue() );
+		}
+
+		[Test]
+		public function cloneChildComponentIsNewReference() : void
+		{
+			entity.add( new MockComponent() );
+			var clone : Entity = entity.clone();
+			assertThat( clone.get( MockComponent ) == entity.get( MockComponent ), isFalse() );
+		}
+
+		[Test]
+		public function cloneChildComponentHasSameProperties() : void
+		{
+			var component : MockComponent = new MockComponent();
+			component.value = 5;
+			entity.add( component );
+			var clone : Entity = entity.clone();
+			assertThat( clone.get( MockComponent ).value, equalTo( 5 ) );
+		}
+
 		private function testSignalContent( signalEntity : Entity, componentClass : Class ) : void
 		{
 			assertThat( signalEntity, sameInstance( entity ) );
