@@ -29,9 +29,9 @@ package net.richardlord.asteroids.systems
 
 		override public function addToGame( game : Game ) : void
 		{
-			spaceships = game.getFamily( SpaceshipCollisionNode );
-			asteroids = game.getFamily( AsteroidCollisionNode );
-			bullets = game.getFamily( BulletCollisionNode );
+			spaceships = game.getNodeList( SpaceshipCollisionNode );
+			asteroids = game.getNodeList( AsteroidCollisionNode );
+			bullets = game.getNodeList( BulletCollisionNode );
 		}
 		
 		override public function update( time : Number ) : void

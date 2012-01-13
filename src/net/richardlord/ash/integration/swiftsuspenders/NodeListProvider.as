@@ -24,7 +24,7 @@ package net.richardlord.ash.integration.swiftsuspenders
 				var nodeClass : Class = getDefinitionByName( injectParameters["nodeType"] ) as Class;
 				if( nodeClass )
 				{
-					return game.getFamily( nodeClass );
+					return game.getNodeList( nodeClass );
 				}
 			}
 			return null;

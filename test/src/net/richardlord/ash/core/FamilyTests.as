@@ -33,7 +33,7 @@ package net.richardlord.ash.core
 		[Test]
 		public function testFamilyIsInitiallyEmpty() : void
 		{
-			var nodes : NodeList = game.getFamily( MockNode );
+			var nodes : NodeList = game.getNodeList( MockNode );
 			assertThat( nodes.head, nullValue() );
 		}
 
@@ -46,7 +46,7 @@ package net.richardlord.ash.core
 			entity.add( point );
 			entity.add( matrix );
 			
-			var nodes : NodeList = game.getFamily( MockNode );
+			var nodes : NodeList = game.getNodeList( MockNode );
 			game.addEntity( entity );
 			assertThat( nodes.head.point, sameInstance( point ) );
 			assertThat( nodes.head.matrix, sameInstance( matrix ) );
@@ -58,7 +58,7 @@ package net.richardlord.ash.core
 			var entity : Entity = new Entity();
 			entity.add( new Point() );
 			entity.add( new Matrix() );
-			var nodes : NodeList = game.getFamily( MockNode );
+			var nodes : NodeList = game.getNodeList( MockNode );
 			game.addEntity( entity );
 			assertThat( nodes.head.entity, sameInstance( entity ) );
 		}
@@ -70,7 +70,7 @@ package net.richardlord.ash.core
 			entity.add( new Point() );
 			entity.add( new Matrix() );
 			game.addEntity( entity );
-			var nodes : NodeList = game.getFamily( MockNode );
+			var nodes : NodeList = game.getNodeList( MockNode );
 			assertThat( nodes.head.entity, sameInstance( entity ) );
 		}
 
@@ -79,7 +79,7 @@ package net.richardlord.ash.core
 		{
 			var entity : Entity = new Entity();
 			game.addEntity( entity );
-			var nodes : NodeList = game.getFamily( MockNode );
+			var nodes : NodeList = game.getNodeList( MockNode );
 			entity.add( new Point() );
 			entity.add( new Matrix() );
 			assertThat( nodes.head.entity, sameInstance( entity ) );
@@ -89,7 +89,7 @@ package net.richardlord.ash.core
 		public function testIncorrectEntityNotAddedToFamilyWhenAccessFamilyFirst() : void
 		{
 			var entity : Entity = new Entity();
-			var nodes : NodeList = game.getFamily( MockNode );
+			var nodes : NodeList = game.getNodeList( MockNode );
 			game.addEntity( entity );
 			assertThat( nodes.head, nullValue() );
 		}
@@ -99,7 +99,7 @@ package net.richardlord.ash.core
 		{
 			var entity : Entity = new Entity();
 			game.addEntity( entity );
-			var nodes : NodeList = game.getFamily( MockNode );
+			var nodes : NodeList = game.getNodeList( MockNode );
 			assertThat( nodes.head, nullValue() );
 		}
 
@@ -110,7 +110,7 @@ package net.richardlord.ash.core
 			entity.add( new Point() );
 			entity.add( new Matrix() );
 			game.addEntity( entity );
-			var nodes : NodeList = game.getFamily( MockNode );
+			var nodes : NodeList = game.getNodeList( MockNode );
 			entity.remove( Point );
 			assertThat( nodes.head, nullValue() );
 		}
@@ -123,7 +123,7 @@ package net.richardlord.ash.core
 			entity.add( new Matrix() );
 			game.addEntity( entity );
 			entity.remove( Point );
-			var nodes : NodeList = game.getFamily( MockNode );
+			var nodes : NodeList = game.getNodeList( MockNode );
 			assertThat( nodes.head, nullValue() );
 		}
 
@@ -134,7 +134,7 @@ package net.richardlord.ash.core
 			entity.add( new Point() );
 			entity.add( new Matrix() );
 			game.addEntity( entity );
-			var nodes : NodeList = game.getFamily( MockNode );
+			var nodes : NodeList = game.getNodeList( MockNode );
 			game.removeEntity( entity );
 			assertThat( nodes.head, nullValue() );
 		}
@@ -147,7 +147,7 @@ package net.richardlord.ash.core
 			entity.add( new Matrix() );
 			game.addEntity( entity );
 			game.removeEntity( entity );
-			var nodes : NodeList = game.getFamily( MockNode );
+			var nodes : NodeList = game.getNodeList( MockNode );
 			assertThat( nodes.head, nullValue() );
 		}
 
@@ -164,7 +164,7 @@ package net.richardlord.ash.core
 				game.addEntity( entity );
 			}
 			
-			var nodes : NodeList = game.getFamily( MockNode );
+			var nodes : NodeList = game.getNodeList( MockNode );
 			var node : MockNode;
 			for( node = nodes.head; node; node = node.next )
 			{
@@ -185,7 +185,7 @@ package net.richardlord.ash.core
 				game.addEntity( entity );
 			}
 			
-			var nodes : NodeList = game.getFamily( MockNode );
+			var nodes : NodeList = game.getNodeList( MockNode );
 			var node : MockNode;
 			for( node = nodes.head; node; node = node.next )
 			{
@@ -248,8 +248,8 @@ package net.richardlord.ash.core
 			entity.add( new Matrix() );
 			game.addEntity( entity );
 			game.removeEntity( entity );
-			var nodes : NodeList = game.getFamily( MockNode );
-			game.releaseFamily( MockNode );
+			var nodes : NodeList = game.getNodeList( MockNode );
+			game.releaseNodeList( MockNode );
 			assertThat( nodes.head, nullValue() );
 		}
 
@@ -266,9 +266,9 @@ package net.richardlord.ash.core
 				game.addEntity( entity );
 			}
 			
-			var nodes : NodeList = game.getFamily( MockNode );
+			var nodes : NodeList = game.getNodeList( MockNode );
 			var node : MockNode = nodes.head.next;
-			game.releaseFamily( MockNode );
+			game.releaseNodeList( MockNode );
 			assertThat( node.next, nullValue() );
 		}
 	}

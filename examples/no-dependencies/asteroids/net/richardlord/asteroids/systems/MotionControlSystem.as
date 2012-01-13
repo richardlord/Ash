@@ -23,7 +23,7 @@ package net.richardlord.asteroids.systems
 
 		override public function addToGame( game : Game ) : void
 		{
-			nodes = game.getFamily( MotionControlNode );
+			nodes = game.getNodeList( MotionControlNode );
 		}
 		
 		override public function update( time : Number ) : void
