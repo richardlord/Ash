@@ -1,5 +1,7 @@
 package net.richardlord.ash.core
 {
+	import net.richardlord.ash.signals.Signal0;
+
 	import flash.utils.Dictionary;
 
 	/**
@@ -12,11 +14,24 @@ package net.richardlord.ash.core
 		private var systems : SystemList;
 		private var families : Dictionary;
 		
+		/**
+		 * Indicates if the game is currently in its update loop.
+		 */
+		public var updating : Boolean;
+		
+		/**
+		 * Dispatched when the update loop ends. If you want to add and remove systems from the
+		 * game it is usually best not to do so during the update loop. To avoid this you can
+		 * listen for this signal and make the change when the signal is dispatched.
+		 */
+		public var updateComplete : Signal0;
+		
 		public function Game()
 		{
 			entities = new EntityList();
 			systems = new SystemList();
 			families = new Dictionary();
+			updateComplete = new Signal0();
 		}
 		
 		/**
@@ -170,10 +185,13 @@ package net.richardlord.ash.core
 		 */
 		public function update( time : Number ) : void
 		{
+			updating = true;
 			for( var system : System = systems.head; system; system = system.next )
 			{
 				system.update( time );
 			}
+			updating = false;
+			updateComplete.dispatch();
 		}
 	}
 }

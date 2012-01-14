@@ -4,6 +4,8 @@ package net.richardlord.ash.core
 
 	import org.hamcrest.assertThat;
 	import org.hamcrest.object.equalTo;
+	import org.hamcrest.object.isFalse;
+	import org.hamcrest.object.isTrue;
 	import org.hamcrest.object.sameInstance;
 
 	public class SystemTests
@@ -28,6 +30,7 @@ package net.richardlord.ash.core
 		public function clearEntity() : void
 		{
 			game = null;
+			asyncCallback = null;
 		}
 
 		[Test]
@@ -104,6 +107,37 @@ package net.richardlord.ash.core
 			game.update( 0.1 );
 		}
 		
+		[Test]
+		public function updatingIsFalseBeforeUpdate() : void
+		{
+			assertThat( game.updating, isFalse() );
+		}
+		
+		[Test]
+		public function updatingIsTrueDuringUpdate() : void
+		{
+			var system : System = new MockSystem( this );
+			game.addSystem( system );
+			asyncCallback = assertsUpdatingIsTrue;
+			game.update( 0.1 );
+		}
+		
+		[Test]
+		public function updatingIsFalseAfterUpdate() : void
+		{
+			game.update( 0.1 );
+			assertThat( game.updating, isFalse() );
+		}
+		
+		[Test]
+		public function completeSignalIsDispatchedAfterUpdate() : void
+		{
+			var system : System = new MockSystem( this );
+			game.addSystem( system );
+			asyncCallback = listensForUpdateComplete;
+			game.update( 0.1 );
+		}
+		
 		private function addedCallbackMethod( system : System, action : String, systemGame : Game ) : void
 		{
 			assertThat( action, equalTo( "added" ) );
@@ -131,6 +165,16 @@ package net.richardlord.ash.core
 		private function updateCallbackMethod2( system : System, action : String, time : Number ) : void
 		{
 			assertThat( system, equalTo( system2 ) );
+		}
+
+		private function assertsUpdatingIsTrue( system : System, action : String, time : Number ) : void
+		{
+			assertThat( game.updating, isTrue() );
+		}
+		
+		private function listensForUpdateComplete( system : System, action : String, time : Number ) : void
+		{
+			game.updateComplete.add( async.add() );
 		}
 	}
 }
