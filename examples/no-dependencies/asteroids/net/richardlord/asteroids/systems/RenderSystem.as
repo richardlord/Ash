@@ -25,6 +25,10 @@ package net.richardlord.asteroids.systems
 		override public function addToGame( game : Game ) : void
 		{
 			nodes = game.getNodeList( RenderNode );
+			for( var node : RenderNode = nodes.head; node; node = node.next )
+			{
+				addToDisplay( node );
+			}
 			nodes.nodeAdded.add( addToDisplay );
 			nodes.nodeRemoved.add( removeFromDisplay );
 		}

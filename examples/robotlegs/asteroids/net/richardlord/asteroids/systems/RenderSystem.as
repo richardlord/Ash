@@ -21,6 +21,10 @@ package net.richardlord.asteroids.systems
 		[PostConstruct]
 		public function setUpListeners() : void
 		{
+			for( var node : RenderNode = nodes.head; node; node = node.next )
+			{
+				addToDisplay( node );
+			}
 			nodes.nodeAdded.add( addToDisplay );
 			nodes.nodeRemoved.add( removeFromDisplay );
 		}
