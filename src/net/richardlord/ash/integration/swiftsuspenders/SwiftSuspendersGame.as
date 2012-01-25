@@ -17,10 +17,10 @@ package net.richardlord.ash.integration.swiftsuspenders
 			injector.map( NodeList ).toProvider( new NodeListProvider( this ) );
 		}
 		
-		override public function addSystem( system : System ) : void
+		override public function addSystem( system : System, priority : int ) : void
 		{
 			injector.injectInto( system );
-			super.addSystem( system );
+			super.addSystem( system, priority );
 		}
 	}
 }

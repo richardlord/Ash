@@ -42,13 +42,13 @@ package net.richardlord.asteroids
 			creator = new EntityCreator( game );
 			keyPoll = new KeyPoll( container.stage );
 
-			game.addSystemWithPriority( new GameManager( gameState, creator ), SystemPriorities.preUpdate );
-			game.addSystemWithPriority( new MotionControlSystem( keyPoll ), SystemPriorities.update );
-			game.addSystemWithPriority( new GunControlSystem( keyPoll, creator ), SystemPriorities.update );
-			game.addSystemWithPriority( new BulletAgeSystem( creator ), SystemPriorities.update );
-			game.addSystemWithPriority( new MovementSystem(), SystemPriorities.move );
-			game.addSystemWithPriority( new CollisionSystem( creator ), SystemPriorities.resolveCollisions );
-			game.addSystemWithPriority( new RenderSystem( container ), SystemPriorities.render );
+			game.addSystem( new GameManager( gameState, creator ), SystemPriorities.preUpdate );
+			game.addSystem( new MotionControlSystem( keyPoll ), SystemPriorities.update );
+			game.addSystem( new GunControlSystem( keyPoll, creator ), SystemPriorities.update );
+			game.addSystem( new BulletAgeSystem( creator ), SystemPriorities.update );
+			game.addSystem( new MovementSystem(), SystemPriorities.move );
+			game.addSystem( new CollisionSystem( creator ), SystemPriorities.resolveCollisions );
+			game.addSystem( new RenderSystem( container ), SystemPriorities.render );
 
 			tickProvider = new FrameTickProvider( container );
 			gameState.width = width;

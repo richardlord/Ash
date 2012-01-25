@@ -129,36 +129,13 @@ package net.richardlord.ash.core
 		 * loop. Lower numbers for priority are updated first. i.e. a priority of 1 is 
 		 * updated before a priority of 2.</p>
 		 * 
-		 * <p>The priority is stored within a property of the system itself. A system may
-		 * be added using the default priority of that system (usually 0) by calling the
-		 * addSystem method rather than the addSytemWithPriority method.</p>
-		 * 
 		 * @param system The system to add to the game.
 		 * @param priority The priority for updating the systems during the game loop. A 
 		 * lower number means the system is updated sooner.
 		 */
-		public function addSystemWithPriority( system : System, priority : int ) : void
+		public function addSystem( system : System, priority : int ) : void
 		{
 			system.priority = priority;
-			addSystem( system );
-		}
-		
-		/**
-		 * Add a system to the game without setting its update priority. The value of the
-		 * priority property of the system object will be used.
-		 * 
-		 * <p>The priority dictates the order in which the systems are updated by the game 
-		 * loop. Lower numbers for priority are updated first. i.e. a priority of 1 is 
-		 * updated before a priority of 2.</p>
-		 * 
-		 * <p>If you don't want to set the priority in the system object before adding it,
-		 * use the addSystemWithPriority method to add the system and set its priority at
-		 * the same time.</p>
-		 * 
-		 * @param system The system to add to the game.
-		 */
-		public function addSystem( system : System ) : void
-		{
 			system.addToGame( this );
 			systems.add( system );
 		}

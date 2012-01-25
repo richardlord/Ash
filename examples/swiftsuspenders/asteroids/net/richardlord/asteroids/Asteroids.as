@@ -40,13 +40,13 @@ package net.richardlord.asteroids
 			injector.map( EntityCreator ).asSingleton();
 			injector.map( KeyPoll ).toValue( new KeyPoll( container.stage ) );
 			
-			game.addSystemWithPriority( new GameManager(), SystemPriorities.preUpdate );
-			game.addSystemWithPriority( new MotionControlSystem(), SystemPriorities.update );
-			game.addSystemWithPriority( new GunControlSystem(), SystemPriorities.update );
-			game.addSystemWithPriority( new BulletAgeSystem(), SystemPriorities.update );
-			game.addSystemWithPriority( new MovementSystem(), SystemPriorities.move );
-			game.addSystemWithPriority( new CollisionSystem(), SystemPriorities.resolveCollisions );
-			game.addSystemWithPriority( new RenderSystem(), SystemPriorities.render );
+			game.addSystem( new GameManager(), SystemPriorities.preUpdate );
+			game.addSystem( new MotionControlSystem(), SystemPriorities.update );
+			game.addSystem( new GunControlSystem(), SystemPriorities.update );
+			game.addSystem( new BulletAgeSystem(), SystemPriorities.update );
+			game.addSystem( new MovementSystem(), SystemPriorities.move );
+			game.addSystem( new CollisionSystem(), SystemPriorities.resolveCollisions );
+			game.addSystem( new RenderSystem(), SystemPriorities.render );
 			
 			tickProvider = new FrameTickProvider( container );
 			

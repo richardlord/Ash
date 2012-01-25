@@ -38,14 +38,14 @@ package net.richardlord.ash.core
 		{
 			var system : System = new MockSystem( this );
 			asyncCallback = async.add( addedCallbackMethod, 10 );
-			game.addSystem( system );
+			game.addSystem( system, 0 );
 		}
 
 		[Test]
 		public function removeSystemCallsRemovedFromGame() : void
 		{
 			var system : System = new MockSystem( this );
-			game.addSystem( system );
+			game.addSystem( system, 0 );
 			asyncCallback = async.add( removedCallbackMethod, 10 );
 			game.removeSystem( system );
 		}
@@ -54,7 +54,7 @@ package net.richardlord.ash.core
 		public function gameCallsUpdateOnSystems() : void
 		{
 			var system : System = new MockSystem( this );
-			game.addSystem( system );
+			game.addSystem( system, 0 );
 			asyncCallback = async.add( updateCallbackMethod, 10 );
 			game.update( 0.1 );
 		}
@@ -70,7 +70,7 @@ package net.richardlord.ash.core
 		public function canSetPriorityWhenAddingSystem() : void
 		{
 			var system : System = new MockSystem( this );
-			game.addSystemWithPriority( system, 10 );
+			game.addSystem( system, 10 );
 			assertThat( system.priority, equalTo( 10 ) );
 		}
 		
@@ -78,9 +78,9 @@ package net.richardlord.ash.core
 		public function systemsUpdatedInPriorityOrderIfSameAsAddOrder() : void
 		{
 			system1 = new MockSystem( this );
-			game.addSystemWithPriority( system1, 10 );
+			game.addSystem( system1, 10 );
 			system2 = new MockSystem( this );
-			game.addSystemWithPriority( system2, 20 );
+			game.addSystem( system2, 20 );
 			asyncCallback = async.add( updateCallbackMethod1, 10 );
 			game.update( 0.1 );
 		}
@@ -89,9 +89,9 @@ package net.richardlord.ash.core
 		public function systemsUpdatedInPriorityOrderIfReverseOfAddOrder() : void
 		{
 			system2 = new MockSystem( this );
-			game.addSystemWithPriority( system2, 20 );
+			game.addSystem( system2, 20 );
 			system1 = new MockSystem( this );
-			game.addSystemWithPriority( system1, 10 );
+			game.addSystem( system1, 10 );
 			asyncCallback = async.add( updateCallbackMethod1, 10 );
 			game.update( 0.1 );
 		}
@@ -100,9 +100,9 @@ package net.richardlord.ash.core
 		public function systemsUpdatedInPriorityOrderIfPrioritiesAreNegative() : void
 		{
 			system2 = new MockSystem( this );
-			game.addSystemWithPriority( system2, 10 );
+			game.addSystem( system2, 10 );
 			system1 = new MockSystem( this );
-			game.addSystemWithPriority( system1, -20 );
+			game.addSystem( system1, -20 );
 			asyncCallback = async.add( updateCallbackMethod1, 10 );
 			game.update( 0.1 );
 		}
@@ -117,7 +117,7 @@ package net.richardlord.ash.core
 		public function updatingIsTrueDuringUpdate() : void
 		{
 			var system : System = new MockSystem( this );
-			game.addSystem( system );
+			game.addSystem( system, 0 );
 			asyncCallback = assertsUpdatingIsTrue;
 			game.update( 0.1 );
 		}
@@ -133,7 +133,7 @@ package net.richardlord.ash.core
 		public function completeSignalIsDispatchedAfterUpdate() : void
 		{
 			var system : System = new MockSystem( this );
-			game.addSystem( system );
+			game.addSystem( system, 0 );
 			asyncCallback = listensForUpdateComplete;
 			game.update( 0.1 );
 		}
