@@ -15,11 +15,13 @@ package net.richardlord.ash.signals
 
 		public function dispatch( ...objects ) : void
 		{
+			startDispatch();
 			var node : ListenerNode;
 			for ( node = head; node; node = node.next )
 			{
 				node.listener.apply( null, objects );
 			}
+			endDispatch();
 		}
 	}
 }

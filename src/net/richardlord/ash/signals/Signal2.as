@@ -17,11 +17,13 @@ package net.richardlord.ash.signals
 
 		public function dispatch( object1 : *, object2 : * ) : void
 		{
+			startDispatch();
 			var node : ListenerNode;
 			for ( node = head; node; node = node.next )
 			{
 				node.listener( object1, object2 );
 			}
+			endDispatch();
 		}
 	}
 }

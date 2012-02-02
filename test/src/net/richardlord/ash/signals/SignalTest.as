@@ -103,16 +103,16 @@ package net.richardlord.ash.signals
 		[Test]
 		public function dispatch2Listeners1stListenerRemovesItselfThen2ndListenerIsStillCalled() : void
 		{
-			signal.add( async.add( newEmptyHandler(), 10 ) );
 			signal.add( selfRemover );
+			signal.add( async.add( newEmptyHandler(), 10 ) );
 			dispatchSignal();
 		}
 
 		[Test]
 		public function dispatch2Listeners2ndListenerRemovesItselfThen1stListenerIsStillCalled() : void
 		{
-			signal.add( selfRemover );
 			signal.add( async.add( newEmptyHandler(), 10 ) );
+			signal.add( selfRemover );
 			dispatchSignal();
 		}
 
@@ -136,8 +136,8 @@ package net.richardlord.ash.signals
 		[Test]
 		public function dispatch2Listeners2ndListenerRemoves1stThen1stListenerIsNotCalled() : void
 		{
-			signal.add( failIfCalled );
 			signal.add( async.add( removeFailListener, 10 ) );
+			signal.add( failIfCalled );
 			dispatchSignal();
 		}
 
@@ -158,9 +158,9 @@ package net.richardlord.ash.signals
 		[Test]
 		public function removeAllDuringDispatchShouldStopAll():void
 		{
-			signal.add( newEmptyHandler() );
-			signal.add( failIfCalled );
 			signal.add( removeAllListeners );
+			signal.add( failIfCalled );
+			signal.add( newEmptyHandler() );
 			dispatchSignal();
 		}
 

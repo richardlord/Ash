@@ -12,36 +12,75 @@ package net.richardlord.ash.signals
 		internal var tail : ListenerNode;
 		
 		private var nodes : Dictionary;
+		private var toAddHead : ListenerNode;
+		private var toAddTail : ListenerNode;
+		protected var dispatching : Boolean;
 
 		public function SignalBase()
 		{
 			nodes = new Dictionary( true );
 		}
+		
+		protected function startDispatch() : void
+		{
+			dispatching = true;
+		}
+		
+		protected function endDispatch() : void
+		{
+			dispatching = false;
+			if( toAddHead )
+			{
+				if( !head )
+				{
+					head = toAddHead;
+					tail = toAddTail;
+				}
+				else
+				{
+					tail.next = toAddHead;
+					toAddHead.previous = tail;
+					tail = toAddTail;
+				}
+				toAddHead = null;
+				toAddTail = null;
+			}
+		}
 
 		public function add( listener : Function ) : void
 		{
-			var node : ListenerNode;
-			for ( node = head; node; node = node.next )
+			if( nodes[ listener ] )
 			{
-				if( node.listener == listener )
-				{
-					return;
-				}
+				return;
 			}
-
-			node = new ListenerNode();
+			var node : ListenerNode = new ListenerNode();
 			node.listener = listener;
 			nodes[ listener ] = node;
-
-			if ( !head )
+			if( dispatching )
 			{
-				head = tail = node;
+				if( !toAddHead )
+				{
+					toAddHead = toAddTail = node;
+				}
+				else
+				{
+					toAddTail.next = node;
+					node.previous = toAddTail;
+					toAddTail = node;
+				}
 			}
 			else
 			{
-				node.next = head;
-				head.previous = node;
-				head = node;
+				if ( !head )
+				{
+					head = tail = node;
+				}
+				else
+				{
+					tail.next = node;
+					node.previous = tail;
+					tail = node;
+				}
 			}
 		}
 
@@ -58,6 +97,14 @@ package net.richardlord.ash.signals
 				{
 					tail = tail.previous;
 				}
+				if ( toAddHead == node)
+				{
+					toAddHead = toAddHead.next;
+				}
+				if ( toAddTail == node)
+				{
+					toAddTail = toAddTail.previous;
+				}
 				if (node.previous)
 				{
 					node.previous.next = node.next;
@@ -66,7 +113,7 @@ package net.richardlord.ash.signals
 				{
 					node.next.previous = node.previous;
 				}
-				delete( nodes[ listener ] );
+				delete nodes[ listener ];
 			}
 		}
 		
@@ -80,6 +127,8 @@ package net.richardlord.ash.signals
 				listener.next = null;
 			}
 			tail = null;
+			toAddHead = null;
+			toAddTail = null;
 		}
 	}
 }
