@@ -100,5 +100,64 @@ package net.richardlord.ash.core
 		{
 			return head == null;
 		}
+		
+		public function swap( node1 : Node, node2 : Node ) : void
+		{
+			if( node1.previous == node2 )
+			{
+				node1.previous = node2.previous;
+				node2.previous = node1;
+				node2.next = node1.next;
+				node1.next  = node2;
+			}
+			else if( node2.previous == node1 )
+			{
+				node2.previous = node1.previous;
+				node1.previous = node2;
+				node1.next = node2.next;
+				node2.next  = node1;
+			}
+			else
+			{
+				var temp : Node = node1.previous;
+				node1.previous = node2.previous;
+				node2.previous = temp;
+				temp = node1.next;
+				node1.next = node2.next;
+				node2.next = temp;
+			}
+			if( head == node1 )
+			{
+				head = node2;
+			}
+			else if( head == node2 )
+			{
+				head = node1;
+			}
+			if( tail == node1 )
+			{
+				tail = node2;
+			}
+			else if( tail == node2 )
+			{
+				tail = node1;
+			}
+			if( node1.previous )
+			{							
+				node1.previous.next = node1;
+			}
+			if( node2.previous )
+			{
+				node2.previous.next = node2;
+			}
+			if( node1.next )
+			{
+				node1.next.previous = node1;
+			}
+			if( node2.next )
+			{
+				node2.next.previous = node2;
+			}
+		}
 	}
 }
