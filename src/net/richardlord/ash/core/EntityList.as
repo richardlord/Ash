@@ -44,9 +44,9 @@ package net.richardlord.ash.core
 		
 		internal function removeAll() : void
 		{
-			while( entity )
+			while( head )
 			{
-				var entity : Entity = entity;
+				var entity : Entity = head;
 				head = head.next;
 				entity.previous = null;
 				entity.next = null;
