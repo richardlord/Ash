@@ -25,9 +25,9 @@ package net.richardlord.ash.core
 	public class Entity
 	{
 		public var name : String;
+		public var componentAdded : Signal2;
+		public var componentRemoved : Signal2;
 		
-		internal var componentAdded : Signal2;
-		internal var componentRemoved : Signal2;
 		internal var previous : Entity;
 		internal var next : Entity;
 		

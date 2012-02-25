@@ -12,13 +12,15 @@ package net.richardlord.ash.signals
 		internal var tail : ListenerNode;
 		
 		private var nodes : Dictionary;
+		private var listenerNodePool : ListenerNodePool;
 		private var toAddHead : ListenerNode;
 		private var toAddTail : ListenerNode;
-		protected var dispatching : Boolean;
+		private var dispatching : Boolean;
 
 		public function SignalBase()
 		{
 			nodes = new Dictionary( true );
+			listenerNodePool = new ListenerNodePool();
 		}
 		
 		protected function startDispatch() : void
@@ -45,6 +47,7 @@ package net.richardlord.ash.signals
 				toAddHead = null;
 				toAddTail = null;
 			}
+			listenerNodePool.releaseCache();
 		}
 
 		public function add( listener : Function ) : void
@@ -53,7 +56,7 @@ package net.richardlord.ash.signals
 			{
 				return;
 			}
-			var node : ListenerNode = new ListenerNode();
+			var node : ListenerNode = listenerNodePool.get();
 			node.listener = listener;
 			nodes[ listener ] = node;
 			if( dispatching )
@@ -114,6 +117,14 @@ package net.richardlord.ash.signals
 					node.next.previous = node.previous;
 				}
 				delete nodes[ listener ];
+				if( dispatching )
+				{
+					listenerNodePool.cache( node );
+				}
+				else
+				{
+					listenerNodePool.dispose( node );
+				}
 			}
 		}
 		

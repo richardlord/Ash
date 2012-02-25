@@ -12,15 +12,19 @@ package net.richardlord.ash.core
 		internal var entities : Dictionary;
 		private var nodeClass : Class;
 		private var components : Dictionary;
+		private var nodePool : NodePool;
+		private var game : Game;
 
-		public function Family( nodeClass : Class )
+		public function Family( nodeClass : Class, game : Game )
 		{
 			this.nodeClass = nodeClass;
+			this.game = game;
 			init();
 		}
 
 		private function init() : void
 		{
+			nodePool = new NodePool( nodeClass );
 			nodes = new NodeList();
 			entities = new Dictionary();
 
@@ -50,7 +54,7 @@ package net.richardlord.ash.core
 						return;
 					}
 				}
-				var node : Node = new nodeClass();
+				var node : Node = nodePool.get();
 				node.entity = entity;
 				for ( componentClass in components )
 				{
@@ -68,8 +72,23 @@ package net.richardlord.ash.core
 			{
 				entity.componentRemoved.remove( componentRemoved );
 				nodes.remove( entities[entity] );
+				if( game.updating )
+				{
+					nodePool.cache( entities[entity] );
+					game.updateComplete.add( releaseNodePoolCache );
+				}
+				else
+				{
+					nodePool.dispose( entities[entity] );
+				}
 				delete entities[entity];
 			}
+		}
+		
+		private function releaseNodePoolCache() : void
+		{
+			game.updateComplete.remove( releaseNodePoolCache );
+			nodePool.releaseCache();
 		}
 		
 		internal function cleanUp() : void

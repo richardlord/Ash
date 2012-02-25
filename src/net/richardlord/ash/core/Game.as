@@ -93,7 +93,7 @@ package net.richardlord.ash.core
 			{
 				return Family( families[nodeClass] ).nodes;
 			}
-			var family : Family = new Family( nodeClass );
+			var family : Family = new Family( nodeClass, this );
 			families[nodeClass] = family;
 			for( var entity : Entity = entities.head; entity; entity = entity.next )
 			{
