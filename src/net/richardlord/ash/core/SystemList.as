@@ -1,6 +1,8 @@
 package net.richardlord.ash.core
 {
-	
+	/**
+	 * Used internally, this is an ordered list of Systems for use by the game loop.
+	 */
 	internal class SystemList
 	{
 		internal var head : System;

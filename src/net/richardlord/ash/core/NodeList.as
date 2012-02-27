@@ -15,7 +15,9 @@ package net.richardlord.ash.core
 	 *   // do stuff
 	 * }</p>
 	 * 
-	 * <p>It is safe to remove items from a nodelist during the loop.</p>
+	 * <p>It is safe to remove items from a nodelist during the loop. When a Node is removed form the 
+	 * NodeList it's previous and next properties still point to the nodes that were before and after
+	 * it in the NodeList just before it was removed.</p>
 	 */
 	public class NodeList
 	{
@@ -36,6 +38,8 @@ package net.richardlord.ash.core
 		public var nodeAdded : Signal1;
 		/**
 		 * A signal that is dispatched whenever a node is removed from the node list.
+		 * 
+		 * <p>The signal will pass a single parameter to the listeners - the node that was removed.
 		 */
 		public var nodeRemoved : Signal1;
 		
@@ -96,11 +100,17 @@ package net.richardlord.ash.core
 			tail = null;
 		}
 		
+		/**
+		 * true if the list is empty, false otherwise.
+		 */
 		public function get empty() : Boolean
 		{
 			return head == null;
 		}
 		
+		/**
+		 * Swaps the positions of two nodes in the list. Useful when sorting a list.
+		 */
 		public function swap( node1 : Node, node2 : Node ) : void
 		{
 			if( node1.previous == node2 )

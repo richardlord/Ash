@@ -1,5 +1,9 @@
 package net.richardlord.ash.core
 {
+	/**
+	 * This internal class maintains a pool of deleted nodes for reuse by framework. This reduces the overhead
+	 * from object creation and garbage collection.
+	 */
 	internal class NodePool
 	{
 		private var tail : Node;

@@ -21,7 +21,6 @@ package net.richardlord.asteroids.systems
 		public function CollisionSystem( creator : EntityCreator )
 		{
 			this.creator = creator;
-			priority = SystemPriorities.resolveCollisions;
 		}
 
 		override public function addToGame( game : Game ) : void

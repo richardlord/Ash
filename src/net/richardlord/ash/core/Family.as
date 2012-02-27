@@ -4,6 +4,10 @@ package net.richardlord.ash.core
 	import flash.utils.describeType;
 	import flash.utils.getDefinitionByName;
 
+	/**
+	 * An internal class for managing a NodeList. This class creates the NodeList and adds and removes
+	 * nodes to/from the list as the entities and the components in the game change.
+	 */
 	internal class Family
 	{
 		internal var previous : Family;
@@ -29,7 +33,7 @@ package net.richardlord.ash.core
 			entities = new Dictionary();
 
 			components = new Dictionary();
-			var node : * = new nodeClass();
+			nodePool.dispose( nodePool.get() ); // create a dummy instance to ensure describeType works.
 
 			var variables : XMLList = describeType( nodeClass ).factory.variable;
 			for each ( var atom:XML in variables )

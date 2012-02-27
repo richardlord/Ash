@@ -24,7 +24,6 @@ package net.richardlord.asteroids.systems
 		{
 			this.gameState = gameState;
 			this.creator = creator;
-			priority = SystemPriorities.preUpdate;
 		}
 
 		override public function addToGame( game : Game ) : void

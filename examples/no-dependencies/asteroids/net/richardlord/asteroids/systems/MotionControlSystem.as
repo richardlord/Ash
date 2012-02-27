@@ -18,7 +18,6 @@ package net.richardlord.asteroids.systems
 		public function MotionControlSystem( keyPoll : KeyPoll )
 		{
 			this.keyPoll = keyPoll;
-			priority = SystemPriorities.update;
 		}
 
 		override public function addToGame( game : Game ) : void

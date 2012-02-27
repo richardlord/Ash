@@ -107,7 +107,7 @@ package net.richardlord.ash.core
 		 * the list and will release all references to the list within the framework
 		 * classes, enabling it to be garbage collected.
 		 * 
-		 * <p>It is not essential to remove a list from memory, but releasing it will free
+		 * <p>It is not essential to release a list, but releasing it will free
 		 * up memory and processor resources.</p>
 		 * 
 		 * @param nodeClass The type of the node class if the list to be released.

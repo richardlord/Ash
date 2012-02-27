@@ -11,11 +11,6 @@ package net.richardlord.asteroids.systems
 	{
 		private var nodes : NodeList;
 
-		public function MovementSystem()
-		{
-			priority = SystemPriorities.move;
-		}
-		
 		override public function addToGame( game : Game ) : void
 		{
 			nodes = game.getNodeList( MovementNode );

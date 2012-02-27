@@ -24,13 +24,21 @@ package net.richardlord.ash.core
 	 */
 	public class Entity
 	{
+		/**
+		 * Optional, give the entity a name. This can help with debugging and with serialising the entity.
+		 */
 		public var name : String;
+		/**
+		 * This signal is dispatched when a component is added to the entity.
+		 */
 		public var componentAdded : Signal2;
+		/**
+		 * This signal is dispatched when a component is removed from the entity.
+		 */
 		public var componentRemoved : Signal2;
 		
 		internal var previous : Entity;
 		internal var next : Entity;
-		
 		internal var components : Dictionary;
 
 		public function Entity()
@@ -110,7 +118,7 @@ package net.richardlord.ash.core
 			for each( var component : Object in components )
 			{
 				var names : XMLList = describeType( component ).variable.@name;
-				var componentClass : Class = component["constructor"];
+				var componentClass : Class = component.constructor as Class;
 				var newComponent : * = new componentClass();
 				for each( var key : String in names )
 				{

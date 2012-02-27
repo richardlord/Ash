@@ -16,7 +16,6 @@ package net.richardlord.asteroids.systems
 		public function BulletAgeSystem( creator : EntityCreator )
 		{
 			this.creator = creator;
-			priority = SystemPriorities.update;
 		}
 
 		override public function addToGame( game : Game ) : void

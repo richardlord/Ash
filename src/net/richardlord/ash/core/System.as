@@ -23,13 +23,14 @@ package net.richardlord.ash.core
 		 */
 		internal var next : System;
 		/**
-		 * The pririty of this system within the system list. This is used to order the systems so they
-		 * are updated in the correct order.
+		 * Used internally to hold the priority of this system within the system list. This is 
+		 * used to order the systems so they are updated in the correct order.
 		 */
-		public var priority : int = 0;
+		internal var priority : int = 0;
 		
 		/**
-		 * Called just after the ayatem is added to the game, before any calls to teh update method.
+		 * Called just after the system is added to the game, before any calls to the update method.
+		 * Override this method to add your own functionality.
 		 * 
 		 * @param game The game the system was added to.
 		 */
@@ -40,6 +41,7 @@ package net.richardlord.ash.core
 		
 		/**
 		 * Called just after the system is removed from the game, after all calls to the update method.
+		 * Override this method to add your own functionality.
 		 * 
 		 * @param game The game the system was removed from.
 		 */
@@ -50,7 +52,7 @@ package net.richardlord.ash.core
 		
 		/**
 		 * After the system is added to the game, this method is called every frame until the system
-		 * is removed from the game.
+		 * is removed from the game. Override this method to add your own functionality.
 		 * 
 		 * <p>If you need to perform an action outside of the update loop (e.g. you need to change the
 		 * systems in the game and you don't want to do it while they're updating) add a listener to

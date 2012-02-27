@@ -1,6 +1,9 @@
 package net.richardlord.ash.core
 {
-	
+	/**
+	 * An internal class for a linked list of entities. Used inside the framework for
+	 * managing the entities.
+	 */
 	internal class EntityList
 	{
 		internal var head : Entity;

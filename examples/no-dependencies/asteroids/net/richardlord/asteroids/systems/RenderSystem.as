@@ -19,7 +19,6 @@ package net.richardlord.asteroids.systems
 		public function RenderSystem( container : DisplayObjectContainer )
 		{
 			this.container = container;
-			priority = SystemPriorities.render;
 		}
 		
 		override public function addToGame( game : Game ) : void

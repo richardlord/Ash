@@ -10,6 +10,16 @@ h3. Examples
 
 * "Asteroids":http://github.com/richardlord/Ash/tree/master/examples
 
+h3. Documentation
+
+There is no formal documentation as yet, but much of the source code contains as-doc comments.
+
+I've also written a few blog posts explaining how Ash works.
+
+* "Ash - a new entity framework for Actionscript games.":http://www.richardlord.net/blog/introducing-ash
+* "What is an entity framework for game development.":http://www.richardlord.net/blog/what-is-an-entity-framework
+* "Why use an entity framework for game development.":http://www.richardlord.net/blog/why-use-an-entity-framework
+
 h3. Developers
 
 * "Richard Lord":http://www.richardlord.net/
