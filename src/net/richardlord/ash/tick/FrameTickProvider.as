@@ -5,12 +5,16 @@ package net.richardlord.ash.tick
 	import flash.utils.getTimer;
 	import net.richardlord.ash.signals.Signal1;
 
-
+	/**
+	 * Provides a frame tick where the frame duration is the time since the previous frame.
+	 * There is a maximum frame time parameter in the constructor that can be used to limit
+	 * the longest period a frame can be.
+	 */
 	public class FrameTickProvider extends Signal1 implements TickProvider
 	{
 		private var displayObject : DisplayObject;
 		private var previousTime : Number;
-		private var maximumFrameTime : Number = 0.05;
+		private var maximumFrameTime : Number;
 		
 		public function FrameTickProvider( displayObject : DisplayObject, maximumFrameTime : Number = Number.MAX_VALUE )
 		{

@@ -8,6 +8,15 @@ package net.richardlord.ash.integration.swiftsuspenders
 	import flash.utils.Dictionary;
 	import flash.utils.getDefinitionByName;
 
+	/**
+	 * A custom dependency provider for SwiftSuspenders to allow injection
+	 * of NodeList objects based on the node class they contain.
+	 * 
+	 * <p>This enables injections rules like</p>
+	 * 
+	 * <p>[Inject(nodeType="com.myDomain.project.nodes.MyNode")]
+	 * public var nodes : NodeList;</p>
+	 */
 	public class NodeListProvider implements DependencyProvider
 	{
 		private var game : Game;

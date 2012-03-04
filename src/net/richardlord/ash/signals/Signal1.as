@@ -4,6 +4,9 @@
 
 package net.richardlord.ash.signals
 {
+	/**
+	 * Provides a fast signal for use where one parameter is dispatched with the signal.
+	 */
 	public class Signal1 extends SignalBase
 	{
 		private var type : Class;

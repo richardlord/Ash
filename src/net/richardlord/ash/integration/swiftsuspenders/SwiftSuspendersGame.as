@@ -6,6 +6,11 @@ package net.richardlord.ash.integration.swiftsuspenders
 
 	import org.swiftsuspenders.Injector;
 
+	/**
+	 * A custom game class for games that use SwiftSuspenders for dependency injection.
+	 * Pass a SwiftSuspenders injector to the constructor, and the game will automatically
+	 * apply injection rules to the systems when they are added to the game.
+	 */
 	public class SwiftSuspendersGame extends Game
 	{
 		protected var injector : Injector;

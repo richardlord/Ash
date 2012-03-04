@@ -1,5 +1,9 @@
 package net.richardlord.ash.signals
 {
+	/**
+	 * This internal class maintains a pool of deleted listener nodes for reuse by framework. This reduces 
+	 * the overhead from object creation and garbage collection.
+	 */
 	internal class ListenerNodePool
 	{
 		private var tail : ListenerNode;
@@ -22,6 +26,7 @@ package net.richardlord.ash.signals
 
 		internal function dispose( node : ListenerNode ):void
 		{
+			node.listener = null;
 			node.next = null;
 			node.previous = tail;
 			tail = node;
@@ -29,6 +34,7 @@ package net.richardlord.ash.signals
 		
 		internal function cache( node : ListenerNode ) : void
 		{
+			node.listener = null;
 			node.previous = cacheTail;
 			cacheTail = node;
 		}

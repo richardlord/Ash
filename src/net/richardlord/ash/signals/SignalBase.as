@@ -6,6 +6,9 @@ package net.richardlord.ash.signals
 {
 	import flash.utils.Dictionary;
 
+	/**
+	 * The base class for all the signal classes.
+	 */
 	public class SignalBase
 	{
 		internal var head : ListenerNode;

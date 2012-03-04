@@ -1,6 +1,9 @@
 package net.richardlord.ash.signals
 {
-	public class ListenerNode
+	/**
+	 * A node in the list of listeners in a signal.
+	 */
+	internal class ListenerNode
 	{
 		public var previous : ListenerNode;
 		public var next : ListenerNode;
