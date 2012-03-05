@@ -74,14 +74,18 @@ package net.richardlord.ash.core
 		 * Remove a component from the entity.
 		 * 
 		 * @param componentClass The class of the component to be removed.
+		 * @return the component, or null if the component doesn't exist in the entity
 		 */
-		public function remove( componentClass : Class ) : void
+		public function remove( componentClass : Class ) : *
 		{
-			if ( components[ componentClass ] )
+			var component : * = components[ componentClass ];
+			if ( component )
 			{
 				delete components[ componentClass ];
 				componentRemoved.dispatch( this, componentClass );
+				return component;
 			}
+			return null;
 		}
 
 		/**
