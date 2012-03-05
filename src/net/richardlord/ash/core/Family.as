@@ -64,9 +64,9 @@ package net.richardlord.ash.core
 				{
 					node[components[componentClass]] = entity.get( componentClass );
 				}
-				nodes.add( node );
 				entities[entity] = node;
 				entity.componentRemoved.add( componentRemoved );
+				nodes.add( node );
 			}
 		}
 		
@@ -74,18 +74,19 @@ package net.richardlord.ash.core
 		{
 			if( entities[entity] )
 			{
+				var node : Node = entities[entity];
 				entity.componentRemoved.remove( componentRemoved );
-				nodes.remove( entities[entity] );
+				delete entities[entity];
+				nodes.remove( node );
 				if( game.updating )
 				{
-					nodePool.cache( entities[entity] );
+					nodePool.cache( node );
 					game.updateComplete.add( releaseNodePoolCache );
 				}
 				else
 				{
-					nodePool.dispose( entities[entity] );
+					nodePool.dispose( node );
 				}
-				delete entities[entity];
 			}
 		}
 		
