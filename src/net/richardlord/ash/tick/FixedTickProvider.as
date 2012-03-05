@@ -13,6 +13,12 @@ package net.richardlord.ash.tick
 		private var displayObject : DisplayObject;
 		private var frameTime : Number;
 		
+		/**
+		 * Applies a time adjustement factor to the tick, so you can slow down or speed up the entire game.
+		 * The update tick time is multiplied by this value, so a value of 1 will run the game at the normal rate.
+		 */
+		public var timeAdjustment : Number = 1;
+		
 		public function FixedTickProvider( displayObject : DisplayObject, frameTime : Number )
 		{
 			super( Number );
@@ -32,7 +38,7 @@ package net.richardlord.ash.tick
 		
 		private function dispatchTick( event : Event ) : void
 		{
-			dispatch( frameTime );
+			dispatch( frameTime * timeAdjustment );
 		}
 	}
 }
