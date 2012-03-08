@@ -5,6 +5,7 @@ package net.richardlord.ash
 	import net.richardlord.ash.core.NodeListTests;
 	import net.richardlord.ash.core.SystemTests;
 	import net.richardlord.ash.signals.SignalTest;
+	import net.richardlord.ash.tools.ListIteratingSystemTest;
 
 	[Suite]
 	public class AllTests
@@ -14,5 +15,6 @@ package net.richardlord.ash
 		public var systemTests : SystemTests;
 		public var familyTests : FamilyTests;
 		public var signalTests : SignalTest;
+		public var listIteratingSystemTest : ListIteratingSystemTest;
 	}
 }

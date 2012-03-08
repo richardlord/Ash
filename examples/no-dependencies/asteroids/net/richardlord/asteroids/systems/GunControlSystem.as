@@ -1,8 +1,6 @@
 package net.richardlord.asteroids.systems
 {
-	import net.richardlord.ash.core.Game;
-	import net.richardlord.ash.core.NodeList;
-	import net.richardlord.ash.core.System;
+	import net.richardlord.ash.tools.ListIteratingSystem;
 	import net.richardlord.asteroids.EntityCreator;
 	import net.richardlord.asteroids.components.Gun;
 	import net.richardlord.asteroids.components.GunControls;
@@ -10,50 +8,31 @@ package net.richardlord.asteroids.systems
 	import net.richardlord.asteroids.nodes.GunControlNode;
 	import net.richardlord.input.KeyPoll;
 
-	public class GunControlSystem extends System
+	public class GunControlSystem extends ListIteratingSystem
 	{
 		private var keyPoll : KeyPoll;
 		private var creator : EntityCreator;
 		
-		private var nodes : NodeList;
-
 		public function GunControlSystem( keyPoll : KeyPoll, creator : EntityCreator )
 		{
+			super( GunControlNode, updateNode );
 			this.keyPoll = keyPoll;
 			this.creator = creator;
 		}
 
-		override public function addToGame( game : Game ) : void
+		private function updateNode( node : GunControlNode, time : Number ) : void
 		{
-			nodes = game.getNodeList( GunControlNode );
-		}
-		
-		override public function update( time : Number ) : void
-		{
-			var node : GunControlNode;
-			var control : GunControls;
-			var position : Position;
-			var gun : Gun;
+			var control : GunControls = node.control;
+			var position : Position = node.position;
+			var gun : Gun = node.gun;
 
-			for ( node = nodes.head; node; node = node.next )
+			gun.shooting = keyPoll.isDown( control.trigger );
+			gun.timeSinceLastShot += time;
+			if ( gun.shooting && gun.timeSinceLastShot >= gun.minimumShotInterval )
 			{
-				control = node.control;
-				gun = node.gun;
-				position = node.position;
-
-				gun.shooting = keyPoll.isDown( control.trigger );
-				gun.timeSinceLastShot += time;
-				if ( gun.shooting && gun.timeSinceLastShot >= gun.minimumShotInterval )
-				{
-					creator.createUserBullet( gun, position );
-					gun.timeSinceLastShot = 0;
-				}
+				creator.createUserBullet( gun, position );
+				gun.timeSinceLastShot = 0;
 			}
-		}
-
-		override public function removeFromGame( game : Game ) : void
-		{
-			nodes = null;
 		}
 	}
 }
