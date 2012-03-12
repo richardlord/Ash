@@ -5,5 +5,10 @@ package net.richardlord.asteroids.components
 	public class Display
 	{
 		public var displayObject : DisplayObject = null;
+		
+		public function Display( displayObject : DisplayObject )
+		{
+			this.displayObject = displayObject;
+		}
 	}
 }

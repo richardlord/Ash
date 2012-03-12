@@ -38,7 +38,7 @@ package net.richardlord.asteroids
 		private function prepare() : void
 		{
 			game = new Game();
-			gameState = new GameState();
+			gameState = new GameState( width, height );
 			creator = new EntityCreator( game );
 			keyPoll = new KeyPoll( container.stage );
 
@@ -51,8 +51,6 @@ package net.richardlord.asteroids
 			game.addSystem( new RenderSystem( container ), SystemPriorities.render );
 
 			tickProvider = new FrameTickProvider( container );
-			gameState.width = width;
-			gameState.height = height;
 		}
 		
 		public function start() : void

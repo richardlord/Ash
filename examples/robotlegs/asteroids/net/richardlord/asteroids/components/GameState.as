@@ -7,5 +7,11 @@ package net.richardlord.asteroids.components
 		public var points : int = 0;
 		public var width : Number = 0;
 		public var height : Number = 0;
+		
+		public function GameState( width : Number = 0, height : Number = 0 )
+		{
+			this.width = width;
+			this.height = height;
+		}
 	}
 }
