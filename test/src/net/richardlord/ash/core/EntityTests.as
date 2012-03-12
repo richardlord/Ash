@@ -29,6 +29,14 @@ package net.richardlord.ash.core
 		}
 
 		[Test]
+		public function addReturnsReferenceToEntity() : void
+		{
+			var component : MockComponent = new MockComponent();
+			var e : Entity = entity.add( component );
+			assertThat( e, sameInstance( entity ) );
+		}
+
+		[Test]
 		public function canStoreAndRetrieveComponent() : void
 		{
 			var component : MockComponent = new MockComponent();

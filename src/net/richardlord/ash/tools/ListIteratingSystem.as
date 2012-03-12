@@ -13,7 +13,7 @@ package net.richardlord.ash.tools
 	 * 
 	 * <code>package
 	 * {
-	 *   class MySystem extends ListIteratingSystem
+	 *   public class MySystem extends ListIteratingSystem
 	 *   {
 	 *     public function MySystem()
 	 *     {

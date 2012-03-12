@@ -55,8 +55,15 @@ package net.richardlord.ash.core
 		 * @param componentClass The class of the component. This is only necessary if the component
 		 * extends another component class and you want the framework to treat the component as of 
 		 * the base class type. If not set, the class type is determined directly from the component.
+		 * 
+		 * @return A reference to the entity. This enables the chaining of calls to add, to make
+		 * creating and configuring entities cleaner. e.g.
+		 * 
+		 * <code>var entity : Entity = new Entity()
+		 *     .add( new Position( 100, 200 )
+		 *     .add( new Display( new PlayerClip() );</code>
 		 */
-		public function add( component : Object, componentClass : Class = null ) : void
+		public function add( component : Object, componentClass : Class = null ) : Entity
 		{
 			if ( !componentClass )
 			{
@@ -68,6 +75,7 @@ package net.richardlord.ash.core
 			}
 			components[ componentClass ] = component;
 			componentAdded.dispatch( this, componentClass );
+			return this;
 		}
 
 		/**
