@@ -1,14 +1,20 @@
 package net.richardlord.asteroids.systems
 {
 	import net.richardlord.ash.tools.ListIteratingSystem;
+	import net.richardlord.asteroids.components.GameState;
 	import net.richardlord.asteroids.components.Motion;
 	import net.richardlord.asteroids.components.Position;
 	import net.richardlord.asteroids.nodes.MovementNode;
 
 	public class MovementSystem extends ListIteratingSystem
 	{
-		public function MovementSystem()
+		
+		private var gameState : GameState;
+		
+		public function MovementSystem( gameState : GameState)
 		{
+			this.gameState = gameState;
+			
 			super( MovementNode, updateNode );
 		}
 
@@ -23,19 +29,19 @@ package net.richardlord.asteroids.systems
 			position.position.y += motion.velocity.y * time;
 			if ( position.position.x < 0 )
 			{
-				position.position.x += 600;
+				position.position.x += gameState.width;
 			}
-			if ( position.position.x > 600 )
+			if ( position.position.x > gameState.width )
 			{
-				position.position.x -= 600;
+				position.position.x -= gameState.width;
 			}
 			if ( position.position.y < 0 )
 			{
-				position.position.y += 450;
+				position.position.y += gameState.height;
 			}
-			if ( position.position.y > 450 )
+			if ( position.position.y > gameState.height )
 			{
-				position.position.y -= 450;
+				position.position.y -= gameState.height;
 			}
 			position.rotation += motion.angularVelocity * time;
 			if ( motion.damping > 0 )

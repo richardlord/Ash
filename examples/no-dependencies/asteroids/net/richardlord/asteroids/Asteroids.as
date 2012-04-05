@@ -46,7 +46,7 @@ package net.richardlord.asteroids
 			game.addSystem( new MotionControlSystem( keyPoll ), SystemPriorities.update );
 			game.addSystem( new GunControlSystem( keyPoll, creator ), SystemPriorities.update );
 			game.addSystem( new BulletAgeSystem( creator ), SystemPriorities.update );
-			game.addSystem( new MovementSystem(), SystemPriorities.move );
+			game.addSystem( new MovementSystem( gameState ), SystemPriorities.move );
 			game.addSystem( new CollisionSystem( creator ), SystemPriorities.resolveCollisions );
 			game.addSystem( new RenderSystem( container ), SystemPriorities.render );
 
