@@ -32,21 +32,45 @@ package net.richardlord.ash.tools
 		protected var nodeList : NodeList;
 		protected var nodeClass : Class;
 		protected var nodeUpdateFunction : Function;
+		protected var nodeAddedFunction : Function;
+		protected var nodeRemovedFunction : Function;
 		
-		public function ListIteratingSystem( nodeClass : Class, nodeUpdateFunction : Function )
+		public function ListIteratingSystem( nodeClass : Class, nodeUpdateFunction : Function, nodeAddedFunction : Function = null, nodeRemovedFunction : Function = null )
 		{
 			this.nodeClass = nodeClass;
 			this.nodeUpdateFunction = nodeUpdateFunction;
+			this.nodeAddedFunction = nodeAddedFunction;
+			this.nodeRemovedFunction = nodeRemovedFunction;
 		}
 		
 		override public function addToGame( game : Game ) : void
 		{
 			nodeList = game.getNodeList( nodeClass );
+			if( nodeAddedFunction != null )
+			{
+				for( var node : Node = nodeList.head; node; node = node.next )
+				{
+					nodeAddedFunction( node );
+				}
+				nodeList.nodeAdded.add( nodeAddedFunction );
+			}
+			if( nodeRemovedFunction != null )
+			{
+				nodeList.nodeRemoved.add( nodeRemovedFunction );
+			}
 		}
 		
 		override public function removeFromGame( game : Game ) : void
 		{
 			nodeList = null;
+			if( nodeAddedFunction != null )
+			{
+				nodeList.nodeRemoved.remove( nodeAddedFunction );
+			}
+			if( nodeRemovedFunction != null )
+			{
+				nodeList.nodeRemoved.remove( nodeRemovedFunction );
+			}
 		}
 		
 		override public function update( time : Number ) : void
