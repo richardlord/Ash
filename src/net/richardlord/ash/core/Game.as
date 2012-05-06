@@ -65,6 +65,17 @@ package net.richardlord.ash.core
 		}
 		
 		/**
+		 * Remove all entities from the game.
+		 */
+		public function removeAllEntities() : void
+		{
+			while( entities.head )
+			{
+				removeEntity( entities.head );
+			}
+		}
+		
+		/**
 		 * @private
 		 */
 		private function componentAdded( entity : Entity, componentClass : Class ) : void
@@ -161,6 +172,17 @@ package net.richardlord.ash.core
 		{
 			systems.remove( system );
 			system.removeFromGame( this );
+		}
+		
+		/**
+		 * Remove all systems from the game.
+		 */
+		public function removeAllSystems() : void
+		{
+			while( systems.head )
+			{
+				removeSystem( systems.head );
+			}
 		}
 
 		/**

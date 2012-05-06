@@ -202,7 +202,6 @@ package net.richardlord.ash.core
 			entity.add( new Point() );
 			entity.add( new Matrix() );
 			game.addEntity( entity );
-			game.removeEntity( entity );
 			var nodes : NodeList = game.getNodeList( MockNode );
 			game.releaseNodeList( MockNode );
 			assertThat( nodes.head, nullValue() );
@@ -225,6 +224,22 @@ package net.richardlord.ash.core
 			var node : MockNode = nodes.head.next;
 			game.releaseNodeList( MockNode );
 			assertThat( node.next, nullValue() );
+		}
+		
+		[Test]
+		public function removeAllEntitiesDoesWhatItSays() : void
+		{
+			var entity : Entity = new Entity();
+			entity.add( new Point() );
+			entity.add( new Matrix() );
+			game.addEntity( entity );
+			entity = new Entity();
+			entity.add( new Point() );
+			entity.add( new Matrix() );
+			game.addEntity( entity );
+			var nodes : NodeList = game.getNodeList( MockNode );
+			game.removeAllEntities();
+			assertThat( nodes.head, nullValue() );
 		}
 	}
 }

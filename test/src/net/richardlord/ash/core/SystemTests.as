@@ -155,6 +155,16 @@ package net.richardlord.ash.core
 			assertThat( game.getSystem( MockSystem ), nullValue() );
 		}
 		
+		[Test]
+		public function removeAllSystemsDoesWhatItSays() : void
+		{
+			game.addSystem( new System(), 0 );
+			game.addSystem( new MockSystem( this ), 0 );
+			game.removeAllSystems();
+			assertThat( game.getSystem( MockSystem ), nullValue() );
+			assertThat( game.getSystem( System ), nullValue() );
+		}
+		
 		private function addedCallbackMethod( system : System, action : String, systemGame : Game ) : void
 		{
 			assertThat( action, equalTo( "added" ) );
