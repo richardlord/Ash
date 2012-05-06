@@ -7,19 +7,15 @@ package net.richardlord.ash.tools
 
 	public class ComponentPoolTest
 	{
-		private var componentPool:ComponentPool;
-		
 		[Before]
 		public function createPool():void
 		{
-			componentPool = new ComponentPool();
 		}
 		
 		[After]
 		public function destroyPool():void
 		{
-			componentPool.empty();
-			componentPool = null;
+			ComponentPool.empty();
 		}
 		
 		[Test]
@@ -42,7 +38,7 @@ package net.richardlord.ash.tools
 		{
 			var mockComponent:MockComponent = new MockComponent();
 			ComponentPool.dispose(mockComponent);
-			componentPool.empty();
+			ComponentPool.empty();
 			var retrievedComponent:MockComponent = ComponentPool.get(MockComponent);
 			assertThat(retrievedComponent, not(sameInstance(mockComponent)));
 		}
