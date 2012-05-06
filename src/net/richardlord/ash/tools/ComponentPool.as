@@ -71,7 +71,7 @@ package net.richardlord.ash.tools
 		/**
 		 * Dispose of all pooled resources, freeing them for garbage collection.
 		 */
-		public function empty() : void
+		public static function empty() : void
 		{
 			pools = new Dictionary();
 		}
