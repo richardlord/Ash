@@ -1,8 +1,8 @@
 package net.richardlord.ash.core
 {
-	import net.richardlord.ash.signals.Signal0;
-
 	import flash.utils.Dictionary;
+	import net.richardlord.signals.Signal0;
+
 
 	/**
 	 * The game class is the central point for creating and managing your game state. Add

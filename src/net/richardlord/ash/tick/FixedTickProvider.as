@@ -2,7 +2,7 @@ package net.richardlord.ash.tick
 {
 	import flash.display.DisplayObject;
 	import flash.events.Event;
-	import net.richardlord.ash.signals.Signal1;
+	import net.richardlord.signals.Signal1;
 
 	/**
 	 * Provides a frame tick with a fixed frame duration. This tick ignores the length of

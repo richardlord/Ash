@@ -4,9 +4,9 @@ package net.richardlord.ash
 	import net.richardlord.ash.core.FamilyTests;
 	import net.richardlord.ash.core.NodeListTests;
 	import net.richardlord.ash.core.SystemTests;
-	import net.richardlord.ash.signals.SignalTest;
 	import net.richardlord.ash.tools.ComponentPoolTest;
 	import net.richardlord.ash.tools.ListIteratingSystemTest;
+	import net.richardlord.signals.SignalTest;
 
 	[Suite]
 	public class AllTests

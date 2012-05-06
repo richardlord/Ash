@@ -1,8 +1,7 @@
-package net.richardlord.ash.signals
+package net.richardlord.signals
 {
 	import asunit.asserts.fail;
 	import asunit.framework.IAsync;
-
 	import org.hamcrest.assertThat;
 	import org.hamcrest.object.equalTo;
 	import org.hamcrest.object.nullValue;

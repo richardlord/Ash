@@ -1,4 +1,4 @@
-package net.richardlord.ash.signals
+package net.richardlord.signals
 {
 	/**
 	 * This internal class maintains a pool of deleted listener nodes for reuse by framework. This reduces 

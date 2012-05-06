@@ -1,6 +1,6 @@
 package net.richardlord.ash.core
 {
-	import net.richardlord.ash.signals.Signal1;
+	import net.richardlord.signals.Signal1;
 	
 	/**
 	 * A collection of nodes.

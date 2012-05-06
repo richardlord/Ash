@@ -3,7 +3,7 @@ package net.richardlord.ash.tick
 	import flash.display.DisplayObject;
 	import flash.events.Event;
 	import flash.utils.getTimer;
-	import net.richardlord.ash.signals.Signal1;
+	import net.richardlord.signals.Signal1;
 
 	/**
 	 * Provides a frame tick where the frame duration is the time since the previous frame.

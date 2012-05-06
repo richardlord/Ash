@@ -1,4 +1,4 @@
-package net.richardlord.ash.signals
+package net.richardlord.signals
 {
 	/**
 	 * A node in the list of listeners in a signal.

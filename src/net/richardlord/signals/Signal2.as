@@ -2,7 +2,7 @@
  * Based on ideas used in Robert Penner's AS3-signals - https://github.com/robertpenner/as3-signals
  */
 
-package net.richardlord.ash.signals
+package net.richardlord.signals
 {
 	/**
 	 * Provides a fast signal for use where two parameters are dispatched with the signal.
