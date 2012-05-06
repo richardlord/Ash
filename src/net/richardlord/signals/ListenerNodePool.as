@@ -27,6 +27,7 @@ package net.richardlord.signals
 		internal function dispose( node : ListenerNode ):void
 		{
 			node.listener = null;
+			node.once = false;
 			node.next = null;
 			node.previous = tail;
 			tail = node;

@@ -8,5 +8,6 @@ package net.richardlord.signals
 		public var previous : ListenerNode;
 		public var next : ListenerNode;
 		public var listener : Function;
+		public var once : Boolean;
 	}
 }

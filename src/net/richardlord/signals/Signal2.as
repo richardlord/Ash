@@ -25,6 +25,10 @@ package net.richardlord.signals
 			for ( node = head; node; node = node.next )
 			{
 				node.listener( object1, object2 );
+				if( node.once )
+				{
+					remove( node.listener );
+				}
 			}
 			endDispatch();
 		}

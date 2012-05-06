@@ -62,6 +62,24 @@ package net.richardlord.signals
 			var node : ListenerNode = listenerNodePool.get();
 			node.listener = listener;
 			nodes[ listener ] = node;
+			addNode( node );
+		}
+		
+		public function addOnce( listener : Function ) : void
+		{
+			if( nodes[ listener ] )
+			{
+				return;
+			}
+			var node : ListenerNode = listenerNodePool.get();
+			node.listener = listener;
+			node.once = true;
+			nodes[ listener ] = node;
+			addNode( node );
+		}
+		
+		protected function addNode( node : ListenerNode ) : void
+		{
 			if( dispatching )
 			{
 				if( !toAddHead )

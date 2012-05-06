@@ -20,6 +20,10 @@ package net.richardlord.signals
 			for ( node = head; node; node = node.next )
 			{
 				node.listener();
+				if( node.once )
+				{
+					remove( node.listener );
+				}
 			}
 			endDispatch();
 		}

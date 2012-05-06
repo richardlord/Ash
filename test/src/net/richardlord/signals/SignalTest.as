@@ -32,6 +32,13 @@ package net.richardlord.signals
 		}	
 		
 		[Test]
+		public function addListenerThenDispatchShouldCallIt() : void
+		{
+			signal.add( async.add( newEmptyHandler(), 10 ) );
+			dispatchSignal();
+		}
+
+		[Test]
 		public function addListenerThenRemoveThenDispatchShouldNotCallListener() : void
 		{
 			signal.add( failIfCalled );
@@ -166,6 +173,21 @@ package net.richardlord.signals
 		private function removeAllListeners( ...args ) : void
 		{
 			signal.removeAll();
+		}
+
+		[Test]
+		public function addOnceListenerThenDispatchShouldCallIt() : void
+		{
+			signal.addOnce( async.add( newEmptyHandler(), 10 ) );
+			dispatchSignal();
+		}
+
+		[Test]
+		public function addOnceListenerShouldBeRemovedAfterDispatch() : void
+		{
+			signal.addOnce( newEmptyHandler() );
+			dispatchSignal();
+			assertThat( signal.head, nullValue() );
 		}
 
 		// //// UTILITY METHODS // ////
