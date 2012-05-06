@@ -141,6 +141,18 @@ package net.richardlord.ash.core
 		}
 		
 		/**
+		 * Get the system instance of a particular type from within the game.
+		 * 
+		 * @param type The type of system
+		 * @return The instance of the system type that is in the game, or
+		 * null if no systems of this type are in the game.
+		 */
+		public function getSystem( type : Class ) : System
+		{
+			return systems.get( type );
+		}
+		
+		/**
 		 * Remove a system from the game.
 		 * 
 		 * @param system The system to remove from the game.

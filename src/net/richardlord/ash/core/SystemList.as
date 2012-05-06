@@ -78,5 +78,17 @@ package net.richardlord.ash.core
 			}
 			tail = null;
 		}
+		
+		internal function get( type : Class ) : System
+		{
+			for( var system : System = head; system; system = system.next )
+			{
+				if ( system is type )
+				{
+					return system;
+				}
+			}
+			return null;
+		}
 	}
 }

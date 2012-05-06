@@ -6,6 +6,7 @@ package net.richardlord.ash.core
 	import org.hamcrest.object.equalTo;
 	import org.hamcrest.object.isFalse;
 	import org.hamcrest.object.isTrue;
+	import org.hamcrest.object.nullValue;
 	import org.hamcrest.object.sameInstance;
 
 	public class SystemTests
@@ -136,6 +137,22 @@ package net.richardlord.ash.core
 			game.addSystem( system, 0 );
 			asyncCallback = listensForUpdateComplete;
 			game.update( 0.1 );
+		}
+		
+		[Test]
+		public function getSystemReturnsTheSystem() : void
+		{
+			var system1 : System = new MockSystem( this );
+			game.addSystem( system1, 0 );
+			game.addSystem( new System(), 0 );
+			assertThat( game.getSystem( MockSystem ), sameInstance( system1 ) );
+		}
+		
+		[Test]
+		public function getSystemReturnsNullIfNoSuchSystem() : void
+		{
+			game.addSystem( new System(), 0 );
+			assertThat( game.getSystem( MockSystem ), nullValue() );
 		}
 		
 		private function addedCallbackMethod( system : System, action : String, systemGame : Game ) : void
