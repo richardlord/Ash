@@ -62,7 +62,6 @@ package net.richardlord.ash.tools
 		
 		override public function removeFromGame( game : Game ) : void
 		{
-			nodeList = null;
 			if( nodeAddedFunction != null )
 			{
 				nodeList.nodeRemoved.remove( nodeAddedFunction );
@@ -71,6 +70,7 @@ package net.richardlord.ash.tools
 			{
 				nodeList.nodeRemoved.remove( nodeRemovedFunction );
 			}
+			nodeList = null;
 		}
 		
 		override public function update( time : Number ) : void
