@@ -64,7 +64,7 @@ package net.richardlord.ash.tools
 		{
 			if( nodeAddedFunction != null )
 			{
-				nodeList.nodeRemoved.remove( nodeAddedFunction );
+				nodeList.nodeAdded.remove( nodeAddedFunction );
 			}
 			if( nodeRemovedFunction != null )
 			{
