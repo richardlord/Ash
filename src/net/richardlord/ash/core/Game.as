@@ -56,11 +56,11 @@ package net.richardlord.ash.core
 		 */
 		public function removeEntity( entity : Entity ) : void
 		{
+			entity.componentAdded.remove( componentAdded );
 			for each( var family : Family in families )
 			{
 				family.remove( entity );
 			}
-			entity.componentAdded.remove( componentAdded );
 			entities.remove( entity );
 		}
 		
