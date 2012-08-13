@@ -13,6 +13,7 @@ package net.richardlord.ash.core
 			if( ! head )
 			{
 				head = tail = system;
+				system.next = system.previous = null;
 			}
 			else
 			{
@@ -27,11 +28,13 @@ package net.richardlord.ash.core
 				{
 					tail.next = system;
 					system.previous = tail;
+					system.next = null;
 					tail = system;
 				}
 				else if( !node )
 				{
 					system.next = head;
+					system.previous = null;
 					head.previous = system;
 					head = system;
 				}
@@ -65,6 +68,7 @@ package net.richardlord.ash.core
 			{
 				system.next.previous = system.previous;
 			}
+			// N.B. Don't set system.next and system.previous to null because that will break the list iteration if node is the current node in the iteration.
 		}
 		
 		internal function removeAll() : void

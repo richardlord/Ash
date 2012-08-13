@@ -165,7 +165,21 @@ package net.richardlord.ash.core
 			assertThat( game.getSystem( System ), nullValue() );
 		}
 		
-		private function addedCallbackMethod( system : System, action : String, systemGame : Game ) : void
+		[Test]
+		public function removeSystemAndAddItAgainDontCauseInvalidLinkedList() : void
+		{
+			var systemB : System = new System();
+			var systemC : System = new System();
+			game.addSystem( systemB, 0 );
+			game.addSystem( systemC, 0 );
+			game.removeSystem( systemB );
+			game.addSystem( systemB, 0 );
+			// game.update( 0.1 ); causes infinite loop in failing test
+			assertThat( systemC.previous, nullValue() );
+			assertThat( systemB.next, nullValue() );
+		}
+     
+	 	private function addedCallbackMethod( system : System, action : String, systemGame : Game ) : void
 		{
 			assertThat( action, equalTo( "added" ) );
 			assertThat( systemGame, sameInstance( game ) );

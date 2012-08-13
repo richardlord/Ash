@@ -14,11 +14,13 @@ package net.richardlord.ash.core
 			if( ! head )
 			{
 				head = tail = entity;
+				entity.next = entity.previous = null;
 			}
 			else
 			{
 				tail.next = entity;
 				entity.previous = tail;
+				entity.next = null;
 				tail = entity;
 			}
 		}
@@ -43,6 +45,7 @@ package net.richardlord.ash.core
 			{
 				entity.next.previous = entity.previous;
 			}
+			// N.B. Don't set node.next and node.previous to null because that will break the list iteration if node is the current node in the iteration.
 		}
 		
 		internal function removeAll() : void
