@@ -26,6 +26,15 @@ package net.richardlord.ash.core
 		 */
 		public var updateComplete : Signal0;
 		
+		/**
+		 * The class used to manage node lists. In most cases the default class is sufficient
+		 * but it is exposed here so advanced developers can choose to create and use a 
+		 * different implementation.
+		 * 
+		 * The class must implement the Family interface.
+		 */
+		public var familyClass : Class = ComponentMatchingFamily;
+		
 		public function Game()
 		{
 			entities = new EntityList();
@@ -43,9 +52,10 @@ package net.richardlord.ash.core
 		{
 			entities.add( entity );
 			entity.componentAdded.add( componentAdded );
+			entity.componentRemoved.add( componentRemoved );
 			for each( var family : Family in families )
 			{
-				family.addIfMatch( entity );
+				family.newEntity( entity );
 			}
 		}
 		
@@ -57,9 +67,10 @@ package net.richardlord.ash.core
 		public function removeEntity( entity : Entity ) : void
 		{
 			entity.componentAdded.remove( componentAdded );
+			entity.componentRemoved.remove( componentRemoved );
 			for each( var family : Family in families )
 			{
-				family.remove( entity );
+				family.removeEntity( entity );
 			}
 			entities.remove( entity );
 		}
@@ -82,7 +93,18 @@ package net.richardlord.ash.core
 		{
 			for each( var family : Family in families )
 			{
-				family.addIfMatch( entity );
+				family.componentAddedToEntity( entity, componentClass );
+			}
+		}
+		
+		/**
+		 * @private
+		 */
+		private function componentRemoved( entity : Entity, componentClass : Class ) : void
+		{
+			for each( var family : Family in families )
+			{
+				family.componentRemovedFromEntity( entity, componentClass );
 			}
 		}
 		
@@ -102,15 +124,15 @@ package net.richardlord.ash.core
 		{
 			if( families[nodeClass] )
 			{
-				return Family( families[nodeClass] ).nodes;
+				return Family( families[nodeClass] ).nodeList;
 			}
-			var family : Family = new Family( nodeClass, this );
+			var family : Family = new familyClass( nodeClass, this );
 			families[nodeClass] = family;
 			for( var entity : Entity = entities.head; entity; entity = entity.next )
 			{
-				family.addIfMatch( entity );
+				family.newEntity( entity );
 			}
-			return family.nodes;
+			return family.nodeList;
 		}
 		
 		/**
