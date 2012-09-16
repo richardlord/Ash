@@ -11,7 +11,11 @@ package net.richardlord.ash.core
 	import flash.geom.Matrix;
 	import flash.geom.Point;
 	
-	public class FamilyTests
+	/**
+	 * Tests the family class through the game class. Left over from a previous 
+	 * architecture but retained because all tests shoudl still pass.
+	 */
+	public class GameAndFamilyIntegrationTests
 	{
 		[Inject]
 		public var async : IAsync;

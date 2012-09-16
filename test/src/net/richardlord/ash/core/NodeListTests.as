@@ -5,6 +5,8 @@ package net.richardlord.ash.core
 	import net.richardlord.ash.matchers.nodeList;
 
 	import org.hamcrest.assertThat;
+	import org.hamcrest.collection.emptyArray;
+	import org.hamcrest.object.equalTo;
 	import org.hamcrest.object.sameInstance;
 	
 	public class NodeListTests
@@ -41,6 +43,73 @@ package net.richardlord.ash.core
 			nodes.add( node );
 			nodes.nodeRemoved.add( async.add() );
 			nodes.remove( node );
+		}
+		
+		[Test]
+		public function AllNodesAreCoveredDuringIteration() : void
+		{
+			var nodeArray : Array = new Array();
+			for( var i : int = 0; i < 5; ++i )
+			{
+				var node : MockNode = new MockNode();
+				nodeArray.push( node );
+				nodes.add( node );
+			}
+			
+			for( node = nodes.head; node; node = node.next )
+			{
+				var index : int = nodeArray.indexOf( node );
+				nodeArray.splice( index, 1 );
+			}
+			assertThat( nodeArray, emptyArray() );
+		}
+		
+		[Test]
+		public function removingCurrentNodeDuringIterationIsValid() : void
+		{
+			var nodeArray : Array = new Array();
+			for( var i : int = 0; i < 5; ++i )
+			{
+				var node : MockNode = new MockNode();
+				nodeArray.push( node );
+				nodes.add( node );
+			}
+			
+			var count : int;
+			for( node = nodes.head; node; node = node.next )
+			{
+				var index : int = nodeArray.indexOf( node );
+				nodeArray.splice( index, 1 );
+				if( ++count == 2 )
+				{
+					nodes.remove( node );
+				}
+			}
+			assertThat( nodeArray, emptyArray() );
+		}
+		
+		[Test]
+		public function removingNextNodeDuringIterationIsValid() : void
+		{
+			var nodeArray : Array = new Array();
+			for( var i : int = 0; i < 5; ++i )
+			{
+				var node : MockNode = new MockNode();
+				nodeArray.push( node );
+				nodes.add( node );
+			}
+			
+			var count : int;
+			for( node = nodes.head; node; node = node.next )
+			{
+				var index : int = nodeArray.indexOf( node );
+				nodeArray.splice( index, 1 );
+				if( ++count == 2 )
+				{
+					nodes.remove( node.next );
+				}
+			}
+			assertThat( nodeArray.length, equalTo( 1 ) );
 		}
 		
 		private var tempNode : Node;
