@@ -1,13 +1,15 @@
-package net.richardlord.asteroids
-{
+package net.richardlord.asteroids {
+	import flash.events.IEventDispatcher;
+	import robotlegs.bender.extensions.eventDispatcher.EventDispatcherExtension;
+	import robotlegs.bender.extensions.commandCenter.CommandCenterExtension;
 	import net.richardlord.ash.integration.robotlegs.AshExtension;
 	import net.richardlord.asteroids.events.StartGameEvent;
 
-	import robotlegs.bender.core.api.IContext;
-	import robotlegs.bender.core.impl.ContextBuilder;
-	import robotlegs.bender.extensions.commandMap.CommandMapExtension;
+	import robotlegs.bender.extensions.commandCenter.impl.CommandCenter;
 	import robotlegs.bender.extensions.eventCommandMap.EventCommandMapExtension;
 	import robotlegs.bender.extensions.eventCommandMap.api.IEventCommandMap;
+	import robotlegs.bender.framework.api.IContext;
+	import robotlegs.bender.framework.impl.Context;
 
 	import flash.display.Sprite;
 	import flash.events.Event;
@@ -24,16 +26,18 @@ package net.richardlord.asteroids
 		private function init( event : Event ) : void
 		{
 			removeEventListener( Event.ENTER_FRAME, init );
-			var context : IContext = ( new ContextBuilder() )
-				.withContextView( this )
-				.withExtension( AshExtension )
-				.withExtension( CommandMapExtension )
-				.withExtension( EventCommandMapExtension )
-				.build();
+			var context : IContext = ( new Context() )
+				.extend( AshExtension )
+				.extend( CommandCenterExtension)
+				.extend( EventDispatcherExtension)
+				.extend( EventCommandMapExtension )
+				.configure(this);
 
+			context.injector.getInstance(IEventCommandMap)
 			var commandMap : IEventCommandMap = context.injector.getInstance( IEventCommandMap );
 			commandMap.map( StartGameEvent.START_GAME, StartGameEvent ).toCommand( StartAsteroids );
-			context.dispatcher.dispatchEvent( new StartGameEvent( this, stage.stageWidth, stage.stageHeight ) );
+			var dispatcher : IEventDispatcher = context.injector.getInstance(IEventDispatcher)
+			dispatcher.dispatchEvent( new StartGameEvent( this, stage.stageWidth, stage.stageHeight ) );
 		}
 	}
 }
