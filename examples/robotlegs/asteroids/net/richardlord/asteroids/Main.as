@@ -1,18 +1,19 @@
 package net.richardlord.asteroids {
-	import flash.events.IEventDispatcher;
-	import robotlegs.bender.extensions.eventDispatcher.EventDispatcherExtension;
-	import robotlegs.bender.extensions.commandCenter.CommandCenterExtension;
+	import robotlegs.bender.bundles.mvcs.MVCSBundle;
+	import flash.display.DisplayObjectContainer;
 	import net.richardlord.ash.integration.robotlegs.AshExtension;
 	import net.richardlord.asteroids.events.StartGameEvent;
 
-	import robotlegs.bender.extensions.commandCenter.impl.CommandCenter;
+	import robotlegs.bender.extensions.commandCenter.CommandCenterExtension;
 	import robotlegs.bender.extensions.eventCommandMap.EventCommandMapExtension;
 	import robotlegs.bender.extensions.eventCommandMap.api.IEventCommandMap;
+	import robotlegs.bender.extensions.eventDispatcher.EventDispatcherExtension;
 	import robotlegs.bender.framework.api.IContext;
 	import robotlegs.bender.framework.impl.Context;
 
 	import flash.display.Sprite;
 	import flash.events.Event;
+	import flash.events.IEventDispatcher;
 	
 	[SWF(width='600', height='450', frameRate='60', backgroundColor='#000000')]
 
@@ -28,16 +29,15 @@ package net.richardlord.asteroids {
 			removeEventListener( Event.ENTER_FRAME, init );
 			var context : IContext = ( new Context() )
 				.extend( AshExtension )
-				.extend( CommandCenterExtension)
-				.extend( EventDispatcherExtension)
-				.extend( EventCommandMapExtension )
+				.extend( MVCSBundle)
 				.configure(this);
-
-			context.injector.getInstance(IEventCommandMap)
-			var commandMap : IEventCommandMap = context.injector.getInstance( IEventCommandMap );
-			commandMap.map( StartGameEvent.START_GAME, StartGameEvent ).toCommand( StartAsteroids );
-			var dispatcher : IEventDispatcher = context.injector.getInstance(IEventDispatcher)
-			dispatcher.dispatchEvent( new StartGameEvent( this, stage.stageWidth, stage.stageHeight ) );
+			
+			context.injector.map(DisplayObjectContainer)
+			context.injector.getInstance(IEventCommandMap);
+			var commandMap : IEventCommandMap = context.injector.getInstance(IEventCommandMap);
+			commandMap.map(StartGameEvent.START_GAME, StartGameEvent).toCommand(StartAsteroids);
+			var dispatcher : IEventDispatcher = context.injector.getInstance(IEventDispatcher);
+			dispatcher.dispatchEvent(new StartGameEvent(this, stage.stageWidth, stage.stageHeight));
 		}
 	}
 }
