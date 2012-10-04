@@ -106,6 +106,21 @@ package net.richardlord.ash.core
 		{
 			return components[ componentClass ];
 		}
+		
+		/**
+		 * Get all components from the entity.
+		 * 
+		 * @return An array containing all the components that are on the entity.
+		 */
+		public function getAll() : Array
+		{
+			var componentArray : Array = new Array();
+			for each( var component : * in components )
+			{
+				componentArray.push( component );
+			}
+			return componentArray;
+		}
 
 		/**
 		 * Does the entity have a component of a particular type.

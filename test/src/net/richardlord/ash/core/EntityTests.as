@@ -3,6 +3,7 @@ package net.richardlord.ash.core
 	import asunit.framework.IAsync;
 
 	import org.hamcrest.assertThat;
+	import org.hamcrest.collection.hasItems;
 	import org.hamcrest.object.equalTo;
 	import org.hamcrest.object.isFalse;
 	import org.hamcrest.object.isTrue;
@@ -88,6 +89,19 @@ package net.richardlord.ash.core
 		public function getReturnNullIfNoComponent() : void
 		{
 			assertThat( entity.get( MockComponent ), nullValue() );
+		}
+
+		[Test]
+		public function willRetrieveAllComponents() : void
+		{
+			var component1 : MockComponent = new MockComponent();
+			entity.add( component1 );
+			var component2 : MockComponent2 = new MockComponent2();
+			entity.add( component2 );
+			var all : Array = entity.getAll();
+			assertThat( all.length, equalTo( 2 ) );
+			assertThat( all, hasItems( component1, component2 ) );
+
 		}
 
 		[Test]
