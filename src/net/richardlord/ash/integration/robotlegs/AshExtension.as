@@ -1,4 +1,5 @@
-package net.richardlord.ash.integration.robotlegs {
+package net.richardlord.ash.integration.robotlegs
+{
 	import net.richardlord.ash.core.Game;
 	import net.richardlord.ash.integration.swiftsuspenders.SwiftSuspendersGame;
 
@@ -11,14 +12,16 @@ package net.richardlord.ash.integration.robotlegs {
 	 * wraps the SwiftSuspenders integration, passing the Robotlegs context's injector to
 	 * the game for injecting into systems.
 	 */
-	public class AshExtension implements IExtension {
-		private const _uid : String = UID.create(AshExtension);
+	public class AshExtension implements IExtension
+	{
+		private const _uid : String = UID.create( AshExtension );
 
-		public function extend(context : IContext) : void {
-			context.injector.map(Game).toValue(new SwiftSuspendersGame(context.injector));
+		public function extend( context : IContext ) : void
+		{
+			context.injector.map( Game ).toValue( new SwiftSuspendersGame( context.injector ) );
 		}
 
-		public function toString():String
+		public function toString() : String
 		{
 			return _uid;
 		}

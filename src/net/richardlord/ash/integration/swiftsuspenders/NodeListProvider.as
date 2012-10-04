@@ -20,27 +20,28 @@ package net.richardlord.ash.integration.swiftsuspenders
 	public class NodeListProvider implements DependencyProvider
 	{
 		private var game : Game;
-		
+
 		public function NodeListProvider( game : Game )
 		{
 			this.game = game;
 		}
-		
+
 		public function apply( targetType : Class, activeInjector : Injector, injectParameters : Dictionary ) : Object
 		{
-			if( injectParameters["nodeType"] )
+			if ( injectParameters["nodeType"] )
 			{
 				var nodeClass : Class = getDefinitionByName( injectParameters["nodeType"] ) as Class;
-				if( nodeClass )
+				if ( nodeClass )
 				{
 					return game.getNodeList( nodeClass );
 				}
 			}
 			return null;
 		}
-		
-		public function destroy():void{
-			
+
+		public function destroy() : void
+		{
+
 		}
 	}
 }
