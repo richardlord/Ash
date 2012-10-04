@@ -38,5 +38,9 @@ package net.richardlord.ash.integration.swiftsuspenders
 			}
 			return null;
 		}
+		
+		public function destroy():void{
+			
+		}
 	}
 }
