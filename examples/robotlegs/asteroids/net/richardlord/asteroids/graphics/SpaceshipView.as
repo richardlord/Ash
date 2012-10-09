@@ -7,7 +7,7 @@ package net.richardlord.asteroids.graphics
 		public function SpaceshipView()
 		{
 			graphics.beginFill( 0xFFFFFF );
-			graphics.moveTo( 8, 0 );
+			graphics.moveTo( 10, 0 );
 			graphics.lineTo( -7, 7 );
 			graphics.lineTo( -4, 0 );
 			graphics.lineTo( -7, -7 );
