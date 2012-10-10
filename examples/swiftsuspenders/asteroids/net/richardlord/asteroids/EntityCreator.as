@@ -1,5 +1,6 @@
 package net.richardlord.asteroids
 {
+	import net.richardlord.asteroids.components.GameState;
 	import flash.ui.Keyboard;
 	import net.richardlord.ash.core.Entity;
 	import net.richardlord.ash.core.Game;
@@ -16,7 +17,6 @@ package net.richardlord.asteroids
 	import net.richardlord.asteroids.graphics.BulletView;
 	import net.richardlord.asteroids.graphics.SpaceshipView;
 
-
 	public class EntityCreator
 	{
 		private var game : Game;
@@ -29,6 +29,14 @@ package net.richardlord.asteroids
 		public function destroyEntity( entity : Entity ) : void
 		{
 			game.removeEntity( entity );
+		}
+		
+		public function createGame() : Entity
+		{
+			var gameEntity : Entity = new Entity()
+				.add( new GameState() );
+			game.addEntity( gameEntity );
+			return gameEntity;
 		}
 
 		public function createAsteroid( radius : Number, x : Number, y : Number ) : Entity

@@ -8,7 +8,6 @@ package net.richardlord.asteroids.systems
 	import net.richardlord.asteroids.components.Display;
 	import net.richardlord.asteroids.components.Position;
 	import net.richardlord.asteroids.nodes.RenderNode;
-
 	
 	public class RenderSystem extends System
 	{

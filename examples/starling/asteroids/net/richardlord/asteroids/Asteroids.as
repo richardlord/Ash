@@ -1,9 +1,7 @@
 package net.richardlord.asteroids
 {
-	import flash.geom.Rectangle;
 	import net.richardlord.ash.core.Game;
 	import net.richardlord.ash.integration.starling.StarlingFrameTickProvider;
-	import net.richardlord.asteroids.components.GameState;
 	import net.richardlord.asteroids.systems.BulletAgeSystem;
 	import net.richardlord.asteroids.systems.CollisionSystem;
 	import net.richardlord.asteroids.systems.GameManager;
@@ -13,19 +11,20 @@ package net.richardlord.asteroids
 	import net.richardlord.asteroids.systems.RenderSystem;
 	import net.richardlord.asteroids.systems.SystemPriorities;
 	import net.richardlord.input.KeyPoll;
+
 	import starling.core.Starling;
 	import starling.display.Sprite;
 	import starling.events.Event;
 
-
+	import flash.geom.Rectangle;
 
 	public class Asteroids extends Sprite
 	{
 		private var game : Game;
 		private var tickProvider : StarlingFrameTickProvider;
-		private var gameState : GameState;
 		private var creator : EntityCreator;
 		private var keyPoll : KeyPoll;
+		private var config : GameConfig;
 		
 		public function Asteroids()
 		{
@@ -40,29 +39,28 @@ package net.richardlord.asteroids
 		
 		private function prepare() : void
 		{
-			var viewPort : Rectangle = Starling.current.viewPort;
 			game = new Game();
-			gameState = new GameState( viewPort.width, viewPort.height );
 			creator = new EntityCreator( game );
 			keyPoll = new KeyPoll( Starling.current.nativeStage );
+			var viewPort : Rectangle = Starling.current.viewPort;
+			config = new GameConfig();
+			config.width = viewPort.width;
+			config.height = viewPort.height;
 
-			game.addSystem( new GameManager( gameState, creator ), SystemPriorities.preUpdate );
+			game.addSystem( new GameManager( creator, config ), SystemPriorities.preUpdate );
 			game.addSystem( new MotionControlSystem( keyPoll ), SystemPriorities.update );
 			game.addSystem( new GunControlSystem( keyPoll, creator ), SystemPriorities.update );
 			game.addSystem( new BulletAgeSystem( creator ), SystemPriorities.update );
-			game.addSystem( new MovementSystem( gameState ), SystemPriorities.move );
+			game.addSystem( new MovementSystem( config ), SystemPriorities.move );
 			game.addSystem( new CollisionSystem( creator ), SystemPriorities.resolveCollisions );
 			game.addSystem( new RenderSystem( this ), SystemPriorities.render );
-
-			tickProvider = new StarlingFrameTickProvider( Starling.current.juggler );
+			
+			creator.createGame();
 		}
 		
 		private function start() : void
 		{
-			gameState.level = 0;
-			gameState.lives = 3;
-			gameState.points = 0;
-
+			tickProvider = new StarlingFrameTickProvider( Starling.current.juggler );
 			tickProvider.add( game.update );
 			tickProvider.start();
 		}

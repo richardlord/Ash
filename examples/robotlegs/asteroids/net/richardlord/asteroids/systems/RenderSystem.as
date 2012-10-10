@@ -51,7 +51,7 @@ package net.richardlord.asteroids.systems
 				display = node.display;
 				displayObject = display.displayObject;
 				position = node.position;
-				
+
 				displayObject.x = position.position.x;
 				displayObject.y = position.position.y;
 				displayObject.rotation = position.rotation * 180 / Math.PI;
