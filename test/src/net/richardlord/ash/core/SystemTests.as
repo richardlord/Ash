@@ -3,6 +3,7 @@ package net.richardlord.ash.core
 	import asunit.framework.IAsync;
 
 	import org.hamcrest.assertThat;
+	import org.hamcrest.collection.hasItems;
 	import org.hamcrest.object.equalTo;
 	import org.hamcrest.object.isFalse;
 	import org.hamcrest.object.isTrue;
@@ -32,6 +33,17 @@ package net.richardlord.ash.core
 		{
 			game = null;
 			asyncCallback = null;
+		}
+
+		[Test]
+		public function systemsGetterReturnsAllTheSystems() : void
+		{
+			var system1 : System = new System();
+			game.addSystem( system1, 1 );
+			var system2 : System = new System();
+			game.addSystem( system2, 1 );
+			assertThat( game.systems.length, equalTo( 2 ) );
+			assertThat( game.systems, hasItems( system1, system2 ) );
 		}
 
 		[Test]

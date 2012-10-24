@@ -10,8 +10,8 @@ package net.richardlord.ash.core
 	 */
 	public class Game
 	{
-		private var entities : EntityList;
-		private var systems : SystemList;
+		private var entityList : EntityList;
+		private var systemList : SystemList;
 		private var families : Dictionary;
 		
 		/**
@@ -37,8 +37,8 @@ package net.richardlord.ash.core
 		
 		public function Game()
 		{
-			entities = new EntityList();
-			systems = new SystemList();
+			entityList = new EntityList();
+			systemList = new SystemList();
 			families = new Dictionary();
 			updateComplete = new Signal0();
 		}
@@ -50,7 +50,7 @@ package net.richardlord.ash.core
 		 */
 		public function addEntity( entity : Entity ) : void
 		{
-			entities.add( entity );
+			entityList.add( entity );
 			entity.componentAdded.add( componentAdded );
 			entity.componentRemoved.add( componentRemoved );
 			for each( var family : Family in families )
@@ -72,7 +72,7 @@ package net.richardlord.ash.core
 			{
 				family.removeEntity( entity );
 			}
-			entities.remove( entity );
+			entityList.remove( entity );
 		}
 		
 		/**
@@ -80,10 +80,23 @@ package net.richardlord.ash.core
 		 */
 		public function removeAllEntities() : void
 		{
-			while( entities.head )
+			while( entityList.head )
 			{
-				removeEntity( entities.head );
+				removeEntity( entityList.head );
 			}
+		}
+		
+		/**
+		 * Returns a vector containing all the entities in the game.
+		 */
+		public function get entities() : Vector.<Entity>
+		{
+			var entities : Vector.<Entity> = new Vector.<Entity>();
+			for( var entity : Entity = entityList.head; entity; entity = entity.next )
+			{
+				entities.push( entity );
+			}
+			return entities;
 		}
 		
 		/**
@@ -128,7 +141,7 @@ package net.richardlord.ash.core
 			}
 			var family : Family = new familyClass( nodeClass, this );
 			families[nodeClass] = family;
-			for( var entity : Entity = entities.head; entity; entity = entity.next )
+			for( var entity : Entity = entityList.head; entity; entity = entity.next )
 			{
 				family.newEntity( entity );
 			}
@@ -170,7 +183,7 @@ package net.richardlord.ash.core
 		{
 			system.priority = priority;
 			system.addToGame( this );
-			systems.add( system );
+			systemList.add( system );
 		}
 		
 		/**
@@ -182,7 +195,20 @@ package net.richardlord.ash.core
 		 */
 		public function getSystem( type : Class ) : System
 		{
-			return systems.get( type );
+			return systemList.get( type );
+		}
+		
+		/**
+		 * Returns a vector containing all the systems in the game.
+		 */
+		public function get systems() : Vector.<System>
+		{
+			var systems : Vector.<System> = new Vector.<System>();
+			for( var system : System = systemList.head; system; system = system.next )
+			{
+				systems.push( system );
+			}
+			return systems;
 		}
 		
 		/**
@@ -192,7 +218,7 @@ package net.richardlord.ash.core
 		 */
 		public function removeSystem( system : System ) : void
 		{
-			systems.remove( system );
+			systemList.remove( system );
 			system.removeFromGame( this );
 		}
 		
@@ -201,9 +227,9 @@ package net.richardlord.ash.core
 		 */
 		public function removeAllSystems() : void
 		{
-			while( systems.head )
+			while( systemList.head )
 			{
-				removeSystem( systems.head );
+				removeSystem( systemList.head );
 			}
 		}
 
@@ -219,7 +245,7 @@ package net.richardlord.ash.core
 		public function update( time : Number ) : void
 		{
 			updating = true;
-			for( var system : System = systems.head; system; system = system.next )
+			for( var system : System = systemList.head; system; system = system.next )
 			{
 				system.update( time );
 			}
