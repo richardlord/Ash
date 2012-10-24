@@ -9,61 +9,60 @@ package net.richardlord.ash.fsm
 		private var entity : Entity;
 		private var states : Dictionary;
 		private var currentState : EntityState;
-		private var temp : Vector.<*>;
-		
+
 		public function EntityStateMachine( entity : Entity ) : void
 		{
 			this.entity = entity;
 			states = new Dictionary();
-			temp = new Vector.<*>();
 		}
-		
+
 		public function addState( name : String, state : EntityState ) : EntityStateMachine
 		{
 			states[ name ] = state;
 			return this;
 		}
-		
+
 		public function changeState( name : String ) : void
 		{
 			var newState : EntityState = states[ name ];
-			if( !newState )
+			if ( !newState )
 			{
 				throw( new Error( "Entity state " + name + " doesn't exist" ) );
 			}
-			temp.length = 0;
-			var i : int;
-			var component : *;
-			var toAdd : Vector.<*>;
-			if( currentState )
+			var toAdd : Dictionary;
+			var type : Class;
+			var t : *;
+			if ( currentState )
 			{
-				for( i = 0; i < newState.components.length; ++i )
+				toAdd = new Dictionary();
+				for( t in newState.providers )
 				{
-					temp.push( newState.components[i] );
+					type = Class( t );
+					toAdd[ type ] = newState.providers[ type ];
 				}
-				for( i = 0; i < currentState.components.length; ++i )
+				for( t in currentState.providers )
 				{
-					component = currentState.components[i];
-					var j : int = temp.indexOf( component );
-					if( j != -1 )
+					type = Class( t );
+					var other : ComponentProvider = toAdd[ type ];
+
+					if ( other && other.identifier == currentState.providers[ type ].identifier )
 					{
-						temp.splice( j, 1 );
+						delete toAdd[ type ];
 					}
 					else
 					{
-						entity.remove( Class( component.constructor ) );
+						entity.remove( type );
 					}
 				}
-				toAdd = temp;
 			}
 			else
 			{
-				toAdd = newState.components;
+				toAdd = newState.providers;
 			}
-			for( i = 0; i < toAdd.length; ++i )
+			for( t in toAdd )
 			{
-				component = toAdd[i];
-				entity.add( component );
+				type = Class( t );
+				entity.add( toAdd[ type ].component, type );
 			}
 			currentState = newState;
 		}

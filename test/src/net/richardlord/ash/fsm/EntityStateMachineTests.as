@@ -36,7 +36,7 @@ package net.richardlord.ash.fsm
 		{
 			var state : EntityState = new EntityState();
 			var component : MockComponent = new MockComponent();
-			state.addComponent( component );
+			state.add( MockComponent ).withInstance( component );
 			fsm.addState( "test", state );
 			fsm.changeState( "test" );
 			assertThat( entity.get( MockComponent ), sameInstance( component ) );
@@ -47,13 +47,13 @@ package net.richardlord.ash.fsm
 		{
 			var state1 : EntityState = new EntityState();
 			var component1 : MockComponent = new MockComponent();
-			state1.addComponent( component1 );
+			state1.add( MockComponent ).withInstance( component1 );
 			fsm.addState( "test1", state1 );
 			fsm.changeState( "test1" );
 
 			var state2 : EntityState = new EntityState();
 			var component2 : MockComponent2 = new MockComponent2();
-			state2.addComponent( component2 );
+			state2.add( MockComponent2 ).withInstance( component2 );
 			fsm.addState( "test2", state2 );
 			fsm.changeState( "test2" );
 
@@ -65,13 +65,13 @@ package net.richardlord.ash.fsm
 		{
 			var state1 : EntityState = new EntityState();
 			var component1 : MockComponent = new MockComponent();
-			state1.addComponent( component1 );
+			state1.add( MockComponent ).withInstance( component1 );
 			fsm.addState( "test1", state1 );
 			fsm.changeState( "test1" );
 
 			var state2 : EntityState = new EntityState();
 			var component2 : MockComponent2 = new MockComponent2();
-			state2.addComponent( component2 );
+			state2.add( MockComponent2 ).withInstance( component2 );
 			fsm.addState( "test2", state2 );
 			fsm.changeState( "test2" );
 
@@ -85,14 +85,14 @@ package net.richardlord.ash.fsm
 			
 			var state1 : EntityState = new EntityState();
 			var component1 : MockComponent = new MockComponent();
-			state1.addComponent( component1 );
+			state1.add( MockComponent ).withInstance( component1 );
 			fsm.addState( "test1", state1 );
 			fsm.changeState( "test1" );
 
 			var state2 : EntityState = new EntityState();
 			var component2 : MockComponent2 = new MockComponent2();
-			state2.addComponent( component1 );
-			state2.addComponent( component2 );
+			state2.add( MockComponent ).withInstance( component1 );
+			state2.add( MockComponent2 ).withInstance( component2 );
 			fsm.addState( "test2", state2 );
 			fsm.changeState( "test2" );
 
@@ -104,15 +104,15 @@ package net.richardlord.ash.fsm
 		{
 			var state1 : EntityState = new EntityState();
 			var component1 : MockComponent = new MockComponent();
-			state1.addComponent( component1 );
+			state1.add( MockComponent ).withInstance( component1 );
 			fsm.addState( "test1", state1 );
 			fsm.changeState( "test1" );
 
 			var state2 : EntityState = new EntityState();
 			var component3 : MockComponent = new MockComponent();
 			var component2 : MockComponent2 = new MockComponent2();
-			state2.addComponent( component3 );
-			state2.addComponent( component2 );
+			state2.add( MockComponent ).withInstance( component3 );
+			state2.add( MockComponent2 ).withInstance( component2 );
 			fsm.addState( "test2", state2 );
 			fsm.changeState( "test2" );
 

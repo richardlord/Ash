@@ -1,34 +1,24 @@
 package net.richardlord.ash.fsm
 {
+	import flash.utils.Dictionary;
+
 	public class EntityState
 	{
-		internal var components : Vector.<*>;
-		
-		public function EntityState()
+		internal var providers : Dictionary = new Dictionary();
+
+		public function add( type : Class ) : ComponentMapping
 		{
-			components = new Vector.<*>();
+			return new ComponentMapping( this, type );
 		}
 		
-		public function addComponent( component : * ) : EntityState
+		public function get( type : Class ) : ComponentProvider
 		{
-			components.push( component );
-			return this;
+			return providers[ type ];
 		}
 		
-		public function removeComponent( component : * ) : EntityState
+		public function has( type : Class ) : Boolean
 		{
-			var i : int = components.indexOf( component );
-			if( i != -1 )
-			{
-				components.splice( i, 1 );
-			}
-			return this;
-		}
-		
-		public function hasComponent( component : * ) : Boolean
-		{
-			var i : int = components.indexOf( component );
-			return ( i != -1 );
+			return providers[ type ] != null;
 		}
 	}
 }
