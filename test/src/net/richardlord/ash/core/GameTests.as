@@ -1,6 +1,7 @@
 package net.richardlord.ash.core
 {
 	import org.hamcrest.assertThat;
+	import org.hamcrest.collection.hasItems;
 	import org.hamcrest.object.equalTo;
 
 	import flash.geom.Point;
@@ -24,7 +25,18 @@ package net.richardlord.ash.core
 		}
 
 		[Test]
-		public function testAddEntityChecksWithAllFamilies() : void
+		public function entitiesGetterReturnsAllTheEntities() : void
+		{
+			var entity1 : Entity = new Entity();
+			game.addEntity( entity1 );
+			var entity2 : Entity = new Entity();
+			game.addEntity( entity2 );
+			assertThat( game.entities.length, equalTo( 2 ) );
+			assertThat( game.entities, hasItems( entity1, entity2 ) );
+		}
+
+		[Test]
+		public function addEntityChecksWithAllFamilies() : void
 		{
 			game.getNodeList( MockNode );
 			game.getNodeList( MockNode2 );
@@ -35,7 +47,7 @@ package net.richardlord.ash.core
 		}
 
 		[Test]
-		public function testRemoveEntityChecksWithAllFamilies() : void
+		public function removeEntityChecksWithAllFamilies() : void
 		{
 			game.getNodeList( MockNode );
 			game.getNodeList( MockNode2 );
@@ -47,7 +59,7 @@ package net.richardlord.ash.core
 		}
 
 		[Test]
-		public function testRemoveAllEntitiesChecksWithAllFamilies() : void
+		public function removeAllEntitiesChecksWithAllFamilies() : void
 		{
 			game.getNodeList( MockNode );
 			game.getNodeList( MockNode2 );
@@ -61,7 +73,7 @@ package net.richardlord.ash.core
 		}
 		
 		[Test]
-		public function testComponentAddedChecksWithAllFamilies() : void
+		public function componentAddedChecksWithAllFamilies() : void
 		{
 			game.getNodeList( MockNode );
 			game.getNodeList( MockNode2 );
@@ -73,7 +85,7 @@ package net.richardlord.ash.core
 		}
 		
 		[Test]
-		public function testComponentRemovedChecksWithAllFamilies() : void
+		public function componentRemovedChecksWithAllFamilies() : void
 		{
 			game.getNodeList( MockNode );
 			game.getNodeList( MockNode2 );
@@ -86,14 +98,14 @@ package net.richardlord.ash.core
 		}
 
 		[Test]
-		public function testGetNodeListCreatesFamily() : void
+		public function getNodeListCreatesFamily() : void
 		{
 			game.getNodeList( MockNode );
 			assertThat( MockFamily.instances.length, equalTo( 1 ) );
 		}
 
 		[Test]
-		public function testGetNodeListChecksAllEntities() : void
+		public function getNodeListChecksAllEntities() : void
 		{
 			game.addEntity( new Entity() );
 			game.addEntity( new Entity() );
@@ -102,7 +114,7 @@ package net.richardlord.ash.core
 		}
 
 		[Test]
-		public function testReleaseNodeListCallsCleanUp() : void
+		public function releaseNodeListCallsCleanUp() : void
 		{
 			game.getNodeList( MockNode );
 			game.releaseNodeList( MockNode );
