@@ -9,7 +9,7 @@ package net.richardlord.ash.fsm
 	import org.hamcrest.object.isFalse;
 	import org.hamcrest.object.sameInstance;
 
-	public class EntityStateMachineTests
+	public class EntityStateMachineSystemTests
 	{
 		[Inject]
 		public var async : IAsync;

@@ -60,7 +60,7 @@ package net.richardlord.ash.fsm
 					type = Class( t );
 					entity.add( toAdd[ type ].component, type );
 				}
-				currentState = newState;
+				node.stateMachine.currentState = newState;
 			}
 		}
 	}
