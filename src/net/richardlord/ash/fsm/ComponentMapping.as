@@ -42,5 +42,10 @@ package net.richardlord.ash.fsm
 			this.provider = provider;
 			creatingState.providers[ componentType ] = provider;
 		}
+		
+		public function add( type : Class ) : ComponentMapping
+		{
+			return creatingState.add( type );
+		}
 	}
 }
