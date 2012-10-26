@@ -1,12 +1,15 @@
 package net.richardlord.asteroids
 {
-	import net.richardlord.asteroids.components.GameState;
-	import flash.ui.Keyboard;
 	import net.richardlord.ash.core.Entity;
 	import net.richardlord.ash.core.Game;
+	import net.richardlord.ash.fsm.EntityState;
+	import net.richardlord.ash.fsm.EntityStateMachine;
+	import net.richardlord.asteroids.components.Animation;
 	import net.richardlord.asteroids.components.Asteroid;
 	import net.richardlord.asteroids.components.Bullet;
+	import net.richardlord.asteroids.components.DeathThroes;
 	import net.richardlord.asteroids.components.Display;
+	import net.richardlord.asteroids.components.GameState;
 	import net.richardlord.asteroids.components.Gun;
 	import net.richardlord.asteroids.components.GunControls;
 	import net.richardlord.asteroids.components.Motion;
@@ -15,7 +18,10 @@ package net.richardlord.asteroids
 	import net.richardlord.asteroids.components.Spaceship;
 	import net.richardlord.asteroids.graphics.AsteroidView;
 	import net.richardlord.asteroids.graphics.BulletView;
+	import net.richardlord.asteroids.graphics.SpaceshipDeathView;
 	import net.richardlord.asteroids.graphics.SpaceshipView;
+
+	import flash.ui.Keyboard;
 
 	public class EntityCreator
 	{
@@ -54,12 +60,30 @@ package net.richardlord.asteroids
 		{
 			var spaceship : Entity = new Entity()
 				.add( new Spaceship() )
-				.add( new Position( 300, 225, 0, 6 ) )
-				.add( new Motion( 0, 0, 0, 15 ) )
-				.add( new MotionControls( Keyboard.LEFT, Keyboard.RIGHT, Keyboard.UP, 100, 3 ) )
-				.add( new Gun( 8, 0, 0.3, 2 ) )
-				.add( new GunControls( Keyboard.Z ) )
-				.add( new Display( new SpaceshipView() ) );
+				.add( new Position( 300, 225, 0, 6 ) );
+				
+			var fsm : EntityStateMachine = new EntityStateMachine();
+			
+			var playState : EntityState = new EntityState();
+			playState
+				.add( Motion ).withInstance( new Motion( 0, 0, 0, 15 ) )
+				.add( MotionControls ).withInstance( new MotionControls( Keyboard.LEFT, Keyboard.RIGHT, Keyboard.UP, 100, 3 ) )
+				.add( Gun ).withInstance( new Gun( 8, 0, 0.3, 2 ) )
+				.add( GunControls ).withInstance( new GunControls( Keyboard.SPACE ) )
+				.add( Display ).withInstance( new Display( new SpaceshipView() ) );
+			fsm.addState( "playing", playState );
+			
+			var deathView : SpaceshipDeathView = new SpaceshipDeathView();
+			var deadState : EntityState = new EntityState();
+			deadState
+				.add( DeathThroes ).withInstance( new DeathThroes( 5 ) )
+				.add( Display ).withInstance( new Display( deathView ) )
+				.add( Animation ).withInstance( new Animation( deathView ) );
+			fsm.addState( "destroyed", deadState );
+			
+			fsm.changeState( "playing" );
+			spaceship.add( fsm );
+			
 			game.addEntity( spaceship );
 			return spaceship;
 		}

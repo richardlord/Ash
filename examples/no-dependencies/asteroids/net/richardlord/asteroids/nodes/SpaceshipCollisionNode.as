@@ -1,5 +1,6 @@
 package net.richardlord.asteroids.nodes
 {
+	import net.richardlord.ash.fsm.EntityStateMachine;
 	import net.richardlord.ash.core.Node;
 	import net.richardlord.asteroids.components.Position;
 	import net.richardlord.asteroids.components.Spaceship;
@@ -8,5 +9,6 @@ package net.richardlord.asteroids.nodes
 	{
 		public var spaceship : Spaceship;
 		public var position : Position;
+		public var fsm : EntityStateMachine;
 	}
 }

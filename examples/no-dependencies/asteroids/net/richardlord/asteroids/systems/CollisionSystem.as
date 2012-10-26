@@ -60,7 +60,9 @@ package net.richardlord.asteroids.systems
 				{
 					if ( Point.distance( asteroid.position.position, spaceship.position.position ) <= asteroid.position.collisionRadius + spaceship.position.collisionRadius )
 					{
-						creator.destroyEntity( spaceship.entity );
+						spaceship.spaceship.destroyed = true;
+						spaceship.fsm.changeState( "destroyed" );
+						//creator.destroyEntity( spaceship.entity );
 						break;
 					}
 				}
