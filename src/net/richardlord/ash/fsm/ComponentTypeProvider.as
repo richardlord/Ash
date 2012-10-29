@@ -11,7 +11,7 @@ package net.richardlord.ash.fsm
 			this.componentType = type;
 		}
 		
-		public function get component() : *
+		public function getComponent() : *
 		{
 			return new componentType();
 		}

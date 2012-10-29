@@ -11,14 +11,14 @@ package net.richardlord.ash.fsm
 		public function providerReturnsAnInstanceOfType() : void
 		{
 			var provider : ComponentTypeProvider = new ComponentTypeProvider( MockComponent );
-			assertThat( provider.component, instanceOf( MockComponent ) );
+			assertThat( provider.getComponent(), instanceOf( MockComponent ) );
 		}
 
 		[Test]
 		public function providerReturnsNewInstanceEachTime() : void
 		{
 			var provider : ComponentTypeProvider = new ComponentTypeProvider( MockComponent );
-			assertThat( provider.component, not( provider.component ) );
+			assertThat( provider.getComponent(), not( provider.getComponent() ) );
 		}
 
 		[Test]

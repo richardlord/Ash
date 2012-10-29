@@ -12,7 +12,7 @@ package net.richardlord.ash.fsm
 		{
 			var instance : MockComponent = new MockComponent();
 			var provider : ComponentInstanceProvider = new ComponentInstanceProvider( instance );
-			assertThat( provider.component, sameInstance( instance ) );
+			assertThat( provider.getComponent(), sameInstance( instance ) );
 		}
 
 		[Test]

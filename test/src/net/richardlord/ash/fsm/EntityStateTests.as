@@ -1,9 +1,9 @@
 package net.richardlord.ash.fsm
 {
-
 	import org.hamcrest.assertThat;
 	import org.hamcrest.object.equalTo;
 	import org.hamcrest.object.instanceOf;
+
 	public class EntityStateTests
 	{
 		private var state : EntityState;
@@ -26,7 +26,7 @@ package net.richardlord.ash.fsm
 			state.add( MockComponent );
 			var provider : ComponentProvider = state.providers[MockComponent];
 			assertThat( provider, instanceOf( ComponentTypeProvider ) );
-			assertThat( provider.component, instanceOf( MockComponent ) );
+			assertThat( provider.getComponent(), instanceOf( MockComponent ) );
 		}
 		
 		[Test]
@@ -35,7 +35,7 @@ package net.richardlord.ash.fsm
 			state.add( MockComponent ).withType( MockComponent2 );
 			var provider : ComponentProvider = state.providers[MockComponent];
 			assertThat( provider, instanceOf( ComponentTypeProvider ) );
-			assertThat( provider.component, instanceOf( MockComponent2 ) );
+			assertThat( provider.getComponent(), instanceOf( MockComponent2 ) );
 		}
 		
 		[Test]
@@ -45,7 +45,7 @@ package net.richardlord.ash.fsm
 			state.add( MockComponent ).withInstance( component );
 			var provider : ComponentProvider = state.providers[MockComponent];
 			assertThat( provider, instanceOf( ComponentInstanceProvider ) );
-			assertThat( provider.component, equalTo( component ) );
+			assertThat( provider.getComponent(), equalTo( component ) );
 		}
 		
 		[Test]
@@ -54,7 +54,7 @@ package net.richardlord.ash.fsm
 			state.add( MockComponent ).withSingleton( MockComponent );
 			var provider : ComponentProvider = state.providers[MockComponent];
 			assertThat( provider, instanceOf( ComponentSingletonProvider ) );
-			assertThat( provider.component, instanceOf( MockComponent ) );
+			assertThat( provider.getComponent(), instanceOf( MockComponent ) );
 		}
 	}
 }

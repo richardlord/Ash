@@ -11,14 +11,14 @@ package net.richardlord.ash.fsm
 		public function providerReturnsAnInstanceOfType() : void
 		{
 			var provider : ComponentSingletonProvider = new ComponentSingletonProvider( MockComponent );
-			assertThat( provider.component, instanceOf( MockComponent ) );
+			assertThat( provider.getComponent(), instanceOf( MockComponent ) );
 		}
 
 		[Test]
 		public function providerReturnsSameInstanceEachTime() : void
 		{
 			var provider : ComponentSingletonProvider = new ComponentSingletonProvider( MockComponent );
-			assertThat( provider.component, equalTo( provider.component ) );
+			assertThat( provider.getComponent(), equalTo( provider.getComponent() ) );
 		}
 
 		[Test]

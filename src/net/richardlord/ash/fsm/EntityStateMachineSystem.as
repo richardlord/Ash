@@ -58,7 +58,7 @@ package net.richardlord.ash.fsm
 				for( t in toAdd )
 				{
 					type = Class( t );
-					entity.add( toAdd[ type ].component, type );
+					entity.add( ComponentProvider( toAdd[ type ] ).getComponent(), type );
 				}
 				node.stateMachine.currentState = newState;
 			}

@@ -11,7 +11,7 @@ package net.richardlord.ash.fsm
 			this.instance = instance;
 		}
 		
-		public function get component() : *
+		public function getComponent() : *
 		{
 			return instance;
 		}

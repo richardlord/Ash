@@ -12,7 +12,7 @@ package net.richardlord.ash.fsm
 			this.componentType = type;
 		}
 		
-		public function get component() : *
+		public function getComponent() : *
 		{
 			if( !instance )
 			{
@@ -23,7 +23,7 @@ package net.richardlord.ash.fsm
 		
 		public function get identifier() : *
 		{
-			return component;
+			return getComponent();
 		}
 	}
 }
