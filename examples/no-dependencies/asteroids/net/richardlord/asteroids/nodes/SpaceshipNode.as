@@ -1,16 +1,12 @@
 package net.richardlord.asteroids.nodes
 {
 	import net.richardlord.ash.core.Node;
-	import net.richardlord.ash.fsm.EntityStateMachine;
-	import net.richardlord.asteroids.components.Collision;
 	import net.richardlord.asteroids.components.Position;
 	import net.richardlord.asteroids.components.Spaceship;
 
-	public class SpaceshipCollisionNode extends Node
+	public class SpaceshipNode extends Node
 	{
 		public var spaceship : Spaceship;
 		public var position : Position;
-		public var collision : Collision;
-		public var fsm : EntityStateMachine;
 	}
 }

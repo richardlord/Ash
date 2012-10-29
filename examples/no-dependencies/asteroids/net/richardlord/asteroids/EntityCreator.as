@@ -7,6 +7,7 @@ package net.richardlord.asteroids
 	import net.richardlord.asteroids.components.Animation;
 	import net.richardlord.asteroids.components.Asteroid;
 	import net.richardlord.asteroids.components.Bullet;
+	import net.richardlord.asteroids.components.Collision;
 	import net.richardlord.asteroids.components.DeathThroes;
 	import net.richardlord.asteroids.components.Display;
 	import net.richardlord.asteroids.components.GameState;
@@ -49,7 +50,8 @@ package net.richardlord.asteroids
 		{
 			var asteroid : Entity = new Entity()
 				.add( new Asteroid() )
-				.add( new Position( x, y, 0, radius ) )
+				.add( new Position( x, y, 0 ) )
+				.add( new Collision( radius ) )
 				.add( new Motion( ( Math.random() - 0.5 ) * 4 * ( 50 - radius ), ( Math.random() - 0.5 ) * 4 * ( 50 - radius ), Math.random() * 2 - 1, 0 ) )
 				.add( new Display( new AsteroidView( radius ) ) );
 			game.addEntity( asteroid );
@@ -60,7 +62,7 @@ package net.richardlord.asteroids
 		{
 			var spaceship : Entity = new Entity()
 				.add( new Spaceship() )
-				.add( new Position( 300, 225, 0, 6 ) );
+				.add( new Position( 300, 225, 0 ) );
 				
 			var fsm : EntityStateMachine = new EntityStateMachine();
 			
@@ -70,6 +72,7 @@ package net.richardlord.asteroids
 				.add( MotionControls ).withInstance( new MotionControls( Keyboard.LEFT, Keyboard.RIGHT, Keyboard.UP, 100, 3 ) )
 				.add( Gun ).withInstance( new Gun( 8, 0, 0.3, 2 ) )
 				.add( GunControls ).withInstance( new GunControls( Keyboard.SPACE ) )
+				.add( Collision ).withInstance( new Collision( 9 ) )
 				.add( Display ).withInstance( new Display( new SpaceshipView() ) );
 			fsm.addState( "playing", playState );
 			
@@ -96,7 +99,8 @@ package net.richardlord.asteroids
 				.add( new Bullet( gun.bulletLifetime ) )
 				.add( new Position(
 					cos * gun.offsetFromParent.x - sin * gun.offsetFromParent.y + parentPosition.position.x,
-					sin * gun.offsetFromParent.x + cos * gun.offsetFromParent.y + parentPosition.position.y, 0, 0 ) )
+					sin * gun.offsetFromParent.x + cos * gun.offsetFromParent.y + parentPosition.position.y, 0 ) )
+				.add( new Collision( 0 ) )
 				.add( new Motion( cos * 150, sin * 150, 0, 0 ) )
 				.add( new Display( new BulletView() ) );
 			game.addEntity( bullet );
