@@ -5,13 +5,28 @@ package net.richardlord.ash.fsm
 
 	import flash.utils.Dictionary;
 
+	/**
+	 * This system updates all EntityStateMachines, checking whether they need to change state
+	 * and, if so, performing the state change. If using EntityStateMachines you will need to
+	 * add this system to your game. You can have this system run at any time, but I find it is 
+	 * usually best just before or just after the render cycle, depending if you want the state 
+	 * change to occur before the rendering.
+	 */
 	public class EntityStateMachineSystem extends ListIteratingSystem
 	{
+		/**
+		 * The constructor.
+		 */
 		public function EntityStateMachineSystem() : void
 		{
 			super( EntityStateMachineNode, updateNode );
 		}
 
+		/**
+		 * Updates the node, checking whether the state needs to change and applying the change
+		 * if it is due. It will remove components from the previous state and add components for
+		 * the new state.
+		 */
 		public function updateNode( node : EntityStateMachineNode, time : Number ) : void
 		{
 			if( node.stateMachine.newState )

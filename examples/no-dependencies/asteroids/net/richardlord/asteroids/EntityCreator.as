@@ -2,7 +2,6 @@ package net.richardlord.asteroids
 {
 	import net.richardlord.ash.core.Entity;
 	import net.richardlord.ash.core.Game;
-	import net.richardlord.ash.fsm.EntityState;
 	import net.richardlord.ash.fsm.EntityStateMachine;
 	import net.richardlord.asteroids.components.Animation;
 	import net.richardlord.asteroids.components.Asteroid;
@@ -66,23 +65,19 @@ package net.richardlord.asteroids
 				
 			var fsm : EntityStateMachine = new EntityStateMachine();
 			
-			var playState : EntityState = new EntityState();
-			playState
+			fsm.createState( "playing" )
 				.add( Motion ).withInstance( new Motion( 0, 0, 0, 15 ) )
 				.add( MotionControls ).withInstance( new MotionControls( Keyboard.LEFT, Keyboard.RIGHT, Keyboard.UP, 100, 3 ) )
 				.add( Gun ).withInstance( new Gun( 8, 0, 0.3, 2 ) )
 				.add( GunControls ).withInstance( new GunControls( Keyboard.SPACE ) )
 				.add( Collision ).withInstance( new Collision( 9 ) )
 				.add( Display ).withInstance( new Display( new SpaceshipView() ) );
-			fsm.addState( "playing", playState );
 			
 			var deathView : SpaceshipDeathView = new SpaceshipDeathView();
-			var deadState : EntityState = new EntityState();
-			deadState
+			fsm.createState( "destroyed" )
 				.add( DeathThroes ).withInstance( new DeathThroes( 5 ) )
 				.add( Display ).withInstance( new Display( deathView ) )
 				.add( Animation ).withInstance( new Animation( deathView ) );
-			fsm.addState( "destroyed", deadState );
 			
 			fsm.changeState( "playing" );
 			spaceship.add( fsm );
