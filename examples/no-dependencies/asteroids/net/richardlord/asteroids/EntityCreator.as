@@ -63,7 +63,7 @@ package net.richardlord.asteroids
 				.add( new Spaceship() )
 				.add( new Position( 300, 225, 0 ) );
 				
-			var fsm : EntityStateMachine = new EntityStateMachine();
+			var fsm : EntityStateMachine = spaceship.createStateMachine( "default" );
 			
 			fsm.createState( "playing" )
 				.add( Motion ).withInstance( new Motion( 0, 0, 0, 15 ) )
@@ -80,7 +80,6 @@ package net.richardlord.asteroids
 				.add( Animation ).withInstance( new Animation( deathView ) );
 			
 			fsm.changeState( "playing" );
-			spaceship.add( fsm );
 			
 			game.addEntity( spaceship );
 			return spaceship;

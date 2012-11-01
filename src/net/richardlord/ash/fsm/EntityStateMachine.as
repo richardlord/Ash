@@ -1,9 +1,11 @@
 package net.richardlord.ash.fsm
 {
+	import net.richardlord.ash.core.Entity;
+
 	import flash.utils.Dictionary;
 
 	/**
-	 * This is a component for a state machine for an entity. The state machine manages a set of states,
+	 * This is a state machine for an entity. The state machine manages a set of states,
 	 * each of which has a set of component providers. When the state machine changes the state, it removes
 	 * components associated with the previous state and adds components associated with the new state.
 	 */
@@ -11,19 +13,20 @@ package net.richardlord.ash.fsm
 	{
 		private var states : Dictionary;
 		/**
-		 * The current state of the state machine. This is used by the EntityStateMachineSystem.
+		 * The current state of the state machine.
 		 */
-		public var currentState : EntityState;
+		private var currentState : EntityState;
 		/**
-		 * The state that the state machine is about to switch to. This is used by the EntityStateMachineSystem.
+		 * The entity whose state machine this is
 		 */
-		public var newState : EntityState;
+		public var entity : Entity;
 
 		/**
 		 * Constructor. Creates an EntityStateMachine.
 		 */
-		public function EntityStateMachine() : void
+		public function EntityStateMachine( entity : Entity ) : void
 		{
+			this.entity = entity;
 			states = new Dictionary();
 		}
 
@@ -55,14 +58,14 @@ package net.richardlord.ash.fsm
 		}
 
 		/**
-		 * Change to a new state. The change won't ahppen immediately, it will happen the next time
-		 * the EntityStateMachineSystem updates all state machines.
+		 * Change to a new state. The components from the old state will be removed and the components
+		 * for the new state will be added.
 		 * 
 		 * @param name The name of the state to change to.
 		 */
 		public function changeState( name : String ) : void
 		{
-			newState = states[ name ];
+			var newState : EntityState = states[ name ];
 			if ( !newState )
 			{
 				throw( new Error( "Entity state " + name + " doesn't exist" ) );
@@ -70,7 +73,45 @@ package net.richardlord.ash.fsm
 			if( newState == currentState )
 			{
 				newState = null;
+				return;
 			}
+			var toAdd : Dictionary;
+			var type : Class;
+			var t : *;
+			if ( currentState )
+			{
+				toAdd = new Dictionary();
+				for( t in newState.providers )
+				{
+					type = Class( t );
+					toAdd[ type ] = newState.providers[ type ];
+				}
+				for( t in currentState.providers )
+				{
+					type = Class( t );
+					var other : ComponentProvider = toAdd[ type ];
+
+					if ( other && other.identifier == currentState.providers[ type ].identifier )
+					{
+						delete toAdd[ type ];
+					}
+					else
+					{
+						entity.remove( type );
+					}
+				}
+			}
+			else
+			{
+				toAdd = newState.providers;
+			}
+			for( t in toAdd )
+			{
+				type = Class( t );
+				entity.add( ComponentProvider( toAdd[ type ] ).getComponent(), type );
+			}
+			currentState = newState;
+			newState = null;
 		}
 	}
 }

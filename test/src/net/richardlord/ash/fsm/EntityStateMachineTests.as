@@ -9,25 +9,19 @@ package net.richardlord.ash.fsm
 	import org.hamcrest.object.isFalse;
 	import org.hamcrest.object.sameInstance;
 
-	public class EntityStateMachineSystemTests
+	public class EntityStateMachineTests
 	{
 		[Inject]
 		public var async : IAsync;
 
 		private var fsm : EntityStateMachine;
 		private var entity : Entity;
-		private var system : EntityStateMachineSystem;
-		private var node : EntityStateMachineNode;
 
 		[Before]
 		public function createState() : void
 		{
 			entity = new Entity();
-			fsm = new EntityStateMachine();
-			system = new EntityStateMachineSystem();
-			node = new EntityStateMachineNode();
-			node.entity = entity;
-			node.stateMachine = fsm;
+			fsm = new EntityStateMachine( entity );
 		}
 
 		[After]
@@ -35,8 +29,6 @@ package net.richardlord.ash.fsm
 		{
 			entity = null;
 			fsm = null;
-			system = null;
-			node = null;
 		}
 
 		[Test]
@@ -47,7 +39,6 @@ package net.richardlord.ash.fsm
 			state.add( MockComponent ).withInstance( component );
 			fsm.addState( "test", state );
 			fsm.changeState( "test" );
-			system.updateNode( node, 0.1 );
 			assertThat( entity.get( MockComponent ), sameInstance( component ) );
 		}
 
@@ -59,14 +50,12 @@ package net.richardlord.ash.fsm
 			state1.add( MockComponent ).withInstance( component1 );
 			fsm.addState( "test1", state1 );
 			fsm.changeState( "test1" );
-			system.updateNode( node, 0.1 );
 
 			var state2 : EntityState = new EntityState();
 			var component2 : MockComponent2 = new MockComponent2();
 			state2.add( MockComponent2 ).withInstance( component2 );
 			fsm.addState( "test2", state2 );
 			fsm.changeState( "test2" );
-			system.updateNode( node, 0.1 );
 
 			assertThat( entity.get( MockComponent2 ), sameInstance( component2 ) );
 		}
@@ -79,14 +68,12 @@ package net.richardlord.ash.fsm
 			state1.add( MockComponent ).withInstance( component1 );
 			fsm.addState( "test1", state1 );
 			fsm.changeState( "test1" );
-			system.updateNode( node, 0.1 );
 
 			var state2 : EntityState = new EntityState();
 			var component2 : MockComponent2 = new MockComponent2();
 			state2.add( MockComponent2 ).withInstance( component2 );
 			fsm.addState( "test2", state2 );
 			fsm.changeState( "test2" );
-			system.updateNode( node, 0.1 );
 
 			assertThat( entity.has( MockComponent ), isFalse() );
 		}
@@ -101,7 +88,6 @@ package net.richardlord.ash.fsm
 			state1.add( MockComponent ).withInstance( component1 );
 			fsm.addState( "test1", state1 );
 			fsm.changeState( "test1" );
-			system.updateNode( node, 0.1 );
 
 			var state2 : EntityState = new EntityState();
 			var component2 : MockComponent2 = new MockComponent2();
@@ -109,7 +95,6 @@ package net.richardlord.ash.fsm
 			state2.add( MockComponent2 ).withInstance( component2 );
 			fsm.addState( "test2", state2 );
 			fsm.changeState( "test2" );
-			system.updateNode( node, 0.1 );
 
 			assertThat( entity.get( MockComponent ), sameInstance( component1 ) );
 		}
@@ -122,7 +107,6 @@ package net.richardlord.ash.fsm
 			state1.add( MockComponent ).withInstance( component1 );
 			fsm.addState( "test1", state1 );
 			fsm.changeState( "test1" );
-			system.updateNode( node, 0.1 );
 
 			var state2 : EntityState = new EntityState();
 			var component3 : MockComponent = new MockComponent();
@@ -131,7 +115,6 @@ package net.richardlord.ash.fsm
 			state2.add( MockComponent2 ).withInstance( component2 );
 			fsm.addState( "test2", state2 );
 			fsm.changeState( "test2" );
-			system.updateNode( node, 0.1 );
 
 			assertThat( entity.get( MockComponent ), sameInstance( component3 ) );
 		}

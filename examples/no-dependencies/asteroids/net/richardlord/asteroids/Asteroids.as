@@ -1,7 +1,6 @@
 package net.richardlord.asteroids
 {
 	import net.richardlord.ash.core.Game;
-	import net.richardlord.ash.fsm.EntityStateMachineSystem;
 	import net.richardlord.ash.tick.FrameTickProvider;
 	import net.richardlord.asteroids.systems.AnimationSystem;
 	import net.richardlord.asteroids.systems.BulletAgeSystem;
@@ -50,7 +49,6 @@ package net.richardlord.asteroids
 			game.addSystem( new CollisionSystem( creator ), SystemPriorities.resolveCollisions );
 			game.addSystem( new AnimationSystem(), SystemPriorities.animate );
 			game.addSystem( new RenderSystem( container ), SystemPriorities.render );
-			game.addSystem( new EntityStateMachineSystem(), SystemPriorities.stateMachines );
 			
 			creator.createGame();
 		}

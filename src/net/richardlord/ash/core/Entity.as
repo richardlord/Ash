@@ -1,8 +1,10 @@
 package net.richardlord.ash.core
 {
+	import net.richardlord.ash.fsm.EntityStateMachine;
+	import net.richardlord.signals.Signal2;
+
 	import flash.utils.Dictionary;
 	import flash.utils.describeType;
-	import net.richardlord.signals.Signal2;
 
 
 	/**
@@ -40,12 +42,14 @@ package net.richardlord.ash.core
 		internal var previous : Entity;
 		internal var next : Entity;
 		internal var components : Dictionary;
+		private var stateMachines : Dictionary;
 
 		public function Entity()
 		{
 			componentAdded = new Signal2( Entity, Class );
 			componentRemoved = new Signal2( Entity, Class );
 			components = new Dictionary();
+			stateMachines = new Dictionary();
 		}
 
 		/**
@@ -154,6 +158,35 @@ package net.richardlord.ash.core
 				copy.add( newComponent );
 			}
 			return copy;
+		}
+		
+		public function addStateMachine( name : String, stateMachine : EntityStateMachine ) : Entity
+		{
+			stateMachines[ name ] = stateMachine;
+			return this;
+		}
+		
+		public function createStateMachine( name : String ) : EntityStateMachine
+		{
+			var stateMachine : EntityStateMachine = new EntityStateMachine( this );
+			stateMachines[ name ] = stateMachine;
+			return stateMachine;
+		}
+		
+		public function getStateMachine( name : String = null ) : EntityStateMachine
+		{
+			if( name )
+			{
+				return stateMachines[ name ];
+			}
+			else
+			{
+				for each( var stateMachine : EntityStateMachine in stateMachines )
+				{
+					return stateMachine;
+				}
+			}
+			return null;
 		}
 	}
 }
