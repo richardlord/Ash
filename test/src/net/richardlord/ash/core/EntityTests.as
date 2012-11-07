@@ -217,7 +217,7 @@ package net.richardlord.ash.core
 		{
 			var stateMachine : EntityStateMachine = new EntityStateMachine( entity );
 			entity.addStateMachine( "test", stateMachine );
-			assertThat( entity.getStateMachine(), sameInstance( stateMachine ) );
+			assertThat( entity.getStateMachine( "test" ), sameInstance( stateMachine ) );
 		}
 		
 		[Test]
