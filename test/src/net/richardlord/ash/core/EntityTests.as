@@ -1,9 +1,7 @@
 package net.richardlord.ash.core
 {
 	import asunit.framework.IAsync;
-
 	import net.richardlord.ash.fsm.EntityStateMachine;
-
 	import org.hamcrest.assertThat;
 	import org.hamcrest.collection.hasItems;
 	import org.hamcrest.object.equalTo;
@@ -11,6 +9,8 @@ package net.richardlord.ash.core
 	import org.hamcrest.object.isTrue;
 	import org.hamcrest.object.nullValue;
 	import org.hamcrest.object.sameInstance;
+
+
 
 	public class EntityTests
 	{

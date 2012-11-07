@@ -2,12 +2,12 @@ package net.richardlord.ash.fsm
 {
 	import asunit.asserts.fail;
 	import asunit.framework.IAsync;
-
 	import net.richardlord.ash.core.Entity;
-
 	import org.hamcrest.assertThat;
 	import org.hamcrest.object.isFalse;
 	import org.hamcrest.object.sameInstance;
+
+
 
 	public class EntityStateMachineTests
 	{

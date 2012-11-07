@@ -3,7 +3,7 @@ package net.richardlord.ash.fsm
 	/**
 	 * Used by the EntityState class to create the mappings of components to providers via a fluent interface.
 	 */
-	public class ComponentMapping
+	public class StateComponentMapping
 	{
 		private var componentType : Class;
 		private var creatingState : EntityState;
@@ -17,7 +17,7 @@ package net.richardlord.ash.fsm
 		 * @param creatingState The EntityState that the mapping will belong to
 		 * @param type The component type for the mapping
 		 */
-		public function ComponentMapping( creatingState : EntityState, type : Class )
+		public function StateComponentMapping( creatingState : EntityState, type : Class )
 		{
 			this.creatingState = creatingState;
 			componentType = type;
@@ -31,7 +31,7 @@ package net.richardlord.ash.fsm
 		 * @param component The component instance to use for the mapping
 		 * @return This ComponentMapping, so more modifications can be applied
 		 */
-		public function withInstance( component : * ) : ComponentMapping
+		public function withInstance( component : * ) : StateComponentMapping
 		{
 			setProvider( new ComponentInstanceProvider( component ) );
 			return this;
@@ -45,7 +45,7 @@ package net.richardlord.ash.fsm
 		 * @param type The type of components to be created by this mapping
 		 * @return This ComponentMapping, so more modifications can be applied
 		 */
-		public function withType( type : Class ) : ComponentMapping
+		public function withType( type : Class ) : StateComponentMapping
 		{
 			setProvider( new ComponentTypeProvider( type ) );
 			return this;
@@ -61,7 +61,7 @@ package net.richardlord.ash.fsm
 		 * mapping is used.
 		 * @return This ComponentMapping, so more modifications can be applied
 		 */
-		public function withSingleton( type : Class = null ) : ComponentMapping
+		public function withSingleton( type : Class = null ) : StateComponentMapping
 		{
 			setProvider( new ComponentSingletonProvider( type ) );
 			return this;
@@ -73,7 +73,7 @@ package net.richardlord.ash.fsm
 		 * @param The component provider to use.
 		 * @return This ComponentMapping, so more modifications can be applied.
 		 */
-		public function withProvider( provider : ComponentProvider ) : ComponentMapping
+		public function withProvider( provider : ComponentProvider ) : StateComponentMapping
 		{
 			setProvider( provider );
 			return this;
@@ -92,7 +92,7 @@ package net.richardlord.ash.fsm
 		 * @param type The type of component to add a mapping to the state for
 		 * @return The new ComponentMapping for that type
 		 */
-		public function add( type : Class ) : ComponentMapping
+		public function add( type : Class ) : StateComponentMapping
 		{
 			return creatingState.add( type );
 		}

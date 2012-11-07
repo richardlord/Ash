@@ -111,7 +111,6 @@ package net.richardlord.ash.fsm
 				entity.add( ComponentProvider( toAdd[ type ] ).getComponent(), type );
 			}
 			currentState = newState;
-			newState = null;
 		}
 	}
 }

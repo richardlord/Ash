@@ -1,10 +1,10 @@
 package net.richardlord.ash.core
 {
+	import flash.utils.Dictionary;
+	import flash.utils.describeType;
 	import net.richardlord.ash.fsm.EntityStateMachine;
 	import net.richardlord.signals.Signal2;
 
-	import flash.utils.Dictionary;
-	import flash.utils.describeType;
 
 
 	/**
@@ -173,20 +173,9 @@ package net.richardlord.ash.core
 			return stateMachine;
 		}
 		
-		public function getStateMachine( name : String = null ) : EntityStateMachine
+		public function getStateMachine( name : String ) : EntityStateMachine
 		{
-			if( name )
-			{
-				return stateMachines[ name ];
-			}
-			else
-			{
-				for each( var stateMachine : EntityStateMachine in stateMachines )
-				{
-					return stateMachine;
-				}
-			}
-			return null;
+			return stateMachines[ name ];
 		}
 	}
 }

@@ -9,35 +9,32 @@ bc. var fsm : EntityStateMachine = new EntityStateMachine();
 fsm.createState( "guard" )
    .add( Patrol ).withInstance( new Patrol( guardPath ) );
 fsm.createState( "investigate" )
-   .add( Investigate ).withType( Investigate );
+   .add( Investigate );
 fsm.createState( "defend" )
-   .add( Defend ).withType( Defend );
+   .add( Defend );
 fsm.changeState( "guard" );
-entity.add( fsm );
-
-bc. game.addSystem( new EntityStateMachineSystem(), 10 );
+entity.addStateMachine( "guardStates", fsm );
 
 h2. The methods
 
-A finite state machine is a component. It is an instance of the EntityStateMachine class and is added as a component 
-to the entity whose state it manages. It is configured with states, and the state can be changed by calling its
-@changeState()@ method. States are identified by a string, which is assigned when the state is created and used to
-identify the state when calling the @changeState()@ method.
+A finite state machine is a property of the entity. It is an instance of the EntityStateMachine class and is added
+to the entity whose state it manages. It can be recovered from the entity by passing its name to the @getStateMachine()@
+method of the Entity class.
+
+A state machine is configured with states, and the state can be changed by calling its @changeState()@ method. States 
+are identified by a string, which is assigned when the state is created and used to identify the state when calling 
+the @changeState()@ method.
 
 States are instances of the EntityState class. They may be added to the EntityStateMachine using the 
 @EntityStateMachine.addState()@ method, or they may be created and added in one call using the 
 @EntityStatemachine.createState()@ method.
-
-The state machine relies on the EntityStateMachineSystem to actually change the state of the entity, so this system
-must be added to your game. @changeState()@ may be called form any system, but the state won't actually change until
-the EntityStateMachineSystem updates the state machine.
 
 A state is a set of components that should be added to the entity when that state is entered, and removed when that
 state exits (unless they are also required for the next state).
 
 States within the state machine are configured with component providers. A component provider has a method to
 provide a component to the entity, and a second method to identify if two component providers are equivalent -
-i.e. if they would provide an equivalent entity.
+i.e. if they would provide an equivalent component.
 
 A component provider implements the ComponentProvider interface.
 
@@ -86,4 +83,4 @@ fsm.createState( "destroyed" )
    .add( Animation ).withInstance( new Animation( deathView ) );
 			
 fsm.changeState( "playing" );
-entity.add( fsm );
+entity.addStateMachine( "lifeCycle", fsm );

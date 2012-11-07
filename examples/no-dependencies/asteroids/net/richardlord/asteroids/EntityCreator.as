@@ -63,7 +63,7 @@ package net.richardlord.asteroids
 				.add( new Spaceship() )
 				.add( new Position( 300, 225, 0 ) );
 				
-			var fsm : EntityStateMachine = spaceship.createStateMachine( "default" );
+			var fsm : EntityStateMachine = spaceship.createStateMachine( "lifeCycle" );
 			
 			fsm.createState( "playing" )
 				.add( Motion ).withInstance( new Motion( 0, 0, 0, 15 ) )

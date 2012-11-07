@@ -20,9 +20,9 @@ package net.richardlord.ash.fsm
 		 * @param type The type of component to be mapped
 		 * @return The component mapping to use when setting the provider for the component
 		 */
-		public function add( type : Class ) : ComponentMapping
+		public function add( type : Class ) : StateComponentMapping
 		{
-			return new ComponentMapping( this, type );
+			return new StateComponentMapping( this, type );
 		}
 		
 		/**

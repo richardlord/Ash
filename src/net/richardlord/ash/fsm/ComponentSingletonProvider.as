@@ -1,9 +1,8 @@
 package net.richardlord.ash.fsm
 {
-	import net.richardlord.ash.fsm.ComponentProvider;
 
 	/**
-	 * This component provider allways returns the same instance of the component. The instance
+	 * This component provider always returns the same instance of the component. The instance
 	 * is created when first required and is of the type passed in to the constructor.
 	 */
 	public class ComponentSingletonProvider implements ComponentProvider
