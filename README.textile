@@ -20,6 +20,10 @@ I've also written a few blog posts explaining how Ash works.
 * "What is an entity framework for game development.":http://www.richardlord.net/blog/what-is-an-entity-framework
 * "Why use an entity framework for game development.":http://www.richardlord.net/blog/why-use-an-entity-framework
 
+h3. Join the discussion
+
+There is a (new) "Google group for discussing Ash":https://groups.google.com/forum/?fromgroups=#!forum/ash-framework , how to use it and how to make it better. Everyone who uses Ash or is interested in using Ash is welcome. 
+
 h3. Developers
 
 * "Richard Lord":http://www.richardlord.net/
