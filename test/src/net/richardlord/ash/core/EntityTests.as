@@ -1,7 +1,7 @@
 package net.richardlord.ash.core
 {
 	import asunit.framework.IAsync;
-	import net.richardlord.ash.fsm.EntityStateMachine;
+
 	import org.hamcrest.assertThat;
 	import org.hamcrest.collection.hasItems;
 	import org.hamcrest.object.equalTo;
@@ -197,45 +197,6 @@ package net.richardlord.ash.core
 			assertThat( clone.get( MockComponent ).value, equalTo( 5 ) );
 		}
 		
-		[Test]
-		public function addStateMachineThenGetWithNameReturnsTheStateMachine() : void
-		{
-			var stateMachine : EntityStateMachine = new EntityStateMachine( entity );
-			entity.addStateMachine( "test", stateMachine );
-			assertThat( entity.getStateMachine( "test" ), sameInstance( stateMachine ) );
-		}
-		
-		[Test]
-		public function createStateMachineThenGetWithNameReturnsTheStateMachine() : void
-		{
-			var stateMachine : EntityStateMachine = entity.createStateMachine( "test" );
-			assertThat( entity.getStateMachine( "test" ), sameInstance( stateMachine ) );
-		}
-		
-		[Test]
-		public function addStateMachineThenGetWithoutNameReturnsTheStateMachine() : void
-		{
-			var stateMachine : EntityStateMachine = new EntityStateMachine( entity );
-			entity.addStateMachine( "test", stateMachine );
-			assertThat( entity.getStateMachine( "test" ), sameInstance( stateMachine ) );
-		}
-		
-		[Test]
-		public function createTwoStateMachinesThenGetFirstByName() : void
-		{
-			var stateMachine : EntityStateMachine = entity.createStateMachine( "test1" );
-			entity.createStateMachine( "test2" );
-			assertThat( entity.getStateMachine( "test1" ), sameInstance( stateMachine ) );
-		}
-		
-		[Test]
-		public function createTwoStateMachinesThenGetSecondByName() : void
-		{
-			entity.createStateMachine( "test1" );
-			var stateMachine : EntityStateMachine = entity.createStateMachine( "test2" );
-			assertThat( entity.getStateMachine( "test2" ), sameInstance( stateMachine ) );
-		}
-
 		private function testSignalContent( signalEntity : Entity, componentClass : Class ) : void
 		{
 			assertThat( signalEntity, sameInstance( entity ) );

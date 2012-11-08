@@ -59,7 +59,7 @@ package net.richardlord.asteroids.systems
 				{
 					if ( Point.distance( asteroid.position.position, spaceship.position.position ) <= asteroid.collision.radius + spaceship.collision.radius )
 					{
-						spaceship.entity.getStateMachine( "lifeCycle" ).changeState( "destroyed" );
+						spaceship.spaceship.fsm.changeState( "destroyed" );
 						break;
 					}
 				}

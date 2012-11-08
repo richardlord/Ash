@@ -5,7 +5,7 @@ classes for creating states based on the components on an entity, and for switch
 
 h2. An example
 
-bc. var fsm : EntityStateMachine = new EntityStateMachine();
+bc. var fsm : EntityStateMachine = new EntityStateMachine( entity );
 fsm.createState( "guard" )
    .add( Patrol ).withInstance( new Patrol( guardPath ) );
 fsm.createState( "investigate" )
@@ -13,17 +13,16 @@ fsm.createState( "investigate" )
 fsm.createState( "defend" )
    .add( Defend );
 fsm.changeState( "guard" );
-entity.addStateMachine( "guardStates", fsm );
 
 h2. The methods
 
-A finite state machine is a property of the entity. It is an instance of the EntityStateMachine class and is added
-to the entity whose state it manages. It can be recovered from the entity by passing its name to the @getStateMachine()@
-method of the Entity class.
+A finite state machine is an instance of the EntityStateMachine class. You pass it a reference to the entity it will
+manage when constructing it. You will usually store the state machine in a component on the entity so it can be
+recovered from within any system that is operating on the entity.
 
-A state machine is configured with states, and the state can be changed by calling its @changeState()@ method. States 
-are identified by a string, which is assigned when the state is created and used to identify the state when calling 
-the @changeState()@ method.
+A state machine is configured with states, and the state can be changed by calling the state machine's @changeState()@ 
+method. States are identified by a string, which is assigned when the state is created and used to identify the state 
+when calling the @changeState()@ method.
 
 States are instances of the EntityState class. They may be added to the EntityStateMachine using the 
 @EntityStateMachine.addState()@ method, or they may be created and added in one call using the 
@@ -66,7 +65,7 @@ h2. Chaining
 
 The methods can be chained together to create a fluent interface. For example
 
-bc.. var fsm : EntityStateMachine = new EntityStateMachine();
+bc.. var fsm : EntityStateMachine = new EntityStateMachine( entity );
 			
 fsm.createState( "playing" )
    .add( Motion ).withInstance( new Motion( 0, 0, 0, 15 ) )
@@ -83,4 +82,3 @@ fsm.createState( "destroyed" )
    .add( Animation ).withInstance( new Animation( deathView ) );
 			
 fsm.changeState( "playing" );
-entity.addStateMachine( "lifeCycle", fsm );

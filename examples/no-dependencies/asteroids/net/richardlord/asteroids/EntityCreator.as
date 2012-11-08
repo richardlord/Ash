@@ -59,11 +59,8 @@ package net.richardlord.asteroids
 
 		public function createSpaceship() : Entity
 		{
-			var spaceship : Entity = new Entity()
-				.add( new Spaceship() )
-				.add( new Position( 300, 225, 0 ) );
-				
-			var fsm : EntityStateMachine = spaceship.createStateMachine( "lifeCycle" );
+			var spaceship : Entity = new Entity();
+			var fsm : EntityStateMachine = new EntityStateMachine( spaceship );
 			
 			fsm.createState( "playing" )
 				.add( Motion ).withInstance( new Motion( 0, 0, 0, 15 ) )
@@ -79,8 +76,9 @@ package net.richardlord.asteroids
 				.add( Display ).withInstance( new Display( deathView ) )
 				.add( Animation ).withInstance( new Animation( deathView ) );
 			
+			spaceship.add( new Spaceship( fsm ) ).add( new Position( 300, 225, 0 ) );
+				
 			fsm.changeState( "playing" );
-			
 			game.addEntity( spaceship );
 			return spaceship;
 		}
