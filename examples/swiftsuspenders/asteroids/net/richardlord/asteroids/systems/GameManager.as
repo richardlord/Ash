@@ -6,7 +6,7 @@ package net.richardlord.asteroids.systems
 	import net.richardlord.asteroids.GameConfig;
 	import net.richardlord.asteroids.nodes.AsteroidCollisionNode;
 	import net.richardlord.asteroids.nodes.GameNode;
-	import net.richardlord.asteroids.nodes.SpaceshipCollisionNode;
+	import net.richardlord.asteroids.nodes.SpaceshipNode;
 
 	import flash.geom.Point;
 
@@ -20,7 +20,7 @@ package net.richardlord.asteroids.systems
 
 		[Inject(nodeType="net.richardlord.asteroids.nodes.GameNode")]
 		public var gameNodes : NodeList;
-		[Inject(nodeType="net.richardlord.asteroids.nodes.SpaceshipCollisionNode")]
+		[Inject(nodeType="net.richardlord.asteroids.nodes.SpaceshipNode")]
 		public var spaceships : NodeList;
 		[Inject(nodeType="net.richardlord.asteroids.nodes.AsteroidCollisionNode")]
 		public var asteroids : NodeList;
@@ -40,7 +40,7 @@ package net.richardlord.asteroids.systems
 						var clearToAddSpaceship : Boolean = true;
 						for ( var asteroid : AsteroidCollisionNode = asteroids.head; asteroid; asteroid = asteroid.next )
 						{
-							if ( Point.distance( asteroid.position.position, newSpaceshipPosition ) <= asteroid.position.collisionRadius + 50 )
+							if ( Point.distance( asteroid.position.position, newSpaceshipPosition ) <= asteroid.collision.radius + 50 )
 							{
 								clearToAddSpaceship = false;
 								break;
@@ -61,7 +61,7 @@ package net.richardlord.asteroids.systems
 				if ( asteroids.empty && bullets.empty && !spaceships.empty )
 				{
 					// next level
-					var spaceship : SpaceshipCollisionNode = spaceships.head;
+					var spaceship : SpaceshipNode = spaceships.head;
 					node.state.level++;
 					var asteroidCount : int = 2 + node.state.level;
 					for ( var i : int = 0; i < asteroidCount; ++i )
