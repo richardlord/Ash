@@ -31,13 +31,13 @@ package net.richardlord.asteroids.systems
 			{
 				for ( asteroid = asteroids.head; asteroid; asteroid = asteroid.next )
 				{
-					if ( Point.distance( asteroid.position.position, bullet.position.position ) <= asteroid.position.collisionRadius )
+					if ( Point.distance( asteroid.position.position, bullet.position.position ) <= asteroid.collision.radius )
 					{
 						creator.destroyEntity( bullet.entity );
-						if ( asteroid.position.collisionRadius > 10 )
+						if ( asteroid.collision.radius > 10 )
 						{
-							creator.createAsteroid( asteroid.position.collisionRadius - 10, asteroid.position.position.x + Math.random() * 10 - 5, asteroid.position.position.y + Math.random() * 10 - 5 );
-							creator.createAsteroid( asteroid.position.collisionRadius - 10, asteroid.position.position.x + Math.random() * 10 - 5, asteroid.position.position.y + Math.random() * 10 - 5 );
+							creator.createAsteroid( asteroid.collision.radius - 10, asteroid.position.position.x + Math.random() * 10 - 5, asteroid.position.position.y + Math.random() * 10 - 5 );
+							creator.createAsteroid( asteroid.collision.radius - 10, asteroid.position.position.x + Math.random() * 10 - 5, asteroid.position.position.y + Math.random() * 10 - 5 );
 						}
 						creator.destroyEntity( asteroid.entity );
 						break;
@@ -49,9 +49,9 @@ package net.richardlord.asteroids.systems
 			{
 				for ( asteroid = asteroids.head; asteroid; asteroid = asteroid.next )
 				{
-					if ( Point.distance( asteroid.position.position, spaceship.position.position ) <= asteroid.position.collisionRadius + spaceship.position.collisionRadius )
+					if ( Point.distance( asteroid.position.position, spaceship.position.position ) <= asteroid.collision.radius + spaceship.collision.radius )
 					{
-						creator.destroyEntity( spaceship.entity );
+						spaceship.spaceship.fsm.changeState( "destroyed" );
 						break;
 					}
 				}

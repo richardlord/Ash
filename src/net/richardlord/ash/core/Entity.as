@@ -1,9 +1,9 @@
 package net.richardlord.ash.core
 {
-	import flash.utils.Dictionary;
-	import flash.utils.describeType;
 	import net.richardlord.signals.Signal2;
 
+	import flash.utils.Dictionary;
+	import flash.utils.describeType;
 
 	/**
 	 * A game entity is a collection object for components. Sometimes, the entities in a game

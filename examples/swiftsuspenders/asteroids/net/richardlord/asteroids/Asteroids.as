@@ -1,8 +1,10 @@
 package net.richardlord.asteroids
 {
+	import net.richardlord.asteroids.systems.DeathThroesSystem;
 	import net.richardlord.ash.core.Game;
 	import net.richardlord.ash.integration.swiftsuspenders.SwiftSuspendersGame;
 	import net.richardlord.ash.tick.FrameTickProvider;
+	import net.richardlord.asteroids.systems.AnimationSystem;
 	import net.richardlord.asteroids.systems.BulletAgeSystem;
 	import net.richardlord.asteroids.systems.CollisionSystem;
 	import net.richardlord.asteroids.systems.GameManager;
@@ -49,8 +51,10 @@ package net.richardlord.asteroids
 			game.addSystem( new MotionControlSystem(), SystemPriorities.update );
 			game.addSystem( new GunControlSystem(), SystemPriorities.update );
 			game.addSystem( new BulletAgeSystem(), SystemPriorities.update );
+			game.addSystem( new DeathThroesSystem(), SystemPriorities.update );
 			game.addSystem( new MovementSystem(), SystemPriorities.move );
 			game.addSystem( new CollisionSystem(), SystemPriorities.resolveCollisions );
+			game.addSystem( new AnimationSystem(), SystemPriorities.animate );
 			game.addSystem( new RenderSystem(), SystemPriorities.render );
 			
 			var creator : EntityCreator = injector.getInstance( EntityCreator );

@@ -10,6 +10,8 @@ package net.richardlord.ash.core
 	import org.hamcrest.object.nullValue;
 	import org.hamcrest.object.sameInstance;
 
+
+
 	public class EntityTests
 	{
 		[Inject]
@@ -194,7 +196,7 @@ package net.richardlord.ash.core
 			var clone : Entity = entity.clone();
 			assertThat( clone.get( MockComponent ).value, equalTo( 5 ) );
 		}
-
+		
 		private function testSignalContent( signalEntity : Entity, componentClass : Class ) : void
 		{
 			assertThat( signalEntity, sameInstance( entity ) );

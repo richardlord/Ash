@@ -2,8 +2,10 @@ package net.richardlord.asteroids
 {
 	import net.richardlord.ash.core.Game;
 	import net.richardlord.ash.tick.FrameTickProvider;
+	import net.richardlord.asteroids.systems.AnimationSystem;
 	import net.richardlord.asteroids.systems.BulletAgeSystem;
 	import net.richardlord.asteroids.systems.CollisionSystem;
+	import net.richardlord.asteroids.systems.DeathThroesSystem;
 	import net.richardlord.asteroids.systems.GameManager;
 	import net.richardlord.asteroids.systems.GunControlSystem;
 	import net.richardlord.asteroids.systems.MotionControlSystem;
@@ -42,8 +44,10 @@ package net.richardlord.asteroids
 			game.addSystem( new MotionControlSystem( keyPoll ), SystemPriorities.update );
 			game.addSystem( new GunControlSystem( keyPoll, creator ), SystemPriorities.update );
 			game.addSystem( new BulletAgeSystem( creator ), SystemPriorities.update );
+			game.addSystem( new DeathThroesSystem( creator ), SystemPriorities.update );
 			game.addSystem( new MovementSystem( config ), SystemPriorities.move );
 			game.addSystem( new CollisionSystem( creator ), SystemPriorities.resolveCollisions );
+			game.addSystem( new AnimationSystem(), SystemPriorities.animate );
 			game.addSystem( new RenderSystem( container ), SystemPriorities.render );
 			
 			creator.createGame();
