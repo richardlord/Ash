@@ -1,7 +1,8 @@
 package net.richardlord.asteroids.systems
 {
-	import net.richardlord.ash.core.NodeList;
-	import net.richardlord.ash.core.System;
+	import ash.core.NodeList;
+	import ash.core.System;
+
 	import net.richardlord.asteroids.EntityCreator;
 	import net.richardlord.asteroids.GameConfig;
 	import net.richardlord.asteroids.nodes.AsteroidCollisionNode;

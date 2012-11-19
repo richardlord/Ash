@@ -1,6 +1,7 @@
 package net.richardlord.asteroids.nodes
 {
-	import net.richardlord.ash.core.Node;
+	import ash.core.Node;
+
 	import net.richardlord.asteroids.components.Position;
 	import net.richardlord.asteroids.components.Spaceship;
 

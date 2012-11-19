@@ -1,6 +1,7 @@
 package net.richardlord.asteroids
 {
-	import net.richardlord.ash.integration.robotlegs.AshExtension;
+	import ash.integration.robotlegs.AshExtension;
+
 	import net.richardlord.asteroids.events.StartGameEvent;
 
 	import robotlegs.bender.bundles.mvcs.MVCSBundle;

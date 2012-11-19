@@ -1,13 +1,15 @@
 package net.richardlord.asteroids.systems
 {
-	import flash.display.DisplayObject;
-	import flash.display.DisplayObjectContainer;
-	import net.richardlord.ash.core.Game;
-	import net.richardlord.ash.core.NodeList;
-	import net.richardlord.ash.core.System;
+	import ash.core.Game;
+	import ash.core.NodeList;
+	import ash.core.System;
+
 	import net.richardlord.asteroids.components.Display;
 	import net.richardlord.asteroids.components.Position;
 	import net.richardlord.asteroids.nodes.RenderNode;
+
+	import flash.display.DisplayObject;
+	import flash.display.DisplayObjectContainer;
 	
 	public class RenderSystem extends System
 	{

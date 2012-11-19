@@ -1,7 +1,7 @@
 package net.richardlord.asteroids.graphics
 {
-	import starling.textures.Texture;
 	import starling.display.Image;
+	import starling.textures.Texture;
 
 	import flash.display.BitmapData;
 	import flash.display.Shape;

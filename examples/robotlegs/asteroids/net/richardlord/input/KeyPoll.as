@@ -1,4 +1,4 @@
-﻿/*
+/*
  * Author: Richard Lord
  * Copyright (c) Big Room Ventures Ltd. 2007
  * Version: 1.0.2
@@ -26,9 +26,9 @@
 
 package net.richardlord.input
 {
-	import flash.events.KeyboardEvent;
-	import flash.events.Event;
 	import flash.display.DisplayObject;
+	import flash.events.Event;
+	import flash.events.KeyboardEvent;
 	import flash.utils.ByteArray;
 	
 	/**

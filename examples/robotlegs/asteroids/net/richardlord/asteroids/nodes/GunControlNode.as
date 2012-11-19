@@ -1,6 +1,7 @@
 package net.richardlord.asteroids.nodes
 {
-	import net.richardlord.ash.core.Node;
+	import ash.core.Node;
+
 	import net.richardlord.asteroids.components.Gun;
 	import net.richardlord.asteroids.components.GunControls;
 	import net.richardlord.asteroids.components.Position;

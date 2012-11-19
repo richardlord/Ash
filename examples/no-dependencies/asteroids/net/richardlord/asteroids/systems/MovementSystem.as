@@ -1,6 +1,7 @@
 package net.richardlord.asteroids.systems
 {
-	import net.richardlord.ash.tools.ListIteratingSystem;
+	import ash.tools.ListIteratingSystem;
+
 	import net.richardlord.asteroids.GameConfig;
 	import net.richardlord.asteroids.components.Motion;
 	import net.richardlord.asteroids.components.Position;

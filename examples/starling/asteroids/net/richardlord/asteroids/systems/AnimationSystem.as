@@ -1,6 +1,7 @@
 package net.richardlord.asteroids.systems
 {
-	import net.richardlord.ash.tools.ListIteratingSystem;
+	import ash.tools.ListIteratingSystem;
+
 	import net.richardlord.asteroids.nodes.AnimationNode;
 
 	public class AnimationSystem extends ListIteratingSystem

@@ -1,8 +1,9 @@
 package net.richardlord.asteroids
 {
-	import net.richardlord.ash.core.Game;
-	import net.richardlord.ash.tick.FrameTickProvider;
-	import net.richardlord.ash.tick.TickProvider;
+	import ash.core.Game;
+	import ash.tick.FrameTickProvider;
+	import ash.tick.TickProvider;
+
 	import net.richardlord.asteroids.events.StartGameEvent;
 	import net.richardlord.asteroids.systems.AnimationSystem;
 	import net.richardlord.asteroids.systems.BulletAgeSystem;

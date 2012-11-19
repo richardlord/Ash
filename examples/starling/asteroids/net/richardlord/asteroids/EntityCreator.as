@@ -1,8 +1,9 @@
 package net.richardlord.asteroids
 {
-	import net.richardlord.ash.core.Entity;
-	import net.richardlord.ash.core.Game;
-	import net.richardlord.ash.fsm.EntityStateMachine;
+	import ash.core.Entity;
+	import ash.core.Game;
+	import ash.fsm.EntityStateMachine;
+
 	import net.richardlord.asteroids.components.Animation;
 	import net.richardlord.asteroids.components.Asteroid;
 	import net.richardlord.asteroids.components.Bullet;

@@ -1,12 +1,14 @@
 package net.richardlord.asteroids.systems
 {
-	import flash.geom.Point;
-	import net.richardlord.ash.core.NodeList;
-	import net.richardlord.ash.core.System;
+	import ash.core.NodeList;
+	import ash.core.System;
+
 	import net.richardlord.asteroids.EntityCreator;
 	import net.richardlord.asteroids.nodes.AsteroidCollisionNode;
 	import net.richardlord.asteroids.nodes.BulletCollisionNode;
 	import net.richardlord.asteroids.nodes.SpaceshipCollisionNode;
+
+	import flash.geom.Point;
 
 
 	public class CollisionSystem extends System

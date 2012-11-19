@@ -1,12 +1,13 @@
 package net.richardlord.asteroids
 {
-	import net.richardlord.asteroids.systems.DeathThroesSystem;
-	import net.richardlord.ash.core.Game;
-	import net.richardlord.ash.integration.swiftsuspenders.SwiftSuspendersGame;
-	import net.richardlord.ash.tick.FrameTickProvider;
+	import ash.core.Game;
+	import ash.integration.swiftsuspenders.SwiftSuspendersGame;
+	import ash.tick.FrameTickProvider;
+
 	import net.richardlord.asteroids.systems.AnimationSystem;
 	import net.richardlord.asteroids.systems.BulletAgeSystem;
 	import net.richardlord.asteroids.systems.CollisionSystem;
+	import net.richardlord.asteroids.systems.DeathThroesSystem;
 	import net.richardlord.asteroids.systems.GameManager;
 	import net.richardlord.asteroids.systems.GunControlSystem;
 	import net.richardlord.asteroids.systems.MotionControlSystem;
