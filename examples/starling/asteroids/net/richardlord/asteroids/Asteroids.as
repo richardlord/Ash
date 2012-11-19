@@ -1,6 +1,6 @@
 package net.richardlord.asteroids
 {
-	import ash.core.Game;
+	import ash.core.Ash;
 	import ash.integration.starling.StarlingFrameTickProvider;
 
 	import net.richardlord.asteroids.systems.AnimationSystem;
@@ -23,7 +23,7 @@ package net.richardlord.asteroids
 
 	public class Asteroids extends Sprite
 	{
-		private var game : Game;
+		private var game : Ash;
 		private var tickProvider : StarlingFrameTickProvider;
 		private var creator : EntityCreator;
 		private var keyPoll : KeyPoll;
@@ -42,7 +42,7 @@ package net.richardlord.asteroids
 		
 		private function prepare() : void
 		{
-			game = new Game();
+			game = new Ash();
 			creator = new EntityCreator( game );
 			keyPoll = new KeyPoll( Starling.current.nativeStage );
 			var viewPort : Rectangle = Starling.current.viewPort;

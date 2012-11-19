@@ -8,7 +8,7 @@ package ash.core
 	 * The game class is the central point for creating and managing your game state. Add
 	 * entities and systems to the game, and fetch families of nodes from the game.
 	 */
-	public class Game
+	public class Ash
 	{
 		private var entityList : EntityList;
 		private var systemList : SystemList;
@@ -35,7 +35,7 @@ package ash.core
 		 */
 		public var familyClass : Class = ComponentMatchingFamily;
 		
-		public function Game()
+		public function Ash()
 		{
 			entityList = new EntityList();
 			systemList = new SystemList();

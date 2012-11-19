@@ -1,7 +1,7 @@
 package ash.tools
 {
 	import ash.core.Entity;
-	import ash.core.Game;
+	import ash.core.Ash;
 	import flash.geom.Point;
 	import org.hamcrest.assertThat;
 	import org.hamcrest.object.equalTo;
@@ -16,7 +16,7 @@ package ash.tools
 		[Test]
 		public function updateIteratesOverNodes() : void
 		{
-			var game : Game = new Game();
+			var game : Ash = new Ash();
 			var entity1 : Entity = new Entity();
 			var component1 : Point = new Point();
 			entity1.add( component1 );

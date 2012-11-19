@@ -2,8 +2,8 @@ package ash
 {
 	import ash.core.ComponentMatchingFamilyTests;
 	import ash.core.EntityTests;
-	import ash.core.GameAndFamilyIntegrationTests;
-	import ash.core.GameTests;
+	import ash.core.AshAndFamilyIntegrationTests;
+	import ash.core.AshTests;
 	import ash.core.NodeListTests;
 	import ash.core.SystemTests;
 	import ash.fsm.ComponentInstanceProviderTests;
@@ -21,9 +21,9 @@ package ash
 		public var entityTests : EntityTests;
 		public var nodeListTests : NodeListTests;
 		public var systemTests : SystemTests;
-		public var gameTests : GameTests;
+		public var gameTests : AshTests;
 		public var familyTests : ComponentMatchingFamilyTests;
-		public var gameAndFamilyTests : GameAndFamilyIntegrationTests;
+		public var gameAndFamilyTests : AshAndFamilyIntegrationTests;
 		public var signalTests : SignalTest;
 		public var componentPoolTest : ComponentPoolTest;
 		public var listIteratingSystemTest : ListIteratingSystemTest;

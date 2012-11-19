@@ -1,6 +1,6 @@
 package net.richardlord.asteroids
 {
-	import ash.core.Game;
+	import ash.core.Ash;
 	import ash.tick.FrameTickProvider;
 
 	import net.richardlord.asteroids.systems.AnimationSystem;
@@ -20,7 +20,7 @@ package net.richardlord.asteroids
 	public class Asteroids
 	{
 		private var container : DisplayObjectContainer;
-		private var game : Game;
+		private var game : Ash;
 		private var tickProvider : FrameTickProvider;
 		private var creator : EntityCreator;
 		private var keyPoll : KeyPoll;
@@ -34,7 +34,7 @@ package net.richardlord.asteroids
 		
 		private function prepare( width : Number, height : Number ) : void
 		{
-			game = new Game();
+			game = new Ash();
 			creator = new EntityCreator( game );
 			keyPoll = new KeyPoll( container.stage );
 			config = new GameConfig();

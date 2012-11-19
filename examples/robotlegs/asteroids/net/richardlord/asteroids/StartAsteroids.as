@@ -1,8 +1,8 @@
 package net.richardlord.asteroids
 {
-	import ash.core.Game;
+	import ash.core.Ash;
 	import ash.tick.FrameTickProvider;
-	import ash.tick.TickProvider;
+	import ash.tick.ITickProvider;
 
 	import net.richardlord.asteroids.events.StartGameEvent;
 	import net.richardlord.asteroids.systems.AnimationSystem;
@@ -26,7 +26,7 @@ package net.richardlord.asteroids
 		[Inject]
 		public var event : StartGameEvent;
 		[Inject]
-		public var game : Game;
+		public var game : Ash;
 		
 		public function execute() : void
 		{
@@ -39,7 +39,7 @@ package net.richardlord.asteroids
 			injector.map( GameConfig ).asSingleton();
 			injector.map( EntityCreator ).asSingleton();
 			injector.map( KeyPoll ).toValue( new KeyPoll( event.container.stage ) );
-			injector.map( TickProvider ).toValue( new FrameTickProvider( event.container ) );
+			injector.map( ITickProvider ).toValue( new FrameTickProvider( event.container ) );
 			
 			var config : GameConfig = injector.getInstance( GameConfig );
 			config.width = event.width;
@@ -61,7 +61,7 @@ package net.richardlord.asteroids
 		
 		public function start() : void
 		{
-			var tickProvider : TickProvider = injector.getInstance( TickProvider );
+			var tickProvider : ITickProvider = injector.getInstance( ITickProvider );
 			tickProvider.add( game.update );
 			tickProvider.start();
 		}

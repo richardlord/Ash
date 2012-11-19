@@ -1,7 +1,7 @@
 package net.richardlord.asteroids
 {
-	import ash.core.Game;
-	import ash.integration.swiftsuspenders.SwiftSuspendersGame;
+	import ash.core.Ash;
+	import ash.integration.swiftsuspenders.SwiftSuspendersAsh;
 	import ash.tick.FrameTickProvider;
 
 	import net.richardlord.asteroids.systems.AnimationSystem;
@@ -22,7 +22,7 @@ package net.richardlord.asteroids
 
 	public class Asteroids
 	{
-		private var game : Game;
+		private var game : Ash;
 		private var tickProvider : FrameTickProvider;
 		private var injector : Injector;
 		private var container : DisplayObjectContainer;
@@ -36,9 +36,9 @@ package net.richardlord.asteroids
 		private function prepare( width : Number, height : Number ) : void
 		{
 			injector = new Injector();
-			game = new SwiftSuspendersGame( injector );
+			game = new SwiftSuspendersAsh( injector );
 			
-			injector.map( Game ).toValue( game );
+			injector.map( Ash ).toValue( game );
 			injector.map( DisplayObjectContainer ).toValue( container );
 			injector.map( GameConfig ).asSingleton();
 			injector.map( EntityCreator ).asSingleton();

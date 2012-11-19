@@ -1,21 +1,20 @@
 package ash.integration.swiftsuspenders
 {
-	import ash.core.Game;
+	import ash.core.Ash;
 	import ash.core.NodeList;
 	import ash.core.System;
 	import org.swiftsuspenders.Injector;
-
 
 	/**
 	 * A custom game class for games that use SwiftSuspenders for dependency injection.
 	 * Pass a SwiftSuspenders injector to the constructor, and the game will automatically
 	 * apply injection rules to the systems when they are added to the game.
 	 */
-	public class SwiftSuspendersGame extends Game
+	public class SwiftSuspendersAsh extends Ash
 	{
 		protected var injector : Injector;
 		
-		public function SwiftSuspendersGame( injector : Injector )
+		public function SwiftSuspendersAsh( injector : Injector )
 		{
 			super();
 			this.injector = injector;

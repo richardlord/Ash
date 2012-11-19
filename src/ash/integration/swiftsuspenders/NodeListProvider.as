@@ -1,6 +1,6 @@
 package ash.integration.swiftsuspenders
 {
-	import ash.core.Game;
+	import ash.core.Ash;
 	import flash.utils.Dictionary;
 	import flash.utils.getDefinitionByName;
 	import org.swiftsuspenders.Injector;
@@ -19,9 +19,9 @@ package ash.integration.swiftsuspenders
 	 */
 	public class NodeListProvider implements DependencyProvider
 	{
-		private var game : Game;
+		private var game : Ash;
 
-		public function NodeListProvider( game : Game )
+		public function NodeListProvider( game : Ash )
 		{
 			this.game = game;
 		}

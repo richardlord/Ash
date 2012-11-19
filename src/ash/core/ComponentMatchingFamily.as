@@ -18,9 +18,9 @@ package ash.core
 		private var nodeClass : Class;
 		private var components : Dictionary;
 		private var nodePool : NodePool;
-		private var game : Game;
+		private var game : Ash;
 
-		public function ComponentMatchingFamily( nodeClass : Class, game : Game )
+		public function ComponentMatchingFamily( nodeClass : Class, game : Ash )
 		{
 			this.nodeClass = nodeClass;
 			this.game = game;

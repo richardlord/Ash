@@ -34,7 +34,7 @@ package ash.core
 		 * 
 		 * @param game The game the system was added to.
 		 */
-		public function addToGame( game : Game ) : void
+		public function addToGame( game : Ash ) : void
 		{
 			
 		}
@@ -45,7 +45,7 @@ package ash.core
 		 * 
 		 * @param game The game the system was removed from.
 		 */
-		public function removeFromGame( game : Game ) : void
+		public function removeFromGame( game : Ash ) : void
 		{
 			
 		}

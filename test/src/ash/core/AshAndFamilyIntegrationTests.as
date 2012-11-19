@@ -15,17 +15,17 @@ package ash.core
 	 * Tests the family class through the game class. Left over from a previous 
 	 * architecture but retained because all tests shoudl still pass.
 	 */
-	public class GameAndFamilyIntegrationTests
+	public class AshAndFamilyIntegrationTests
 	{
 		[Inject]
 		public var async : IAsync;
 		
-		private var game : Game;
+		private var game : Ash;
 		
 		[Before]
 		public function createEntity() : void
 		{
-			game = new Game();
+			game = new Ash();
 		}
 
 		[After]

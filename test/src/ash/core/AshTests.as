@@ -6,14 +6,14 @@ package ash.core
 	import org.hamcrest.object.equalTo;
 
 	
-	public class GameTests
+	public class AshTests
 	{
-		private var game : Game;
+		private var game : Ash;
 		
 		[Before]
 		public function createGame() : void
 		{
-			game = new Game();
+			game = new Ash();
 			game.familyClass = MockFamily;
 			MockFamily.reset();
 		}
@@ -124,7 +124,7 @@ package ash.core
 }
 import ash.core.Entity;
 import ash.core.IFamily;
-import ash.core.Game;
+import ash.core.Ash;
 import ash.core.Node;
 import ash.core.NodeList;
 import flash.geom.Matrix;
@@ -155,7 +155,7 @@ class MockFamily implements IFamily
 	public var componentRemovedCalls : int = 0;
 	public var cleanUpCalls : int = 0;
 	
-	public function MockFamily( nodeClass : Class, game : Game )
+	public function MockFamily( nodeClass : Class, game : Ash )
 	{
 		instances.push( this );
 	}

@@ -1,7 +1,7 @@
 package net.richardlord.asteroids
 {
+	import ash.core.Ash;
 	import ash.core.Entity;
-	import ash.core.Game;
 	import ash.fsm.EntityStateMachine;
 
 	import net.richardlord.asteroids.components.Animation;
@@ -26,9 +26,9 @@ package net.richardlord.asteroids
 
 	public class EntityCreator
 	{
-		private var game : Game;
+		private var game : Ash;
 		
-		public function EntityCreator( game : Game )
+		public function EntityCreator( game : Ash )
 		{
 			this.game = game;
 		}

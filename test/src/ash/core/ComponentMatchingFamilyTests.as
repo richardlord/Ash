@@ -11,13 +11,13 @@ package ash.core
 	
 	public class ComponentMatchingFamilyTests
 	{
-		private var game : Game;
+		private var game : Ash;
 		private var family : ComponentMatchingFamily;
 		
 		[Before]
 		public function createFamily() : void
 		{
-			game = new Game();
+			game = new Ash();
 			family = new ComponentMatchingFamily( MockNode, game );
 		}
 

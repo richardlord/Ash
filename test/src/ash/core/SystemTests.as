@@ -17,7 +17,7 @@ package ash.core
 		
 		public var asyncCallback : Function;
 		
-		private var game : Game;
+		private var game : Ash;
 		
 		private var system1 : MockSystem;
 		private var system2 : MockSystem;
@@ -25,7 +25,7 @@ package ash.core
 		[Before]
 		public function createEntity() : void
 		{
-			game = new Game();
+			game = new Ash();
 		}
 
 		[After]
@@ -191,13 +191,13 @@ package ash.core
 			assertThat( systemB.next, nullValue() );
 		}
      
-	 	private function addedCallbackMethod( system : System, action : String, systemGame : Game ) : void
+	 	private function addedCallbackMethod( system : System, action : String, systemGame : Ash ) : void
 		{
 			assertThat( action, equalTo( "added" ) );
 			assertThat( systemGame, sameInstance( game ) );
 		}
 
-		private function removedCallbackMethod( system : System, action : String, systemGame : Game ) : void
+		private function removedCallbackMethod( system : System, action : String, systemGame : Ash ) : void
 		{
 			assertThat( action, equalTo( "removed" ) );
 			assertThat( systemGame, sameInstance( game ) );
@@ -231,7 +231,7 @@ package ash.core
 		}
 	}
 }
-import ash.core.Game;
+import ash.core.Ash;
 import ash.core.System;
 import ash.core.SystemTests;
 
@@ -244,13 +244,13 @@ class MockSystem extends System
 		this.tests = tests;
 	}
 
-	override public function addToGame( game : Game ) : void
+	override public function addToGame( game : Ash ) : void
 	{
 		if( tests.asyncCallback != null )
 			tests.asyncCallback( this, "added", game );
 	}
 
-	override public function removeFromGame( game : Game ) : void
+	override public function removeFromGame( game : Ash ) : void
 	{
 		if( tests.asyncCallback != null )
 			tests.asyncCallback( this, "removed", game );

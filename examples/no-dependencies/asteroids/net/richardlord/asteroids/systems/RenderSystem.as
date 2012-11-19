@@ -1,6 +1,6 @@
 package net.richardlord.asteroids.systems
 {
-	import ash.core.Game;
+	import ash.core.Ash;
 	import ash.core.NodeList;
 	import ash.core.System;
 
@@ -22,7 +22,7 @@ package net.richardlord.asteroids.systems
 			this.container = container;
 		}
 		
-		override public function addToGame( game : Game ) : void
+		override public function addToGame( game : Ash ) : void
 		{
 			nodes = game.getNodeList( RenderNode );
 			for( var node : RenderNode = nodes.head; node; node = node.next )
@@ -62,7 +62,7 @@ package net.richardlord.asteroids.systems
 			}
 		}
 
-		override public function removeFromGame( game : Game ) : void
+		override public function removeFromGame( game : Ash ) : void
 		{
 			nodes = null;
 		}
