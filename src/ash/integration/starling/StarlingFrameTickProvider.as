@@ -1,7 +1,7 @@
 package ash.integration.starling
 {
 	import ash.signals.Signal1;
-	import ash.tick.TickProvider;
+	import ash.tick.ITickProvider;
 	import starling.animation.IAnimatable;
 	import starling.animation.Juggler;
 
@@ -11,7 +11,7 @@ package ash.integration.starling
 	 * There is a maximum frame time parameter in the constructor that can be used to limit
 	 * the longest period a frame can be.
 	 */
-	public class StarlingFrameTickProvider extends Signal1 implements TickProvider, IAnimatable
+	public class StarlingFrameTickProvider extends Signal1 implements ITickProvider, IAnimatable
 	{
 		private var juggler : Juggler;
 		private var maximumFrameTime : Number;

@@ -4,7 +4,7 @@ package ash.core
 	 * The interface for classes that are used to manage NodeLists
 	 * (set as the familyClass property in the Game object)
 	 */
-	public interface Family
+	public interface IFamily
 	{
 		/**
 		 * Returns the NodeList managed by this class. This should be a reference that remains valid always

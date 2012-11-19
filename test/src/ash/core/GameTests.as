@@ -123,7 +123,7 @@ package ash.core
 	}
 }
 import ash.core.Entity;
-import ash.core.Family;
+import ash.core.IFamily;
 import ash.core.Game;
 import ash.core.Node;
 import ash.core.NodeList;
@@ -141,7 +141,7 @@ class MockNode2 extends Node
 	public var matrix : Matrix;
 }
 
-class MockFamily implements Family
+class MockFamily implements IFamily
 {
 	public static function reset() : void
 	{

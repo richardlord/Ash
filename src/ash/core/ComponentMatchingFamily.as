@@ -11,7 +11,7 @@ package ash.core
 	 * It uses the basic entity matching pattern of an entity system - entities are added to the list if
 	 * they contain components matching all the public properties of the node class.
 	 */
-	public class ComponentMatchingFamily implements Family
+	public class ComponentMatchingFamily implements IFamily
 	{
 		private var nodes : NodeList;
 		private var entities : Dictionary;

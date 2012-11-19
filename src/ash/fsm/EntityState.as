@@ -31,7 +31,7 @@ package ash.fsm
 		 * @param type The type of component to get the provider for
 		 * @return The ComponentProvider
 		 */
-		public function get( type : Class ) : ComponentProvider
+		public function get( type : Class ) : IComponentProvider
 		{
 			return providers[ type ];
 		}

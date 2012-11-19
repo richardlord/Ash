@@ -5,7 +5,7 @@ package ash.fsm
 	 * This component provider always returns the same instance of the component. The instance
 	 * is passed to the provider at initialisation.
 	 */
-	public class ComponentInstanceProvider implements ComponentProvider
+	public class ComponentInstanceProvider implements IComponentProvider
 	{
 		private var instance : *;
 		

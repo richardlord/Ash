@@ -1,7 +1,7 @@
 package ash.integration.starling
 {
 	import ash.signals.Signal1;
-	import ash.tick.TickProvider;
+	import ash.tick.ITickProvider;
 	import starling.animation.IAnimatable;
 	import starling.animation.Juggler;
 
@@ -10,7 +10,7 @@ package ash.integration.starling
 	 * Provides a frame tick with a fixed frame duration. This tick ignores the length of
 	 * the frame and dispatches the same time period for each tick.
 	 */
-	public class StarlingFixedTickProvider extends Signal1 implements TickProvider, IAnimatable
+	public class StarlingFixedTickProvider extends Signal1 implements ITickProvider, IAnimatable
 	{
 		private var juggler : Juggler;
 		private var frameTime : Number;

@@ -53,7 +53,7 @@ package ash.core
 			entityList.add( entity );
 			entity.componentAdded.add( componentAdded );
 			entity.componentRemoved.add( componentRemoved );
-			for each( var family : Family in families )
+			for each( var family : IFamily in families )
 			{
 				family.newEntity( entity );
 			}
@@ -68,7 +68,7 @@ package ash.core
 		{
 			entity.componentAdded.remove( componentAdded );
 			entity.componentRemoved.remove( componentRemoved );
-			for each( var family : Family in families )
+			for each( var family : IFamily in families )
 			{
 				family.removeEntity( entity );
 			}
@@ -104,7 +104,7 @@ package ash.core
 		 */
 		private function componentAdded( entity : Entity, componentClass : Class ) : void
 		{
-			for each( var family : Family in families )
+			for each( var family : IFamily in families )
 			{
 				family.componentAddedToEntity( entity, componentClass );
 			}
@@ -115,7 +115,7 @@ package ash.core
 		 */
 		private function componentRemoved( entity : Entity, componentClass : Class ) : void
 		{
-			for each( var family : Family in families )
+			for each( var family : IFamily in families )
 			{
 				family.componentRemovedFromEntity( entity, componentClass );
 			}
@@ -137,9 +137,9 @@ package ash.core
 		{
 			if( families[nodeClass] )
 			{
-				return Family( families[nodeClass] ).nodeList;
+				return IFamily( families[nodeClass] ).nodeList;
 			}
-			var family : Family = new familyClass( nodeClass, this );
+			var family : IFamily = new familyClass( nodeClass, this );
 			families[nodeClass] = family;
 			for( var entity : Entity = entityList.head; entity; entity = entity.next )
 			{

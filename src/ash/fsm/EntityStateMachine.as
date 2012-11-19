@@ -89,7 +89,7 @@ package ash.fsm
 				for( t in currentState.providers )
 				{
 					type = Class( t );
-					var other : ComponentProvider = toAdd[ type ];
+					var other : IComponentProvider = toAdd[ type ];
 
 					if ( other && other.identifier == currentState.providers[ type ].identifier )
 					{
@@ -108,7 +108,7 @@ package ash.fsm
 			for( t in toAdd )
 			{
 				type = Class( t );
-				entity.add( ComponentProvider( toAdd[ type ] ).getComponent(), type );
+				entity.add( IComponentProvider( toAdd[ type ] ).getComponent(), type );
 			}
 			currentState = newState;
 		}

@@ -24,7 +24,7 @@ package ash.fsm
 		public function addWithNoQualifierCreatesTypeProvider() : void
 		{
 			state.add( MockComponent );
-			var provider : ComponentProvider = state.providers[MockComponent];
+			var provider : IComponentProvider = state.providers[MockComponent];
 			assertThat( provider, instanceOf( ComponentTypeProvider ) );
 			assertThat( provider.getComponent(), instanceOf( MockComponent ) );
 		}
@@ -33,7 +33,7 @@ package ash.fsm
 		public function addWithTypeQualifierCreatesTypeProvider() : void
 		{
 			state.add( MockComponent ).withType( MockComponent2 );
-			var provider : ComponentProvider = state.providers[MockComponent];
+			var provider : IComponentProvider = state.providers[MockComponent];
 			assertThat( provider, instanceOf( ComponentTypeProvider ) );
 			assertThat( provider.getComponent(), instanceOf( MockComponent2 ) );
 		}
@@ -43,7 +43,7 @@ package ash.fsm
 		{
 			var component : MockComponent = new MockComponent();
 			state.add( MockComponent ).withInstance( component );
-			var provider : ComponentProvider = state.providers[MockComponent];
+			var provider : IComponentProvider = state.providers[MockComponent];
 			assertThat( provider, instanceOf( ComponentInstanceProvider ) );
 			assertThat( provider.getComponent(), equalTo( component ) );
 		}
@@ -52,7 +52,7 @@ package ash.fsm
 		public function addWithSingletonQualifierCreatesSingletonProvider() : void
 		{
 			state.add( MockComponent ).withSingleton( MockComponent );
-			var provider : ComponentProvider = state.providers[MockComponent];
+			var provider : IComponentProvider = state.providers[MockComponent];
 			assertThat( provider, instanceOf( ComponentSingletonProvider ) );
 			assertThat( provider.getComponent(), instanceOf( MockComponent ) );
 		}

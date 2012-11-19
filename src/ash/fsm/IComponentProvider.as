@@ -6,7 +6,7 @@ package ash.fsm
 	 * ComponentTypeProvider, ComponentInstanceProvider and ComponentSingletonProvider. Developers
 	 * may wish to create more.
 	 */
-	public interface ComponentProvider
+	public interface IComponentProvider
 	{
 		/**
 		 * Used to request a component from the provider.

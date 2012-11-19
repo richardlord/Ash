@@ -5,7 +5,7 @@ package ash.fsm
 	 * This component provider always returns the same instance of the component. The instance
 	 * is created when first required and is of the type passed in to the constructor.
 	 */
-	public class ComponentSingletonProvider implements ComponentProvider
+	public class ComponentSingletonProvider implements IComponentProvider
 	{
 		private var componentType : Class;
 		private var instance : *;

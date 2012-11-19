@@ -7,7 +7,7 @@ package ash.fsm
 	{
 		private var componentType : Class;
 		private var creatingState : EntityState;
-		private var provider : ComponentProvider;
+		private var provider : IComponentProvider;
 		
 		/**
 		 * Used internally, the constructor creates a component mapping. The constructor
@@ -73,13 +73,13 @@ package ash.fsm
 		 * @param The component provider to use.
 		 * @return This ComponentMapping, so more modifications can be applied.
 		 */
-		public function withProvider( provider : ComponentProvider ) : StateComponentMapping
+		public function withProvider( provider : IComponentProvider ) : StateComponentMapping
 		{
 			setProvider( provider );
 			return this;
 		}
 		
-		private function setProvider( provider : ComponentProvider ) : void
+		private function setProvider( provider : IComponentProvider ) : void
 		{
 			this.provider = provider;
 			creatingState.providers[ componentType ] = provider;

@@ -10,7 +10,7 @@ package ash.tick
 	 * There is a maximum frame time parameter in the constructor that can be used to limit
 	 * the longest period a frame can be.
 	 */
-	public class FrameTickProvider extends Signal1 implements TickProvider
+	public class FrameTickProvider extends Signal1 implements ITickProvider
 	{
 		private var displayObject : DisplayObject;
 		private var previousTime : Number;
