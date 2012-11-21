@@ -1,6 +1,6 @@
 package ash.tools
 {
-	import ash.core.Ash;
+	import ash.core.Engine;
 	import ash.core.Node;
 	import ash.core.NodeList;
 	import ash.core.System;
@@ -43,9 +43,9 @@ package ash.tools
 			this.nodeRemovedFunction = nodeRemovedFunction;
 		}
 		
-		override public function addToGame( game : Ash ) : void
+		override public function addToEngine( engine : Engine ) : void
 		{
-			nodeList = game.getNodeList( nodeClass );
+			nodeList = engine.getNodeList( nodeClass );
 			if( nodeAddedFunction != null )
 			{
 				for( var node : Node = nodeList.head; node; node = node.next )
@@ -60,7 +60,7 @@ package ash.tools
 			}
 		}
 		
-		override public function removeFromGame( game : Ash ) : void
+		override public function removeFromEngine( engine : Engine ) : void
 		{
 			if( nodeAddedFunction != null )
 			{

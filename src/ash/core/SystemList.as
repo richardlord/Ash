@@ -1,7 +1,7 @@
 package ash.core
 {
 	/**
-	 * Used internally, this is an ordered list of Systems for use by the game loop.
+	 * Used internally, this is an ordered list of Systems for use by the engine update loop.
 	 */
 	internal class SystemList
 	{

@@ -5,43 +5,42 @@ package ash.core
 	import org.hamcrest.collection.hasItems;
 	import org.hamcrest.object.equalTo;
 
-	
-	public class AshTests
+	public class EngineTests
 	{
-		private var game : Ash;
+		private var engine : Engine;
 		
 		[Before]
-		public function createGame() : void
+		public function createEngine() : void
 		{
-			game = new Ash();
-			game.familyClass = MockFamily;
+			engine = new Engine();
+			engine.familyClass = MockFamily;
 			MockFamily.reset();
 		}
 
 		[After]
-		public function clearGame() : void
+		public function clearEngine() : void
 		{
-			game = null;
+			engine = null;
 		}
 
 		[Test]
 		public function entitiesGetterReturnsAllTheEntities() : void
 		{
 			var entity1 : Entity = new Entity();
-			game.addEntity( entity1 );
+			engine.addEntity( entity1 );
 			var entity2 : Entity = new Entity();
-			game.addEntity( entity2 );
-			assertThat( game.entities.length, equalTo( 2 ) );
-			assertThat( game.entities, hasItems( entity1, entity2 ) );
+			engine.addEntity( entity2 );
+			assertThat( engine.entities.length, equalTo( 2 ) );
+			assertThat( engine.entities, hasItems( entity1, entity2 ) );
 		}
 
 		[Test]
 		public function addEntityChecksWithAllFamilies() : void
 		{
-			game.getNodeList( MockNode );
-			game.getNodeList( MockNode2 );
+			engine.getNodeList( MockNode );
+			engine.getNodeList( MockNode2 );
 			var entity : Entity = new Entity();
-			game.addEntity( entity );
+			engine.addEntity( entity );
 			assertThat( MockFamily.instances[0].newEntityCalls, equalTo( 1 ) );
 			assertThat( MockFamily.instances[1].newEntityCalls, equalTo( 1 ) );
 		}
@@ -49,11 +48,11 @@ package ash.core
 		[Test]
 		public function removeEntityChecksWithAllFamilies() : void
 		{
-			game.getNodeList( MockNode );
-			game.getNodeList( MockNode2 );
+			engine.getNodeList( MockNode );
+			engine.getNodeList( MockNode2 );
 			var entity : Entity = new Entity();
-			game.addEntity( entity );
-			game.removeEntity( entity );
+			engine.addEntity( entity );
+			engine.removeEntity( entity );
 			assertThat( MockFamily.instances[0].removeEntityCalls, equalTo( 1 ) );
 			assertThat( MockFamily.instances[1].removeEntityCalls, equalTo( 1 ) );
 		}
@@ -61,13 +60,13 @@ package ash.core
 		[Test]
 		public function removeAllEntitiesChecksWithAllFamilies() : void
 		{
-			game.getNodeList( MockNode );
-			game.getNodeList( MockNode2 );
+			engine.getNodeList( MockNode );
+			engine.getNodeList( MockNode2 );
 			var entity : Entity = new Entity();
 			var entity2 : Entity = new Entity();
-			game.addEntity( entity );
-			game.addEntity( entity2 );
-			game.removeAllEntities();
+			engine.addEntity( entity );
+			engine.addEntity( entity2 );
+			engine.removeAllEntities();
 			assertThat( MockFamily.instances[0].removeEntityCalls, equalTo( 2 ) );
 			assertThat( MockFamily.instances[1].removeEntityCalls, equalTo( 2 ) );
 		}
@@ -75,10 +74,10 @@ package ash.core
 		[Test]
 		public function componentAddedChecksWithAllFamilies() : void
 		{
-			game.getNodeList( MockNode );
-			game.getNodeList( MockNode2 );
+			engine.getNodeList( MockNode );
+			engine.getNodeList( MockNode2 );
 			var entity : Entity = new Entity();
-			game.addEntity( entity );
+			engine.addEntity( entity );
 			entity.add( new Point() );
 			assertThat( MockFamily.instances[0].componentAddedCalls, equalTo( 1 ) );
 			assertThat( MockFamily.instances[1].componentAddedCalls, equalTo( 1 ) );
@@ -87,10 +86,10 @@ package ash.core
 		[Test]
 		public function componentRemovedChecksWithAllFamilies() : void
 		{
-			game.getNodeList( MockNode );
-			game.getNodeList( MockNode2 );
+			engine.getNodeList( MockNode );
+			engine.getNodeList( MockNode2 );
 			var entity : Entity = new Entity();
-			game.addEntity( entity );
+			engine.addEntity( entity );
 			entity.add( new Point() );
 			entity.remove( Point );
 			assertThat( MockFamily.instances[0].componentAddedCalls, equalTo( 1 ) );
@@ -100,31 +99,31 @@ package ash.core
 		[Test]
 		public function getNodeListCreatesFamily() : void
 		{
-			game.getNodeList( MockNode );
+			engine.getNodeList( MockNode );
 			assertThat( MockFamily.instances.length, equalTo( 1 ) );
 		}
 
 		[Test]
 		public function getNodeListChecksAllEntities() : void
 		{
-			game.addEntity( new Entity() );
-			game.addEntity( new Entity() );
-			game.getNodeList( MockNode );
+			engine.addEntity( new Entity() );
+			engine.addEntity( new Entity() );
+			engine.getNodeList( MockNode );
 			assertThat( MockFamily.instances[0].newEntityCalls, equalTo( 2 ) );
 		}
 
 		[Test]
 		public function releaseNodeListCallsCleanUp() : void
 		{
-			game.getNodeList( MockNode );
-			game.releaseNodeList( MockNode );
+			engine.getNodeList( MockNode );
+			engine.releaseNodeList( MockNode );
 			assertThat( MockFamily.instances[0].cleanUpCalls, equalTo( 1 ) );
 		}
 	}
 }
 import ash.core.Entity;
 import ash.core.IFamily;
-import ash.core.Ash;
+import ash.core.Engine;
 import ash.core.Node;
 import ash.core.NodeList;
 import flash.geom.Matrix;
@@ -155,7 +154,7 @@ class MockFamily implements IFamily
 	public var componentRemovedCalls : int = 0;
 	public var cleanUpCalls : int = 0;
 	
-	public function MockFamily( nodeClass : Class, game : Ash )
+	public function MockFamily( nodeClass : Class, engine : Engine )
 	{
 		instances.push( this );
 	}

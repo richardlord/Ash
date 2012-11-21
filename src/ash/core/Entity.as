@@ -6,7 +6,7 @@ package ash.core
 
 
 	/**
-	 * A game entity is a collection object for components. Sometimes, the entities in a game
+	 * An entity is a collection object for components. Sometimes, the entities in a game
 	 * will mirror the actual characters and objects in the game, but this is not necessary.
 	 * 
 	 * <p>Components are simple value objects that contain data relevant to the entity. Entities

@@ -1,12 +1,10 @@
 package ash.integration.swiftsuspenders
 {
-	import ash.core.Ash;
+	import ash.core.Engine;
 	import flash.utils.Dictionary;
 	import flash.utils.getDefinitionByName;
 	import org.swiftsuspenders.Injector;
 	import org.swiftsuspenders.dependencyproviders.DependencyProvider;
-
-
 
 	/**
 	 * A custom dependency provider for SwiftSuspenders to allow injection
@@ -19,11 +17,11 @@ package ash.integration.swiftsuspenders
 	 */
 	public class NodeListProvider implements DependencyProvider
 	{
-		private var game : Ash;
+		private var engine : Engine;
 
-		public function NodeListProvider( game : Ash )
+		public function NodeListProvider( engine : Engine )
 		{
-			this.game = game;
+			this.engine = engine;
 		}
 
 		public function apply( targetType : Class, activeInjector : Injector, injectParameters : Dictionary ) : Object
@@ -33,7 +31,7 @@ package ash.integration.swiftsuspenders
 				var nodeClass : Class = getDefinitionByName( injectParameters["nodeType"] ) as Class;
 				if ( nodeClass )
 				{
-					return game.getNodeList( nodeClass );
+					return engine.getNodeList( nodeClass );
 				}
 			}
 			return null;

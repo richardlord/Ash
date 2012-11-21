@@ -8,24 +8,23 @@ package ash.core
 	import org.hamcrest.object.nullValue;
 	import org.hamcrest.object.sameInstance;
 
-	
 	public class ComponentMatchingFamilyTests
 	{
-		private var game : Ash;
+		private var engine : Engine;
 		private var family : ComponentMatchingFamily;
 		
 		[Before]
 		public function createFamily() : void
 		{
-			game = new Ash();
-			family = new ComponentMatchingFamily( MockNode, game );
+			engine = new Engine();
+			family = new ComponentMatchingFamily( MockNode, engine );
 		}
 
 		[After]
 		public function clearFamily() : void
 		{
 			family = null;
-			game = null;
+			engine = null;
 		}
 		
 		[Test]

@@ -2,7 +2,7 @@ package ash.core
 {
 	/**
 	 * The interface for classes that are used to manage NodeLists
-	 * (set as the familyClass property in the Game object)
+	 * (set as the familyClass property in the Engine object)
 	 */
 	public interface IFamily
 	{
@@ -13,12 +13,12 @@ package ash.core
 		 */
 		function get nodeList() : NodeList;
 		/**
-		 * An entity has been added to the game. It may already have components so test the entity
+		 * An entity has been added to the engine. It may already have components so test the entity
 		 * for inclusion in this family's NodeList.
 		 */
 		function newEntity( entity : Entity ) : void;
 		/**
-		 * An entity has been removed from the game. If it's in this family's NodeList it should be removed.
+		 * An entity has been removed from the engine. If it's in this family's NodeList it should be removed.
 		 */
 		function removeEntity( entity : Entity ) : void;
 		/**

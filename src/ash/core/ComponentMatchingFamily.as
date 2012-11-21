@@ -5,8 +5,8 @@ package ash.core
 	import flash.utils.getDefinitionByName;
 
 	/**
-	 * An default class for managing a NodeList. This class creates the NodeList and adds and removes
-	 * nodes to/from the list as the entities and the components in the game change.
+	 * A default class for managing a NodeList. This class creates the NodeList and adds and removes
+	 * nodes to/from the list as the entities and the components in the engine change.
 	 * 
 	 * It uses the basic entity matching pattern of an entity system - entities are added to the list if
 	 * they contain components matching all the public properties of the node class.
@@ -18,12 +18,12 @@ package ash.core
 		private var nodeClass : Class;
 		private var components : Dictionary;
 		private var nodePool : NodePool;
-		private var game : Ash;
+		private var engine : Engine;
 
-		public function ComponentMatchingFamily( nodeClass : Class, game : Ash )
+		public function ComponentMatchingFamily( nodeClass : Class, engine : Engine )
 		{
 			this.nodeClass = nodeClass;
-			this.game = game;
+			this.engine = engine;
 			init();
 		}
 
@@ -105,10 +105,10 @@ package ash.core
 				var node : Node = entities[entity];
 				delete entities[entity];
 				nodes.remove( node );
-				if( game.updating )
+				if( engine.updating )
 				{
 					nodePool.cache( node );
-					game.updateComplete.add( releaseNodePoolCache );
+					engine.updateComplete.add( releaseNodePoolCache );
 				}
 				else
 				{
@@ -119,7 +119,7 @@ package ash.core
 		
 		private function releaseNodePoolCache() : void
 		{
-			game.updateComplete.remove( releaseNodePoolCache );
+			engine.updateComplete.remove( releaseNodePoolCache );
 			nodePool.releaseCache();
 		}
 		
