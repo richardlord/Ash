@@ -1,7 +1,5 @@
 # General
 bin/*
-docs/*
-swc/*
 
 # Eclipse
 .settings/*
