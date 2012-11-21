@@ -8,7 +8,7 @@ h3. Source Code
 
 h3. Examples
 
-* "Asteroids":http://github.com/richardlord/Ash/tree/master/examples
+* "Asteroids":http://github.com/richardlord/Asteroids
 
 h3. Documentation
 
