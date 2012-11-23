@@ -1,9 +1,9 @@
 package ash
 {
 	import ash.core.ComponentMatchingFamilyTests;
-	import ash.core.EntityTests;
 	import ash.core.EngineAndFamilyIntegrationTests;
 	import ash.core.EngineTests;
+	import ash.core.EntityTests;
 	import ash.core.NodeListTests;
 	import ash.core.SystemTests;
 	import ash.fsm.ComponentInstanceProviderTests;
@@ -11,6 +11,11 @@ package ash
 	import ash.fsm.ComponentTypeProviderTests;
 	import ash.fsm.EntityStateMachineTests;
 	import ash.fsm.EntityStateTests;
+	import ash.io.CodecManagerTests;
+	import ash.io.DecoderTests;
+	import ash.io.EncoderTests;
+	import ash.io.ObjectReflectionTests;
+	import ash.io.ReflectionCodecTests;
 	import ash.signals.SignalTest;
 	import ash.tools.ComponentPoolTest;
 	import ash.tools.ListIteratingSystemTest;
@@ -32,5 +37,10 @@ package ash
 		public var componentInstanceProviderTests : ComponentInstanceProviderTests;
 		public var componentTypeProviderTests : ComponentTypeProviderTests;
 		public var componentSingletonProviderTests : ComponentSingletonProviderTests;
+		public var objectReflectionTests : ObjectReflectionTests;
+		public var reflectionCodecTests : ReflectionCodecTests;
+		public var codecManagerTests : CodecManagerTests;
+		public var encoderTests : EncoderTests;
+		public var decoderTests : DecoderTests;
 	}
 }
