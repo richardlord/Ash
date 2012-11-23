@@ -1,8 +1,9 @@
-package ash.io
+package ash.io.enginecodecs
 {
 	import ash.core.Engine;
 	import ash.core.Entity;
-
+	import flash.geom.Point;
+	import flash.geom.Rectangle;
 	import org.hamcrest.assertThat;
 	import org.hamcrest.collection.arrayWithSize;
 	import org.hamcrest.collection.hasItem;
@@ -10,12 +11,11 @@ package ash.io
 	import org.hamcrest.object.equalTo;
 	import org.hamcrest.object.hasProperty;
 
-	import flash.geom.Point;
-	import flash.geom.Rectangle;
+
 
 	public class EncoderTests
 	{
-		private var endec : EncodeAndDecoder;
+		private var endec : ObjectEngineCodec;
 		private var engine : Engine;
 		private var firstPoint : Point;
 		private var secondPoint : Point;
@@ -25,7 +25,7 @@ package ash.io
 		[Before]
 		public function createEncoder() : void
 		{
-			endec = new EncodeAndDecoder();
+			endec = new ObjectEngineCodec();
 			engine = new Engine();
 			firstPoint = new Point( 1, 2 );
 			secondPoint = new Point( 3, 4 );

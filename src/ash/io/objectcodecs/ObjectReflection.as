@@ -1,9 +1,9 @@
-package ash.io
+package ash.io.objectcodecs
 {
 	import flash.utils.describeType;
 	import flash.utils.getQualifiedClassName;
 
-	public class ObjectReflection
+	internal class ObjectReflection
 	{
 		private var _propertyTypes : Object = {};
 		private var _type : String;

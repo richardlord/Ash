@@ -1,12 +1,12 @@
-package ash.io
+package ash.io.objectcodecs
 {
 	import flash.utils.getDefinitionByName;
 
-	public class ReflectionCodec implements IObjectCodec
+	public class ReflectionObjectCodec implements IObjectCodec
 	{
 		private var codecManager : CodecManager;
 
-		public function ReflectionCodec( codecManager : CodecManager )
+		public function ReflectionObjectCodec( codecManager : CodecManager )
 		{
 			this.codecManager = codecManager;
 		}
@@ -45,11 +45,6 @@ package ash.io
 			for ( var name : String in object.properties )
 			{
 				var encoded : Object = object.properties[name];
-				trace( encoded.type );
-				if( encoded.type == "flash.geom::Point" )
-				{
-					trace( encoded );
-				}
 				if ( isNativeType( encoded.type ) )
 				{
 					decoded[name] = encoded.value;

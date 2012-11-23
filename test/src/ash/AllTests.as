@@ -11,11 +11,12 @@ package ash
 	import ash.fsm.ComponentTypeProviderTests;
 	import ash.fsm.EntityStateMachineTests;
 	import ash.fsm.EntityStateTests;
-	import ash.io.CodecManagerTests;
-	import ash.io.DecoderTests;
-	import ash.io.EncoderTests;
-	import ash.io.ObjectReflectionTests;
-	import ash.io.ReflectionCodecTests;
+	import ash.io.enginecodecs.DecoderTests;
+	import ash.io.enginecodecs.EncoderTests;
+	import ash.io.enginecodecs.JsonEngineCodecTests;
+	import ash.io.objectcodecs.CodecManagerTests;
+	import ash.io.objectcodecs.ObjectReflectionTests;
+	import ash.io.objectcodecs.ReflectionObjectCodecTests;
 	import ash.signals.SignalTest;
 	import ash.tools.ComponentPoolTest;
 	import ash.tools.ListIteratingSystemTest;
@@ -38,9 +39,10 @@ package ash
 		public var componentTypeProviderTests : ComponentTypeProviderTests;
 		public var componentSingletonProviderTests : ComponentSingletonProviderTests;
 		public var objectReflectionTests : ObjectReflectionTests;
-		public var reflectionCodecTests : ReflectionCodecTests;
+		public var reflectionCodecTests : ReflectionObjectCodecTests;
 		public var codecManagerTests : CodecManagerTests;
 		public var encoderTests : EncoderTests;
 		public var decoderTests : DecoderTests;
+		public var jsonEngineCodecTests : JsonEngineCodecTests;
 	}
 }

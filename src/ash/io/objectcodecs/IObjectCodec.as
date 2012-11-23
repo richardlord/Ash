@@ -1,4 +1,4 @@
-package ash.io
+package ash.io.objectcodecs
 {
 	public interface IObjectCodec
 	{

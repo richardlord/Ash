@@ -1,11 +1,11 @@
-package ash.io
+package ash.io.objectcodecs
 {
+	import flash.geom.Point;
 	import org.hamcrest.assertThat;
 	import org.hamcrest.object.instanceOf;
 	import org.hamcrest.object.isNull;
 	import org.hamcrest.object.sameInstance;
 
-	import flash.geom.Point;
 
 	public class CodecManagerTests
 	{
@@ -34,7 +34,7 @@ package ash.io
 		public function codecForComponentReturnsReflectionCodecByDefault() : void
 		{
 			var codec : IObjectCodec = codecManager.getCodecForComponent( new Point() );
-			assertThat( codec, instanceOf( ReflectionCodec ) );
+			assertThat( codec, instanceOf( ReflectionObjectCodec ) );
 		}
 		
 		[Test]
@@ -42,7 +42,7 @@ package ash.io
 		{
 			codecManager.addReflectableType( Point );
 			var codec : IObjectCodec = codecManager.getCodecForObject( new Point() );
-			assertThat( codec, instanceOf( ReflectionCodec ) );
+			assertThat( codec, instanceOf( ReflectionObjectCodec ) );
 		}
 		
 		[Test]
@@ -65,7 +65,7 @@ package ash.io
 	}
 }
 
-import ash.io.IObjectCodec;
+import ash.io.objectcodecs.IObjectCodec;
 
 class MockCodec implements IObjectCodec
 {

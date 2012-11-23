@@ -1,11 +1,12 @@
-package ash.io
+package ash.io.enginecodecs
 {
 	import ash.core.Engine;
 	import ash.core.Entity;
-
+	import ash.io.objectcodecs.CodecManager;
+	import ash.io.objectcodecs.IObjectCodec;
 	import flash.utils.Dictionary;
 
-	public class Encoder
+	internal class ObjectEncoder
 	{
 		private var codecManager : CodecManager;
 		private var componentEncodingMap : Dictionary;
@@ -14,7 +15,7 @@ package ash.io
 		private var nextComponentId : uint;
 		private var encoded : Object;
 		
-		public function Encoder( codecManager : CodecManager )
+		public function ObjectEncoder( codecManager : CodecManager )
 		{
 			this.codecManager = codecManager;
 			componentEncodingMap = new Dictionary();

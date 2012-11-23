@@ -1,12 +1,13 @@
-package ash.io
+package ash.io.objectcodecs
 {
+	import ash.io.MockReflectionObject;
+	import flash.geom.Point;
 	import org.hamcrest.assertThat;
 	import org.hamcrest.object.equalTo;
 	import org.hamcrest.object.instanceOf;
 
-	import flash.geom.Point;
 	
-	public class ReflectionCodecTests
+	public class ReflectionObjectCodecTests
 	{
 		private var object : MockReflectionObject;
 		private var encoded : Object;
@@ -25,7 +26,7 @@ package ash.io
 			object.pointVariable = new Point( 2, 3 );
 			var codecManager : CodecManager = new CodecManager();
 			codecManager.addReflectableType( Point );
-			var encoder : ReflectionCodec = new ReflectionCodec( codecManager );
+			var encoder : ReflectionObjectCodec = new ReflectionObjectCodec( codecManager );
 			encoded = encoder.encode( object );
 			decoded = encoder.decode( encoded );
 		}

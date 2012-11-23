@@ -1,16 +1,16 @@
-package ash.io
+package ash.io.objectcodecs
 {
 	import flash.utils.Dictionary;
 
 	public class CodecManager
 	{
 		private var codecs : Dictionary;
-		private var reflectionCodec : ReflectionCodec;
+		private var reflectionCodec : ReflectionObjectCodec;
 
 		public function CodecManager()
 		{
 			codecs = new Dictionary();
-			reflectionCodec = new ReflectionCodec( this );
+			reflectionCodec = new ReflectionObjectCodec( this );
 		}
 
 		public function getCodecForObject( object : Object ) : IObjectCodec

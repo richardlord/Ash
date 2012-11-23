@@ -1,16 +1,17 @@
-package ash.io
+package ash.io.enginecodecs
 {
 	import ash.core.Engine;
 	import ash.core.Entity;
-
+	import ash.io.objectcodecs.CodecManager;
+	import ash.io.objectcodecs.IObjectCodec;
 	import flash.utils.getDefinitionByName;
 
-	public class Decoder
+	internal class ObjectDecoder
 	{
 		private var codecManager : CodecManager;
 		private var componentMap : Array;
 
-		public function Decoder( codecManager : CodecManager )
+		public function ObjectDecoder( codecManager : CodecManager )
 		{
 			this.codecManager = codecManager;
 			componentMap = new Array();

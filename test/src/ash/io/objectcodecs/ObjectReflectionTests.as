@@ -1,5 +1,6 @@
-package ash.io
+package ash.io.objectcodecs
 {
+	import ash.io.MockReflectionObject;
 	import org.hamcrest.assertThat;
 	import org.hamcrest.object.equalTo;
 	import org.hamcrest.object.isFalse;

@@ -1,18 +1,20 @@
-package ash.io
+package ash.io.enginecodecs
 {
 	import ash.core.Engine;
+	import ash.io.objectcodecs.CodecManager;
+	import ash.io.objectcodecs.IObjectCodec;
 
-	public class EncodeAndDecoder
+	public class ObjectEngineCodec implements IEngineCodec
 	{
-		private var encoder : Encoder;
-		private var decoder : Decoder;
+		private var encoder : ObjectEncoder;
+		private var decoder : ObjectDecoder;
 		private var codecManager : CodecManager;
 
-		public function EncodeAndDecoder()
+		public function ObjectEngineCodec()
 		{
 			codecManager = new CodecManager();
-			encoder = new Encoder( codecManager );
-			decoder = new Decoder( codecManager );
+			encoder = new ObjectEncoder( codecManager );
+			decoder = new ObjectDecoder( codecManager );
 		}
 
 		public function addReflectableTypes( ...types ) : void
@@ -31,19 +33,15 @@ package ash.io
 			}
 		}
 
-		public function reset() : void
-		{
-			encoder.reset();
-			decoder.reset();
-		}
-
 		public function encodeEngine( engine : Engine ) : Object
 		{
+			encoder.reset();
 			return encoder.encodeEngine( engine );
 		}
 
 		public function decodeEngine( encodedData : Object, engine : Engine ) : void
 		{
+			decoder.reset();
 			decoder.decodeEngine( encodedData, engine );
 		}
 	}
