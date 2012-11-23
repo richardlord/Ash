@@ -43,6 +43,6 @@ package ash
 		public var codecManagerTests : CodecManagerTests;
 		public var encoderTests : EncoderTests;
 		public var decoderTests : DecoderTests;
-		public var jsonEngineCodecTests : JsonEngineCodecTests;
+		//public var jsonEngineCodecTests : JsonEngineCodecTests;
 	}
 }

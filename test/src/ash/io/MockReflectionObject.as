@@ -1,6 +1,9 @@
 package ash.io
 {
 	import flash.geom.Point;
+	import flash.geom.Rectangle;
+	
+	use namespace mock_namespace;
 	
 	public class MockReflectionObject
 	{
@@ -10,6 +13,10 @@ package ash.io
 		public var booleanVariable : Boolean;
 		public var stringVariable : String;
 		public var pointVariable : Point;
+		public var point2Variable : Point;
+		public var rectVariable : Rectangle;
+		public var rect2Variable : Rectangle;
+		mock_namespace var namespaceVariable : int;
 		
 		private var _fullAccessor : int;
 

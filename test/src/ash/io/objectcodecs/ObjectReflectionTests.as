@@ -68,6 +68,12 @@ package ash.io.objectcodecs
 		}
 		
 		[Test]
+		public function reflectionDoesntReturnNamespaceVariable() : void
+		{
+			assertThat( reflection.propertyTypes.hasOwnProperty( "namespaceVariable" ), isFalse() );
+		}
+		
+		[Test]
 		public function reflectionReturnsFullAccessor() : void
 		{
 			assertThat( reflection.propertyTypes["fullAccessor"], equalTo( "int" ) );

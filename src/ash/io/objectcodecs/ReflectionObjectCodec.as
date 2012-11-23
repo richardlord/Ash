@@ -15,6 +15,7 @@ package ash.io.objectcodecs
 		{
 			var reflection : ObjectReflection = ObjectReflectionFactory.reflection( object );
 			var properties : Object = {};
+			var codec : IObjectCodec;
 			for ( var name : String in reflection.propertyTypes )
 			{
 				var type : String = reflection.propertyTypes[name];
@@ -24,11 +25,15 @@ package ash.io.objectcodecs
 				}
 				else if ( object[ name ] === null )
 				{
-					properties[ name ] = { type : type, value : null };
+					codec = codecManager.getCodecForObject( getDefinitionByName( type ) );
+					if ( codec )
+					{
+						properties[ name ] = { type : type, value : null };
+					}
 				}
 				else
 				{
-					var codec : IObjectCodec = codecManager.getCodecForObject( object[ name ] );
+					codec = codecManager.getCodecForObject( object[ name ] );
 					if ( codec )
 					{
 						properties[ name ] = codec.encode( object[ name ] );

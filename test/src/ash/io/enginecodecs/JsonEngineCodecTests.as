@@ -2,6 +2,8 @@ package ash.io.enginecodecs
 {
 	import ash.core.Engine;
 	import ash.core.Entity;
+	import ash.io.MockComponent1;
+	import ash.io.MockComponent2;
 
 	import org.hamcrest.assertThat;
 	import org.hamcrest.collection.arrayWithSize;
@@ -12,19 +14,14 @@ package ash.io.enginecodecs
 	import org.hamcrest.object.isNotNull;
 	import org.hamcrest.object.sameInstance;
 
-	import flash.geom.Point;
-	import flash.geom.Rectangle;
-
-
-
 	public class JsonEngineCodecTests
 	{
 		private var endec : JsonEngineCodec;
 		private var original : Engine;
 		private var engine : Engine;
-		private var firstPoint : Point;
-		private var secondPoint : Point;
-		private var rectangle : Rectangle;
+		private var firstComponent1 : MockComponent1;
+		private var secondComponent1 : MockComponent1;
+		private var onlyComponent2 : MockComponent2;
 		private var encodedData : Object;
 
 		[Before]
@@ -32,20 +29,20 @@ package ash.io.enginecodecs
 		{
 			endec = new JsonEngineCodec();
 			original = new Engine();
-			firstPoint = new Point( 1, 2 );
-			secondPoint = new Point( 3, 4 );
-			rectangle = new Rectangle( 5, 6, 7, 8 );
+			firstComponent1 = new MockComponent1( 1, 2 );
+			secondComponent1 = new MockComponent1( 3, 4 );
+			onlyComponent2 = new MockComponent2( 5, 6 );
 			var entity : Entity = new Entity();
 			entity.name = "first";
-			entity.add( firstPoint );
+			entity.add( firstComponent1 );
 			original.addEntity( entity );
 			entity = new Entity();
 			entity.name = "second";
-			entity.add( firstPoint );
-			entity.add( rectangle );
+			entity.add( firstComponent1 );
+			entity.add( onlyComponent2 );
 			original.addEntity( entity );
 			entity = new Entity();
-			entity.add( secondPoint );
+			entity.add( secondComponent1 );
 			original.addEntity( entity );
 			encodedData = endec.encodeEngine( original );
 			engine = new Engine();
@@ -58,9 +55,9 @@ package ash.io.enginecodecs
 			endec = null;
 			original = null;
 			engine = null;
-			firstPoint = null;
-			secondPoint = null;
-			rectangle = null;
+			firstComponent1 = null;
+			secondComponent1 = null;
+			onlyComponent2 = null;
 		}
 		
 		[Test]
@@ -113,8 +110,8 @@ package ash.io.enginecodecs
 				}
 			}
 			assertThat( first.getAll(), arrayWithSize( 1 ) );
-			var point : Point = first.get( Point );
-			assertThat( point, isNotNull() );
+			var component : MockComponent1 = first.get( MockComponent1 );
+			assertThat( component, isNotNull() );
 		}
 		
 		[Test]
@@ -131,10 +128,10 @@ package ash.io.enginecodecs
 				}
 			}
 			assertThat( second.getAll(), arrayWithSize( 2 ) );
-			var point : Point = second.get( Point );
-			assertThat( point, isNotNull() );
-			var rect : Rectangle = second.get( Rectangle );
-			assertThat( rect, isNotNull() );
+			var component1 : MockComponent1 = second.get( MockComponent1 );
+			assertThat( component1, isNotNull() );
+			var component2 : MockComponent2 = second.get( MockComponent2 );
+			assertThat( component2, isNotNull() );
 		}
 		
 		[Test]
@@ -151,8 +148,8 @@ package ash.io.enginecodecs
 				}
 			}
 			assertThat( third.getAll(), arrayWithSize( 1 ) );
-			var point : Point = third.get( Point );
-			assertThat( point, isNotNull() );
+			var component : MockComponent1 = third.get( MockComponent1 );
+			assertThat( component, isNotNull() );
 		}
 		
 		[Test]
@@ -172,7 +169,7 @@ package ash.io.enginecodecs
 					second = entity;
 				}
 			}
-			assertThat( first.get( Point ), sameInstance( second.get( Point ) ) );
+			assertThat( first.get( MockComponent1 ), sameInstance( second.get( MockComponent1 ) ) );
 		}
 
 		[Test]
@@ -188,9 +185,9 @@ package ash.io.enginecodecs
 					break;
 				}
 			}
-			var point : Point = first.get( Point );
-			assertThat( point.x, equalTo( firstPoint.x ) );
-			assertThat( point.y, equalTo( firstPoint.y ) );
+			var component : MockComponent1 = first.get( MockComponent1 );
+			assertThat( component.x, equalTo( firstComponent1.x ) );
+			assertThat( component.y, equalTo( firstComponent1.y ) );
 		}
 		
 		[Test]
@@ -206,14 +203,12 @@ package ash.io.enginecodecs
 					break;
 				}
 			}
-			var point : Point = second.get( Point );
-			assertThat( point.x, equalTo( firstPoint.x ) );
-			assertThat( point.y, equalTo( firstPoint.y ) );
-			var rect : Rectangle = second.get( Rectangle );
-			assertThat( rect.x, equalTo( rectangle.x ) );
-			assertThat( rect.y, equalTo( rectangle.y ) );
-			assertThat( rect.width, equalTo( rectangle.width ) );
-			assertThat( rect.height, equalTo( rectangle.height ) );
+			var component1 : MockComponent1 = second.get( MockComponent1 );
+			assertThat( component1.x, equalTo( firstComponent1.x ) );
+			assertThat( component1.y, equalTo( firstComponent1.y ) );
+			var component2 : MockComponent2 = second.get( MockComponent2 );
+			assertThat( component2.x, equalTo( onlyComponent2.x ) );
+			assertThat( component2.y, equalTo( onlyComponent2.y ) );
 		}
 		
 		[Test]
@@ -229,9 +224,9 @@ package ash.io.enginecodecs
 					break;
 				}
 			}
-			var point : Point = third.get( Point );
-			assertThat( point.x, equalTo( secondPoint.x ) );
-			assertThat( point.y, equalTo( secondPoint.y ) );
+			var component1 : MockComponent1 = third.get( MockComponent1 );
+			assertThat( component1.x, equalTo( secondComponent1.x ) );
+			assertThat( component1.y, equalTo( secondComponent1.y ) );
 		}
 	}
 }

@@ -1,10 +1,15 @@
 package ash.io.objectcodecs
 {
 	import ash.io.MockReflectionObject;
-	import flash.geom.Point;
+
 	import org.hamcrest.assertThat;
 	import org.hamcrest.object.equalTo;
 	import org.hamcrest.object.instanceOf;
+	import org.hamcrest.object.isFalse;
+	import org.hamcrest.object.isNull;
+
+	import flash.geom.Point;
+	import flash.geom.Rectangle;
 
 	
 	public class ReflectionObjectCodecTests
@@ -24,6 +29,7 @@ package ash.io.objectcodecs
 			object.booleanVariable = true;
 			object.fullAccessor = 13;
 			object.pointVariable = new Point( 2, 3 );
+			object.rectVariable = new Rectangle( 1, 2, 3, 4 );
 			var codecManager : CodecManager = new CodecManager();
 			codecManager.addReflectableType( Point );
 			var encoder : ReflectionObjectCodec = new ReflectionObjectCodec( codecManager );
@@ -81,6 +87,24 @@ package ash.io.objectcodecs
 			assertThat( encoded.properties.pointVariable.type, equalTo( "flash.geom::Point" ) );
 			assertThat( encoded.properties.pointVariable.properties.x.value, equalTo( object.pointVariable.x ) );
 			assertThat( encoded.properties.pointVariable.properties.y.value, equalTo( object.pointVariable.y ) );
+		}
+		
+		[Test]
+		public function encodingReturnsNullForReflectableNullVariable() : void
+		{
+			assertThat( encoded.properties.point2Variable.value, isNull() );
+		}
+		
+		[Test]
+		public function encodingDoesntReturnNonReflectableVariable() : void
+		{
+			assertThat( encoded.properties.hasOwnProperty( "rectVariable" ), isFalse() );
+		}
+		
+		[Test]
+		public function encodingDoesntReturnNonReflectableVariableWhenNull() : void
+		{
+			assertThat( encoded.properties.hasOwnProperty( "rect2Variable" ), isFalse() );
 		}
 		
 		[Test]
