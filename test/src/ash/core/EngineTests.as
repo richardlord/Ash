@@ -1,9 +1,12 @@
 package ash.core
 {
-	import flash.geom.Point;
 	import org.hamcrest.assertThat;
 	import org.hamcrest.collection.hasItems;
 	import org.hamcrest.object.equalTo;
+	import org.hamcrest.object.isNull;
+	import org.hamcrest.object.sameInstance;
+
+	import flash.geom.Point;
 
 	public class EngineTests
 	{
@@ -32,6 +35,30 @@ package ash.core
 			engine.addEntity( entity2 );
 			assertThat( engine.entities.length, equalTo( 2 ) );
 			assertThat( engine.entities, hasItems( entity1, entity2 ) );
+		}
+		
+		[Test]
+		public function getEntityByNameReturnsCorrectEntity() : void
+		{
+			var entity1 : Entity = new Entity();
+			entity1.name = "otherEntity";
+			engine.addEntity( entity1 );
+			var entity2 : Entity = new Entity();
+			entity2.name = "myEntity";
+			engine.addEntity( entity2 );
+			assertThat( engine.getEntityByName( "myEntity" ), sameInstance( entity2 ) );
+		}
+		
+		[Test]
+		public function getEntityByNameReturnsNullIfNoEntity() : void
+		{
+			var entity1 : Entity = new Entity();
+			entity1.name = "otherEntity";
+			engine.addEntity( entity1 );
+			var entity2 : Entity = new Entity();
+			entity2.name = "myEntity";
+			engine.addEntity( entity2 );
+			assertThat( engine.getEntityByName( "wrongName" ), isNull() );
 		}
 
 		[Test]
@@ -121,11 +148,12 @@ package ash.core
 		}
 	}
 }
+import ash.core.Engine;
 import ash.core.Entity;
 import ash.core.IFamily;
-import ash.core.Engine;
 import ash.core.Node;
 import ash.core.NodeList;
+
 import flash.geom.Matrix;
 import flash.geom.Point;
 

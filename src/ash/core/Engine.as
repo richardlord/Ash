@@ -86,6 +86,24 @@ package ash.core
 		}
 		
 		/**
+		 * Returns the entity with the given name.
+		 * 
+		 * @param name The name of the entity
+		 * @return The entity, or null if the entity is not found
+		 */
+		public function getEntityByName( name : String ) : Entity
+		{
+			for( var entity : Entity = entityList.head; entity; entity = entity.next )
+			{
+				if( entity.name == name )
+				{
+					return entity;
+				}
+			}
+			return null;
+		}
+		
+		/**
 		 * Returns a vector containing all the entities in the engine.
 		 */
 		public function get entities() : Vector.<Entity>
