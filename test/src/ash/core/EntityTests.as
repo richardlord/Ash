@@ -9,9 +9,6 @@ package ash.core
 	import org.hamcrest.object.nullValue;
 	import org.hamcrest.object.sameInstance;
 
-
-
-
 	public class EntityTests
 	{
 		[Inject]
@@ -103,7 +100,6 @@ package ash.core
 			var all : Array = entity.getAll();
 			assertThat( all.length, equalTo( 2 ) );
 			assertThat( all, hasItems( component1, component2 ) );
-
 		}
 
 		[Test]

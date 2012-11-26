@@ -54,7 +54,10 @@ package ash.io.enginecodecs
 		private function decodeComponent( encodedComponent : Object ) : void
 		{
 			var codec : IObjectCodec = codecManager.getCodecForComponent( getDefinitionByName( encodedComponent.type ) );
-			componentMap[encodedComponent.id] = codec.decode( encodedComponent );
+			if( codec )
+			{
+				componentMap[encodedComponent.id] = codecManager.decodeComponent( encodedComponent );
+			}
 		}
 	}
 }

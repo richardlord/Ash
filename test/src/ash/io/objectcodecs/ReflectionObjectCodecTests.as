@@ -31,10 +31,10 @@ package ash.io.objectcodecs
 			object.pointVariable = new Point( 2, 3 );
 			object.rectVariable = new Rectangle( 1, 2, 3, 4 );
 			var codecManager : CodecManager = new CodecManager();
-			codecManager.addReflectableType( Point );
-			var encoder : ReflectionObjectCodec = new ReflectionObjectCodec( codecManager );
-			encoded = encoder.encode( object );
-			decoded = encoder.decode( encoded );
+			codecManager.addCustomCodec( new ReflectionObjectCodec(), Point );
+			var encoder : ReflectionObjectCodec = new ReflectionObjectCodec();
+			encoded = encoder.encode( object, codecManager );
+			decoded = encoder.decode( encoded, codecManager );
 		}
 		
 		[After]
@@ -96,15 +96,15 @@ package ash.io.objectcodecs
 		}
 		
 		[Test]
-		public function encodingDoesntReturnNonReflectableVariable() : void
+		public function encodingReturnsNullForNonReflectableVariable() : void
 		{
-			assertThat( encoded.properties.hasOwnProperty( "rectVariable" ), isFalse() );
+			assertThat( encoded.properties.rectVariable.value, isNull() );
 		}
 		
 		[Test]
-		public function encodingDoesntReturnNonReflectableVariableWhenNull() : void
+		public function encodingDoesntReturnsNullForNonReflectableNullVariable() : void
 		{
-			assertThat( encoded.properties.hasOwnProperty( "rect2Variable" ), isFalse() );
+			assertThat( encoded.properties.rect2Variable.value, isNull() );
 		}
 		
 		[Test]

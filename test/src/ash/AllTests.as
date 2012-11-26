@@ -14,6 +14,7 @@ package ash
 	import ash.io.enginecodecs.DecoderTests;
 	import ash.io.enginecodecs.EncoderTests;
 	import ash.io.enginecodecs.JsonEngineCodecTests;
+	import ash.io.objectcodecs.ArrayObjectCodecTests;
 	import ash.io.objectcodecs.CodecManagerTests;
 	import ash.io.objectcodecs.ObjectReflectionTests;
 	import ash.io.objectcodecs.ReflectionObjectCodecTests;
@@ -43,6 +44,7 @@ package ash
 		public var codecManagerTests : CodecManagerTests;
 		public var encoderTests : EncoderTests;
 		public var decoderTests : DecoderTests;
-		//public var jsonEngineCodecTests : JsonEngineCodecTests;
+		public var jsonEngineCodecTests : JsonEngineCodecTests;
+		public var arrayObjectCodecTests : ArrayObjectCodecTests;
 	}
 }

@@ -1,0 +1,33 @@
+package ash.io.objectcodecs
+{
+	import flash.utils.getDefinitionByName;
+	import flash.utils.getQualifiedClassName;
+
+	public class ArrayObjectCodec implements IObjectCodec
+	{
+		public function encode( object : Object, codecManager : CodecManager ) : Object
+		{
+			var type : String = getQualifiedClassName( object );
+			var values : Object = [];
+			var codec : IObjectCodec;
+			for each( var value : Object in object )
+			{
+				values.push( codecManager.encodeObject( value ) );
+			}
+			return { type:type, values:values };
+
+			return null;
+		}
+
+		public function decode( object : Object, codecManager : CodecManager ) : Object
+		{
+			var type : Class = getDefinitionByName( object.type ) as Class;
+			var decoded : Object = new type();
+			for each( var obj : Object in object.values )
+			{
+				decoded.push( codecManager.decodeObject( obj ) );
+			}
+			return decoded;
+		}
+	}
+}

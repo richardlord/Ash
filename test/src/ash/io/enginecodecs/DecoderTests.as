@@ -5,6 +5,8 @@ package ash.io.enginecodecs
 	import ash.io.MockComponent1;
 	import ash.io.MockComponent2;
 
+	import asunit.framework.IAsync;
+
 	import org.hamcrest.assertThat;
 	import org.hamcrest.collection.arrayWithSize;
 	import org.hamcrest.collection.hasItem;
@@ -15,8 +17,12 @@ package ash.io.enginecodecs
 
 	public class DecoderTests
 	{
+		[Inject]
+		public var async : IAsync;
+
 		private var endec : ObjectEngineCodec;
 		private var original : Engine;
+		private var encodedData : Object;
 		private var engine : Engine;
 		private var firstComponent1 : MockComponent1;
 		private var secondComponent1 : MockComponent1;
@@ -42,7 +48,7 @@ package ash.io.enginecodecs
 			entity = new Entity();
 			entity.add( secondComponent1 );
 			original.addEntity( entity );
-			var encodedData : Object = endec.encodeEngine( original );
+			encodedData = endec.encodeEngine( original );
 			
 			engine = new Engine();
 			endec.decodeEngine( encodedData, engine );
@@ -51,6 +57,7 @@ package ash.io.enginecodecs
 		[After]
 		public function deleteEncoder() : void
 		{
+			endec.decodeComplete.removeAll();
 			endec = null;
 			original = null;
 			engine = null;
@@ -220,6 +227,14 @@ package ash.io.enginecodecs
 			var component1 : MockComponent1 = third.get( MockComponent1 );
 			assertThat( component1.x, equalTo( secondComponent1.x ) );
 			assertThat( component1.y, equalTo( secondComponent1.y ) );
+		}
+		
+		[Test]
+		public function decodingTriggersCompleteSignal() : void
+		{
+			endec.decodeComplete.add( async.add() );
+			engine = new Engine();
+			endec.decodeEngine( encodedData, engine );
 		}
 	}
 }

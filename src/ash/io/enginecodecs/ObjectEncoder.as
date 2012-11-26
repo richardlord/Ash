@@ -61,8 +61,7 @@ package ash.io.enginecodecs
 			{
 				return componentEncodingMap[ component ].id;
 			}
-			var codec : IObjectCodec = codecManager.getCodecForComponent( component );
-			var encoded : Object = codec.encode( component );
+			var encoded : Object = codecManager.encodeComponent( component );
 			encoded.id = nextComponentId++;
 			componentEncodingMap[ component ] = encoded;
 			encodedComponents.push( encoded );

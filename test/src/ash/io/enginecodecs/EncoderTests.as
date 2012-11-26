@@ -2,8 +2,9 @@ package ash.io.enginecodecs
 {
 	import ash.core.Engine;
 	import ash.core.Entity;
-	import flash.geom.Point;
-	import flash.geom.Rectangle;
+
+	import asunit.framework.IAsync;
+
 	import org.hamcrest.assertThat;
 	import org.hamcrest.collection.arrayWithSize;
 	import org.hamcrest.collection.hasItem;
@@ -11,10 +12,14 @@ package ash.io.enginecodecs
 	import org.hamcrest.object.equalTo;
 	import org.hamcrest.object.hasProperty;
 
-
+	import flash.geom.Point;
+	import flash.geom.Rectangle;
 
 	public class EncoderTests
 	{
+		[Inject]
+		public var async : IAsync;
+
 		private var endec : ObjectEngineCodec;
 		private var engine : Engine;
 		private var firstPoint : Point;
@@ -246,6 +251,13 @@ package ash.io.enginecodecs
 			assertThat( pointEncoded.type, equalTo( "flash.geom::Point" ) );
 			assertThat( pointEncoded.properties.x.value, equalTo( secondPoint.x ) );
 			assertThat( pointEncoded.properties.y.value, equalTo( secondPoint.y ) );
+		}
+		
+		[Test]
+		public function encodingTriggersCompleteSignal() : void
+		{
+			endec.encodeComplete.add( async.add() );
+			encodedData = endec.encodeEngine( engine );
 		}
 	}
 }

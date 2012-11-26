@@ -16,6 +16,8 @@ package ash.io
 		public var point2Variable : Point;
 		public var rectVariable : Rectangle;
 		public var rect2Variable : Rectangle;
+		public var arrayVariable : Array;
+		public var vectorVariable : Vector.<int>;
 		mock_namespace var namespaceVariable : int;
 		
 		private var _fullAccessor : int;
