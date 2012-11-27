@@ -56,6 +56,90 @@ package ash.io.objectcodecs
 		}
 		
 		[Test]
+		public function codecForObjectReturnsNativeCodecForInt() : void
+		{
+			var codec : IObjectCodec = codecManager.getCodecForObject( int( 5 ) );
+			assertThat( codec, instanceOf( NativeObjectCodec ) );
+		}
+		
+		[Test]
+		public function codecForComponentReturnsNativeCodecForInt() : void
+		{
+			var codec : IObjectCodec = codecManager.getCodecForComponent( int( 5 ) );
+			assertThat( codec, instanceOf( NativeObjectCodec ) );
+		}
+		
+		[Test]
+		public function codecForObjectReturnsNativeCodecForUint() : void
+		{
+			var codec : IObjectCodec = codecManager.getCodecForObject( uint( 5 ) );
+			assertThat( codec, instanceOf( NativeObjectCodec ) );
+		}
+		
+		[Test]
+		public function codecForComponentReturnsNativeCodecForUint() : void
+		{
+			var codec : IObjectCodec = codecManager.getCodecForComponent( uint( 5 ) );
+			assertThat( codec, instanceOf( NativeObjectCodec ) );
+		}
+		
+		[Test]
+		public function codecForObjectReturnsNativeCodecForNumber() : void
+		{
+			var codec : IObjectCodec = codecManager.getCodecForObject( 2.7 );
+			assertThat( codec, instanceOf( NativeObjectCodec ) );
+		}
+		
+		[Test]
+		public function codecForComponentReturnsNativeCodecForNumber() : void
+		{
+			var codec : IObjectCodec = codecManager.getCodecForComponent( 2.7 );
+			assertThat( codec, instanceOf( NativeObjectCodec ) );
+		}
+		
+		[Test]
+		public function codecForObjectReturnsNativeCodecForString() : void
+		{
+			var codec : IObjectCodec = codecManager.getCodecForObject( "Test" );
+			assertThat( codec, instanceOf( NativeObjectCodec ) );
+		}
+		
+		[Test]
+		public function codecForComponentReturnsNativeCodecForString() : void
+		{
+			var codec : IObjectCodec = codecManager.getCodecForComponent( "Test" );
+			assertThat( codec, instanceOf( NativeObjectCodec ) );
+		}
+		
+		[Test]
+		public function codecForObjectReturnsNativeCodecForBoolean() : void
+		{
+			var codec : IObjectCodec = codecManager.getCodecForObject( true );
+			assertThat( codec, instanceOf( NativeObjectCodec ) );
+		}
+		
+		[Test]
+		public function codecForComponentReturnsNativeCodecForBoolean() : void
+		{
+			var codec : IObjectCodec = codecManager.getCodecForComponent( true );
+			assertThat( codec, instanceOf( NativeObjectCodec ) );
+		}
+		
+		[Test]
+		public function codecForObjectReturnsClassCodecForClass() : void
+		{
+			var codec : IObjectCodec = codecManager.getCodecForObject( Point );
+			assertThat( codec, instanceOf( ClassObjectCodec ) );
+		}
+		
+		[Test]
+		public function codecForComponentReturnsClassCodecForClass() : void
+		{
+			var codec : IObjectCodec = codecManager.getCodecForComponent( Point );
+			assertThat( codec, instanceOf( ClassObjectCodec ) );
+		}
+		
+		[Test]
 		public function codecForObjectReturnsArrayCodecForArray() : void
 		{
 			var codec : IObjectCodec = codecManager.getCodecForObject( new Array() );

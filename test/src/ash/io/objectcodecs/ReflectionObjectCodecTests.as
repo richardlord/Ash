@@ -5,12 +5,10 @@ package ash.io.objectcodecs
 	import org.hamcrest.assertThat;
 	import org.hamcrest.object.equalTo;
 	import org.hamcrest.object.instanceOf;
-	import org.hamcrest.object.isFalse;
 	import org.hamcrest.object.isNull;
 
 	import flash.geom.Point;
 	import flash.geom.Rectangle;
-
 	
 	public class ReflectionObjectCodecTests
 	{

@@ -13,22 +13,39 @@ package ash.io.objectcodecs
 		public function CodecManager()
 		{
 			codecs = new Dictionary();
+			var nativeCodec : NativeObjectCodec = new NativeObjectCodec();
+			addCustomCodec( nativeCodec, int );
+			addCustomCodec( nativeCodec, uint );
+			addCustomCodec( nativeCodec, Number );
+			addCustomCodec( nativeCodec, String );
+			addCustomCodec( nativeCodec, Boolean );
 			reflectionCodec = new ReflectionObjectCodec();
 			arrayCodec = new ArrayObjectCodec();
+			addCustomCodec( arrayCodec, Array );
+			addCustomCodec( new ClassObjectCodec(), Class );
 		}
 
 		public function getCodecForObject( object : Object ) : IObjectCodec
 		{
-			if ( !( object is Class ) )
+			var type : Class = object is Class ? Class : object.constructor as Class;
+			if ( codecs[type] )
 			{
-				object = object.constructor;
+				return codecs[type];
 			}
-			if ( codecs[object] )
+			if( getQualifiedClassName( object ).substr( 0, 20 ) == "__AS3__.vec::Vector." )
 			{
-				return codecs[object];
+				return arrayCodec;
 			}
-			var className : String = getQualifiedClassName( object );
-			if( className == "Array" || className.substr( 0, 20 ) == "__AS3__.vec::Vector." )
+			return null;
+		}
+
+		public function getCodecForType( type : Class ) : IObjectCodec
+		{
+			if ( codecs[type] )
+			{
+				return codecs[type];
+			}
+			if( getQualifiedClassName( type ).substr( 0, 20 ) == "__AS3__.vec::Vector." )
 			{
 				return arrayCodec;
 			}
@@ -38,6 +55,16 @@ package ash.io.objectcodecs
 		public function getCodecForComponent( component : Object ) : IObjectCodec
 		{
 			var codec : IObjectCodec = getCodecForObject( component );
+			if ( codec == null )
+			{
+				return reflectionCodec;
+			}
+			return codec;
+		}
+
+		public function getCodecForComponentType( type : Class ) : IObjectCodec
+		{
+			var codec : IObjectCodec = getCodecForType( type );
 			if ( codec == null )
 			{
 				return reflectionCodec;
@@ -56,23 +83,10 @@ package ash.io.objectcodecs
 			{
 				return { value : null };
 			}
-			var codec : IObjectCodec;
-			var type : String = getQualifiedClassName( object );
-			if ( isNativeType( type ) )
+			var codec : IObjectCodec = getCodecForComponent( object );
+			if ( codec )
 			{
-				return { type : type, value : object };
-			}
-			else
-			{
-				codec = getCodecForComponent( object );
-				if ( codec )
-				{
-					return codec.encode( object, this );
-				}
-				else
-				{
-					return { value : null };
-				}
+				return codec.encode( object, this );
 			}
 			return { value : null };
 		}
@@ -83,76 +97,40 @@ package ash.io.objectcodecs
 			{
 				return { value : null };
 			}
-			var codec : IObjectCodec;
-			var type : String = getQualifiedClassName( object );
-			if ( isNativeType( type ) )
+			var codec : IObjectCodec = getCodecForObject( object );
+			if ( codec )
 			{
-				return { type : type, value : object };
-			}
-			else
-			{
-				codec = getCodecForObject( object );
-				if ( codec )
-				{
-					return codec.encode( object, this );
-				}
+				return codec.encode( object, this );
 			}
 			return { value : null };
 		}
 
 		public function decodeComponent( object : Object ) : Object
 		{
-			if( !object.hasOwnProperty( "type" ) && object.hasOwnProperty( "value" ) && object.value === null )
+			if( !object.hasOwnProperty( "type" ) || ( object.hasOwnProperty( "value" ) && object.value === null ) )
 			{
 				return null;
 			}
-			if ( isNativeType( object.type ) )
+			var codec : IObjectCodec = getCodecForComponentType( getDefinitionByName( object.type ) as Class );
+			if ( codec )
 			{
-				return object.value;
-			}
-			else if( object.hasOwnProperty("value") && object.value == null )
-			{
-				return null;
-			}
-			else
-			{
-				var codec : IObjectCodec = getCodecForComponent( getDefinitionByName( object.type ) );
-				if ( codec )
-				{
-					return codec.decode( object, this );
-				}
+				return codec.decode( object, this );
 			}
 			return null;
 		}
 
 		public function decodeObject( object : Object ) : Object
 		{
-			if( !object.hasOwnProperty( "type" ) )
+			if( !object.hasOwnProperty( "type" ) || ( object.hasOwnProperty( "value" ) && object.value === null ) )
 			{
 				return null;
 			}
-			if ( isNativeType( object.type ) )
+			var codec : IObjectCodec = getCodecForType( getDefinitionByName( object.type ) as Class );
+			if ( codec )
 			{
-				return object.value;
-			}
-			else if( object.hasOwnProperty("value") && object.value == null )
-			{
-				return null;
-			}
-			else
-			{
-				var codec : IObjectCodec = getCodecForObject( getDefinitionByName( object.type ) );
-				if ( codec )
-				{
-					return codec.decode( object, this );
-				}
+				return codec.decode( object, this );
 			}
 			return null;
-		}
-
-		private function isNativeType( type : String ) : Boolean
-		{
-			return type == "int" || type == "uint" || type == "Number" || type == "String" || type == "Boolean";
 		}
 	}
 }
