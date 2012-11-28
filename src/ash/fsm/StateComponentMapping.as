@@ -63,6 +63,10 @@ package ash.fsm
 		 */
 		public function withSingleton( type : Class = null ) : StateComponentMapping
 		{
+			if( !type )
+			{
+				type = componentType;
+			}
 			setProvider( new ComponentSingletonProvider( type ) );
 			return this;
 		}
