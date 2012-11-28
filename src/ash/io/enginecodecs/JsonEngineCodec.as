@@ -16,5 +16,11 @@ package ash.io.enginecodecs
 			var object : Object = JSON.parse( encodedData as String );
 			super.decodeEngine( object, engine );
 		}
+		
+		override public function decodeOverEngine( encodedData : Object, engine : Engine ) : void
+		{
+			var object : Object = JSON.parse( encodedData as String );
+			super.decodeOverEngine( object, engine );
+		}
 	}
 }

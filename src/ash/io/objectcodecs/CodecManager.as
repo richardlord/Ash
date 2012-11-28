@@ -132,5 +132,18 @@ package ash.io.objectcodecs
 			}
 			return null;
 		}
+
+		public function decodeIntoObject( target : Object, encoded : Object ) : void
+		{
+			if( !encoded.hasOwnProperty( "type" ) || ( encoded.hasOwnProperty( "value" ) && encoded.value === null ) )
+			{
+				return;
+			}
+			var codec : IObjectCodec = getCodecForType( getDefinitionByName( encoded.type ) as Class );
+			if ( codec )
+			{
+				codec.decodeInto( target, encoded, this );
+			}
+		}
 	}
 }

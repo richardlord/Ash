@@ -25,5 +25,13 @@ package ash.io.objectcodecs
 			}
 			return decoded;
 		}
+
+		public function decodeInto( target : Object, object : Object, codecManager : CodecManager ) : void
+		{
+			for ( var name : String in object.properties )
+			{
+				target[name] = codecManager.decodeObject( object.properties[name] );
+			}
+		}
 	}
 }

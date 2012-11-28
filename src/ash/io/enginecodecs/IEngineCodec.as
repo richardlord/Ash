@@ -12,6 +12,8 @@ package ash.io.enginecodecs
 
 		function decodeEngine( encodedData : Object, engine : Engine ) : void;
 		
+		function decodeOverEngine( encodedData : Object, engine : Engine ) : void;
+		
 		function get encodeComplete() : Signal1;
 		
 		function get decodeComplete() : Signal1;

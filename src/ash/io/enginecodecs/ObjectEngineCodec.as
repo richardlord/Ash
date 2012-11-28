@@ -7,8 +7,8 @@ package ash.io.enginecodecs
 
 	public class ObjectEngineCodec implements IEngineCodec
 	{
-		private var encoder : ObjectEncoder;
-		private var decoder : ObjectDecoder;
+		private var encoder : EngineEncoder;
+		private var decoder : EngineDecoder;
 		private var codecManager : CodecManager;
 		private var encodeCompleteSignal : Signal1 = new Signal1( Object );
 		private var decodeCompleteSignal : Signal1 = new Signal1( Engine );
@@ -16,8 +16,8 @@ package ash.io.enginecodecs
 		public function ObjectEngineCodec()
 		{
 			codecManager = new CodecManager();
-			encoder = new ObjectEncoder( codecManager );
-			decoder = new ObjectDecoder( codecManager );
+			encoder = new EngineEncoder( codecManager );
+			decoder = new EngineDecoder( codecManager );
 		}
 
 		public function addCustomCodec( codec : IObjectCodec, ...types ) : void
@@ -40,6 +40,13 @@ package ash.io.enginecodecs
 		{
 			decoder.reset();
 			decoder.decodeEngine( encodedData, engine );
+			decodeCompleteSignal.dispatch( engine );
+		}
+
+		public function decodeOverEngine( encodedData : Object, engine : Engine ) : void
+		{
+			decoder.reset();
+			decoder.decodeOverEngine( encodedData, engine );
 			decodeCompleteSignal.dispatch( engine );
 		}
 		

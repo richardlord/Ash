@@ -26,7 +26,7 @@ when calling the @changeState()@ method.
 
 States are instances of the EntityState class. They may be added to the EntityStateMachine using the 
 @EntityStateMachine.addState()@ method, or they may be created and added in one call using the 
-@EntityStatemachine.createState()@ method.
+@EntityStateMachine.createState()@ method.
 
 A state is a set of components that should be added to the entity when that state is entered, and removed when that
 state exits (unless they are also required for the next state).

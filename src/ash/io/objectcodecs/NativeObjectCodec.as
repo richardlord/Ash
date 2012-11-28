@@ -15,5 +15,10 @@ package ash.io.objectcodecs
 		{
 			return object.value;
 		}
+
+		public function decodeInto( target : Object, object : Object, codecManager : CodecManager ) : void
+		{
+			target = object.value; // this won't work because native objects (i.e. target) are not passed by reference
+		}
 	}
 }
