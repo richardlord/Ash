@@ -133,7 +133,20 @@ package ash.io.objectcodecs
 			return null;
 		}
 
-		public function decodeIntoObject( target : Object, encoded : Object ) : void
+		public function decodeIntoComponent( target : Object, encoded : Object ) : void
+		{
+			if( !encoded.hasOwnProperty( "type" ) || ( encoded.hasOwnProperty( "value" ) && encoded.value === null ) )
+			{
+				return;
+			}
+			var codec : IObjectCodec = getCodecForComponentType( getDefinitionByName( encoded.type ) as Class );
+			if ( codec )
+			{
+				codec.decodeIntoObject( target, encoded, this );
+			}
+		}
+
+		public function decodeIntoProperty( parent : Object, property : String, encoded : Object ) : void
 		{
 			if( !encoded.hasOwnProperty( "type" ) || ( encoded.hasOwnProperty( "value" ) && encoded.value === null ) )
 			{
@@ -142,7 +155,7 @@ package ash.io.objectcodecs
 			var codec : IObjectCodec = getCodecForType( getDefinitionByName( encoded.type ) as Class );
 			if ( codec )
 			{
-				codec.decodeInto( target, encoded, this );
+				codec.decodeIntoProperty( parent, property, encoded, this );
 			}
 		}
 	}

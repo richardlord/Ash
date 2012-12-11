@@ -15,9 +15,14 @@ package ash.io.objectcodecs
 			return getDefinitionByName( object.value );
 		}
 
-		public function decodeInto( target : Object, object : Object, codecManager : CodecManager ) : void
+		public function decodeIntoObject( target : Object, object : Object, codecManager : CodecManager ) : void
 		{
 			target = getDefinitionByName( object.value ); // this won't work because native objects (i.e. target) are not passed by reference
+		}
+
+		public function decodeIntoProperty( parent : Object, property : String, object : Object, codecManager : CodecManager ) : void
+		{
+			decodeIntoObject( parent[property], object, codecManager );
 		}
 	}
 }

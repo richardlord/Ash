@@ -21,17 +21,35 @@ package ash.io.objectcodecs
 			var decoded : Object = new type();
 			for ( var name : String in object.properties )
 			{
-				decoded[name] = codecManager.decodeObject( object.properties[name] );
+				if( decoded.hasOwnProperty( name ) )
+				{
+					decoded[name] = codecManager.decodeObject( object.properties[name] );
+				}
 			}
 			return decoded;
 		}
 
-		public function decodeInto( target : Object, object : Object, codecManager : CodecManager ) : void
+		public function decodeIntoObject( target : Object, object : Object, codecManager : CodecManager ) : void
 		{
 			for ( var name : String in object.properties )
 			{
-				target[name] = codecManager.decodeObject( object.properties[name] );
+				if( target.hasOwnProperty( name ) )
+				{
+					if( target[name] )
+					{
+						codecManager.decodeIntoProperty( target, name, object.properties[name] );
+					}
+					else
+					{
+						target[name] = codecManager.decodeObject( object.properties[name] );
+					}
+				}
 			}
+		}
+
+		public function decodeIntoProperty( parent : Object, property : String, object : Object, codecManager : CodecManager ) : void
+		{
+			decodeIntoObject( parent[property], object, codecManager );
 		}
 	}
 }

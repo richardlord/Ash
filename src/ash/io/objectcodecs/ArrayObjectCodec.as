@@ -30,12 +30,17 @@ package ash.io.objectcodecs
 			return decoded;
 		}
 
-		public function decodeInto( target : Object, object : Object, codecManager : CodecManager ) : void
+		public function decodeIntoObject( target : Object, object : Object, codecManager : CodecManager ) : void
 		{
 			for each( var obj : Object in object.values )
 			{
 				target.push( codecManager.decodeObject( obj ) );
 			}
+		}
+
+		public function decodeIntoProperty( parent : Object, property : String, object : Object, codecManager : CodecManager ) : void
+		{
+			decodeIntoObject( parent[property], object, codecManager );
 		}
 	}
 }

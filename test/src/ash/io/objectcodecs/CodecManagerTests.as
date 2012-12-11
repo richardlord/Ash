@@ -182,7 +182,11 @@ class MockCodec implements IObjectCodec
 	{
 		return null;
 	}
-	public function decodeInto( target : Object, object : Object, codecManager : CodecManager ) : void
+	public function decodeIntoObject( target : Object, object : Object, codecManager : CodecManager ) : void
+	{
+
+	}
+	public function decodeIntoProperty( parent : Object, property : String, object : Object, codecManager : CodecManager ) : void
 	{
 
 	}

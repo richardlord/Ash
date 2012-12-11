@@ -72,15 +72,18 @@ package ash.io.enginecodecs
 				if ( componentMap.hasOwnProperty( componentId ) )
 				{
 					var newComponent : Object = componentMap[componentId];
-					var type : Class = newComponent.constructor as Class;
-					var existingComponent : Object = entity.get( type );
-					if( existingComponent )
+					if( newComponent )
 					{
-						codecManager.decodeIntoObject( existingComponent, encodedComponentMap[componentId] );
-					}
-					else
-					{
-						entity.add( componentMap[componentId] );
+						var type : Class = newComponent.constructor as Class;
+						var existingComponent : Object = entity.get( type );
+						if( existingComponent )
+						{
+							codecManager.decodeIntoComponent( existingComponent, encodedComponentMap[componentId] );
+						}
+						else
+						{
+							entity.add( newComponent );
+						}
 					}
 				}
 			}

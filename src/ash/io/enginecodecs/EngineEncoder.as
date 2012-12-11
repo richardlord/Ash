@@ -18,7 +18,6 @@ package ash.io.enginecodecs
 		public function EngineEncoder( codecManager : CodecManager )
 		{
 			this.codecManager = codecManager;
-			componentEncodingMap = new Dictionary();
 			reset();
 		}
 		
@@ -27,6 +26,7 @@ package ash.io.enginecodecs
 			nextComponentId = 1;
 			encodedEntities = [];
 			encodedComponents = [];
+			componentEncodingMap = new Dictionary();
 			encoded = { entities : encodedEntities, components : encodedComponents };
 		}
 
@@ -47,7 +47,11 @@ package ash.io.enginecodecs
 			var componentIds : Array = [];
 			for each ( var component : * in components )
 			{
-				componentIds.push( encodeComponent( component ) );
+				var encodedComponent : Object = encodeComponent( component );
+				if( encodedComponent )
+				{
+					componentIds.push( encodedComponent );
+				}
 			}
 			encodedEntities.push( {
 				name : entity.name,
@@ -62,10 +66,14 @@ package ash.io.enginecodecs
 				return componentEncodingMap[ component ].id;
 			}
 			var encoded : Object = codecManager.encodeComponent( component );
-			encoded.id = nextComponentId++;
-			componentEncodingMap[ component ] = encoded;
-			encodedComponents.push( encoded );
-			return encoded.id;
+			if( encoded )
+			{
+				encoded.id = nextComponentId++;
+				componentEncodingMap[ component ] = encoded;
+				encodedComponents.push( encoded );
+				return encoded.id;
+			}
+			return 0;
 		}
 	}
 }

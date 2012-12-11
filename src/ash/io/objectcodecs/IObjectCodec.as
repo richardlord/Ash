@@ -4,6 +4,7 @@ package ash.io.objectcodecs
 	{
 		function encode( object : Object, codecManager : CodecManager ) : Object;
 		function decode( object : Object, codecManager : CodecManager ) : Object;
-		function decodeInto( target : Object, object : Object, codecManager : CodecManager ) : void;
+		function decodeIntoObject( target : Object, object : Object, codecManager : CodecManager ) : void;
+		function decodeIntoProperty( parent : Object, property : String, object : Object, codecManager : CodecManager ) : void;
 	}
 }
