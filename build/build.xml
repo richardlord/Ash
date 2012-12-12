@@ -23,4 +23,32 @@
 			<arg line='-include-classes ${classlist}'/>
 		</exec>
 	</target>
+	
+	<target name="asdocs" description="Build library documentation">
+		<delete dir="../docs"/>
+		<mkdir dir="../docs"/>
+		
+		<fileset dir="../src" casesensitive="yes" id="classfiles">
+			<include name="**/*.as"/>
+		</fileset>
+		
+		<pathconvert property="classlist" refid="classfiles" pathsep=" " dirsep=".">
+			<regexpmapper from=".*src.(.*)\.as" to="\1"/>
+		</pathconvert>
+
+		<exec executable="${flexsdk.dir}/bin/asdoc${bin.ext}" failonerror="true">
+			<arg line='-templates-path ${asdoc.template}'/>
+			<arg line='-output ../docs/'/>
+			<arg line='-target-player 11.5.0.0'/>
+			<arg line='-library-path+="${robotlegs.swc}"'/>
+			<arg line='-library-path+="${starling.swc}"'/>
+			<arg line='-package-description-file packages.xml'/>
+			<arg line='-main-title "Ash entity system framework documentation"'/>
+			<arg line='-window-title "Ash entity system framework documentation"'/>
+			<arg line='-footer "© Richard Lord 2012"'/>
+			<arg line='-source-path ../src'/>
+			<arg line='-doc-classes ${classlist}'/>
+		</exec>
+	</target>
+
 </project>

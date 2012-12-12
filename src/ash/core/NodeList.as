@@ -33,13 +33,13 @@ package ash.core
 		/**
 		 * A signal that is dispatched whenever a node is added to the node list.
 		 * 
-		 * <p>The signal will pass a single parameter to the listeners - the node that was added.
+		 * <p>The signal will pass a single parameter to the listeners - the node that was added.</p>
 		 */
 		public var nodeAdded : Signal1;
 		/**
 		 * A signal that is dispatched whenever a node is removed from the node list.
 		 * 
-		 * <p>The signal will pass a single parameter to the listeners - the node that was removed.
+		 * <p>The signal will pass a single parameter to the listeners - the node that was removed.</p>
 		 */
 		public var nodeRemoved : Signal1;
 		
