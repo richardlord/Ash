@@ -5,7 +5,7 @@ package ash.core
 	import flash.utils.getDefinitionByName;
 
 	/**
-	 * A default class for managing a NodeList. This class creates the NodeList and adds and removes
+	 * The default class for managing a NodeList. This class creates the NodeList and adds and removes
 	 * nodes to/from the list as the entities and the components in the engine change.
 	 * 
 	 * It uses the basic entity matching pattern of an entity system - entities are added to the list if

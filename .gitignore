@@ -1,5 +1,6 @@
 # General
 bin/*
+docs/*
 
 # Eclipse
 .settings/*

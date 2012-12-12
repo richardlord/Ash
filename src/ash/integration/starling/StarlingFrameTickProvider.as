@@ -5,9 +5,8 @@ package ash.integration.starling
 	import starling.animation.IAnimatable;
 	import starling.animation.Juggler;
 
-
 	/**
-	 * Provides a frame tick where the frame duration is the time since the previous frame.
+	 * Uses a Starling juggler to provide a frame tick where the frame duration is the time since the previous frame.
 	 * There is a maximum frame time parameter in the constructor that can be used to limit
 	 * the longest period a frame can be.
 	 */

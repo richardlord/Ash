@@ -1,0 +1,47 @@
+<overviews>
+	<all-packages>
+		<description><![CDATA[&lt;p&gt;Ash is a high-performance entity system framework for game development
+with Adobe Flash and Adobe Air.&lt;/p&gt;
+
+&lt;p&gt;An entity system is a way to organise the code for a game that is efficient for both code execution 
+and code management. It uses composition rather than inheritance for sharing features between game objects and 
+uses a data-oriented approach to separate the game state from the game logic.&lt;/p&gt;
+
+&lt;p&gt;Ash is a small library that provides the core classes that you need to create your game with this more 
+productive and performant architecture. Ash is designed specifically for games, focusing on the features of games 
+that make them hard to manage and simplifying them. The entity system architecture used in Ash is explained 
+&lt;a href="http://www.ashframework.org" target="top"&gt;on the Ash website.&lt;/a&gt;&lt;/p&gt;
+
+]]></description>
+	</all-packages>
+
+	<packages>
+		<package name="ash.core">
+			<shortDescription><![CDATA[The core classes of Ash for the core Engine, Systems and Entities.]]></shortDescription>
+		</package>
+		<package name="ash.fsm">
+			<shortDescription><![CDATA[Classes for creating and managing finite state machines in a game.]]></shortDescription>
+		</package>
+		<package name="ash.integration">
+			<shortDescription><![CDATA[Integration with other libraries and frameworks - Starling, Robotlegs and Swift Suspenders.]]></shortDescription>
+		</package>
+		<package name="ash.integration.robotlegs">
+			<shortDescription><![CDATA[Integration with the Robotlegs MVC framework.]]></shortDescription>
+		</package>
+		<package name="ash.integration.starling">
+			<shortDescription><![CDATA[Integration with the Starling 2d rendering library.]]></shortDescription>
+		</package>
+		<package name="ash.integration.swiftsuspenders">
+			<shortDescription><![CDATA[Integration with the Swift Suspenders dependency injection library.]]></shortDescription>
+		</package>
+		<package name="ash.signals">
+			<shortDescription><![CDATA[A simpler and more performant version of AS3-signals. Used internally in Ash and available for use in your game too.]]></shortDescription>
+		</package>
+		<package name="ash.tick">
+			<shortDescription><![CDATA[Various different methods for providing a tick for the game loop.]]></shortDescription>
+		</package>
+		<package name="ash.tools">
+			<shortDescription><![CDATA[Miscellaneous other useful bits and pieces.]]></shortDescription>
+		</package>
+	</packages>
+</overviews>

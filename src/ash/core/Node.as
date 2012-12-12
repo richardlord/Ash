@@ -1,7 +1,7 @@
 package ash.core
 {
 	/**
-	 * Base class for a node.
+	 * The base class for a node.
 	 * 
 	 * <p>A node is a set of different components that are required by a system.
 	 * A system can request a collection of nodes from the engine. Subsequently the Engine object creates
