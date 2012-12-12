@@ -1,6 +1,7 @@
 # General
 bin/*
 docs/*
+build/build.config
 
 # Eclipse
 .settings/*
