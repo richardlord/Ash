@@ -6,7 +6,7 @@ package ash.tick
 	import flash.utils.getTimer;
 
 	/**
-	 * Provides a frame tick where the frame duration is the time since the previous frame.
+	 * Uses the enter frame event to provide a frame tick where the frame duration is the time since the previous frame.
 	 * There is a maximum frame time parameter in the constructor that can be used to limit
 	 * the longest period a frame can be.
 	 */

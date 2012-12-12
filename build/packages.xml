@@ -10,7 +10,7 @@ uses a data-oriented approach to separate the game state from the game logic.&lt
 &lt;p&gt;Ash is a small library that provides the core classes that you need to create your game with this more 
 productive and performant architecture. Ash is designed specifically for games, focusing on the features of games 
 that make them hard to manage and simplifying them. The entity system architecture used in Ash is explained 
-&lt;a href="http://www.ashframework.org"&gt;on the Ash website.&lt;/a&gt;&lt;/p&gt;
+&lt;a href="http://www.ashframework.org" target="top"&gt;on the Ash website.&lt;/a&gt;&lt;/p&gt;
 
 ]]></description>
 	</all-packages>
