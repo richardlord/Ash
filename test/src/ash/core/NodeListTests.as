@@ -203,6 +203,122 @@ package ash.core
 			nodes.swap( node1, node3 );
 			assertThat( nodes, nodeList( node3, node2, node1 ) );
 		}
+		
+		[Test]
+		public function insertionSortCorrectlySortsSortedNodes() : void
+		{
+			var node1 : MockNode = new MockNode( 1 );
+			var node2 : MockNode = new MockNode( 2 );
+			var node3 : MockNode = new MockNode( 3 );
+			var node4 : MockNode = new MockNode( 4 );
+			nodes.add( node1 );
+			nodes.add( node2 );
+			nodes.add( node3 );
+			nodes.add( node4 );
+			nodes.insertionSort( sortFunction );
+			assertThat( nodes, nodeList( node1, node2, node3, node4 ) );
+		}
+		
+		[Test]
+		public function insertionSortCorrectlySortsReversedNodes() : void
+		{
+			var node1 : MockNode = new MockNode( 1 );
+			var node2 : MockNode = new MockNode( 2 );
+			var node3 : MockNode = new MockNode( 3 );
+			var node4 : MockNode = new MockNode( 4 );
+			nodes.add( node4 );
+			nodes.add( node3 );
+			nodes.add( node2 );
+			nodes.add( node1 );
+			nodes.insertionSort( sortFunction );
+			assertThat( nodes, nodeList( node1, node2, node3, node4 ) );
+		}
+		
+		[Test]
+		public function insertionSortCorrectlySortsMixedNodes() : void
+		{
+			var node1 : MockNode = new MockNode( 1 );
+			var node2 : MockNode = new MockNode( 2 );
+			var node3 : MockNode = new MockNode( 3 );
+			var node4 : MockNode = new MockNode( 4 );
+			var node5 : MockNode = new MockNode( 5 );
+			nodes.add( node3 );
+			nodes.add( node4 );
+			nodes.add( node1 );
+			nodes.add( node5 );
+			nodes.add( node2 );
+			nodes.insertionSort( sortFunction );
+			assertThat( nodes, nodeList( node1, node2, node3, node4, node5 ) );
+		}
+		
+		[Test]
+		public function insertionSortRetainsTheOrderOfEquivalentNodes() : void
+		{
+			var node1 : MockNode = new MockNode( 1 );
+			var node2 : MockNode = new MockNode( 1 );
+			var node3 : MockNode = new MockNode( 3 );
+			var node4 : MockNode = new MockNode( 4 );
+			var node5 : MockNode = new MockNode( 4 );
+			nodes.add( node3 );
+			nodes.add( node4 );
+			nodes.add( node1 );
+			nodes.add( node5 );
+			nodes.add( node2 );
+			nodes.insertionSort( sortFunction );
+			assertThat( nodes, nodeList( node1, node2, node3, node4, node5 ) );
+		}
+		
+		[Test]
+		public function mergeSortCorrectlySortsSortedNodes() : void
+		{
+			var node1 : MockNode = new MockNode( 1 );
+			var node2 : MockNode = new MockNode( 2 );
+			var node3 : MockNode = new MockNode( 3 );
+			var node4 : MockNode = new MockNode( 4 );
+			nodes.add( node1 );
+			nodes.add( node2 );
+			nodes.add( node3 );
+			nodes.add( node4 );
+			nodes.mergeSort( sortFunction );
+			assertThat( nodes, nodeList( node1, node2, node3, node4 ) );
+		}
+		
+		[Test]
+		public function mergeSortCorrectlySortsReversedNodes() : void
+		{
+			var node1 : MockNode = new MockNode( 1 );
+			var node2 : MockNode = new MockNode( 2 );
+			var node3 : MockNode = new MockNode( 3 );
+			var node4 : MockNode = new MockNode( 4 );
+			nodes.add( node4 );
+			nodes.add( node3 );
+			nodes.add( node2 );
+			nodes.add( node1 );
+			nodes.mergeSort( sortFunction );
+			assertThat( nodes, nodeList( node1, node2, node3, node4 ) );
+		}
+		
+		[Test]
+		public function mergeSortCorrectlySortsMixedNodes() : void
+		{
+			var node1 : MockNode = new MockNode( 1 );
+			var node2 : MockNode = new MockNode( 2 );
+			var node3 : MockNode = new MockNode( 3 );
+			var node4 : MockNode = new MockNode( 4 );
+			var node5 : MockNode = new MockNode( 5 );
+			nodes.add( node3 );
+			nodes.add( node4 );
+			nodes.add( node1 );
+			nodes.add( node5 );
+			nodes.add( node2 );
+			nodes.mergeSort( sortFunction );
+			assertThat( nodes, nodeList( node1, node2, node3, node4, node5 ) );
+		}
+		
+		private function sortFunction( node1 : MockNode, node2 : MockNode ) : Number
+		{
+			return node1.pos - node2.pos;
+		}
 	}
 }
 
@@ -212,6 +328,10 @@ import flash.geom.Point;
 
 class MockNode extends Node
 {
-	public var point : Point;
-	public var matrix : Matrix;
+	public var pos : int;
+	
+	public function MockNode( value : int = 0 )
+	{
+		pos = value;
+	}
 }
