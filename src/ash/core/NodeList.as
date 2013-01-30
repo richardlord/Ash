@@ -172,5 +172,168 @@ package ash.core
 				node2.next.previous = node2;
 			}
 		}
+		
+		/**
+		 * Performs an insertion sort on the node list. In general, insertion sort is very efficient with short lists 
+		 * and with lists that are mostly sorted, but is inefficient with large lists that are randomly ordered.
+		 * 
+		 * <p>The sort function takes two nodes and returns a Number.</p>
+		 * 
+		 * <p><code>function sortFunction( node1 : MockNode, node2 : MockNode ) : Number</code></p>
+		 * 
+		 * <p>If the returned number is less than zero, the first node should be before the second. If it is greater
+		 * than zero the second node should be before the first. If it is zero the order of the nodes doesn't matter
+		 * and the original order will be retained.</p>
+		 * 
+		 * <p>This insertion sort implementation runs in place so no objects are created during the sort.</p>
+		 */
+		public function insertionSort( sortFunction : Function ) : void
+		{
+			if( head == tail )
+			{
+				return;
+			}
+			var remains : Node = head.next;
+			for( var node : Node = remains; node; node = remains )
+			{
+				remains = node.next;
+				for( var other : Node = node.previous; other; other = other.previous )
+				{
+					if( sortFunction( node, other ) >= 0 )
+					{
+						// move node to after other
+						if( node != other.next )
+						{
+							// remove from place
+							if ( tail == node)
+							{
+								tail = node.previous;
+							}
+							node.previous.next = node.next;
+							if (node.next)
+							{
+								node.next.previous = node.previous;
+							}
+							// insert after other
+							node.next = other.next;
+							node.previous = other;
+							node.next.previous = node;
+							other.next = node;
+						}
+						break; // exit the inner for loop
+					}
+				}
+				if( !other ) // the node belongs at the start of the list
+				{
+					// remove from place
+					if ( tail == node)
+					{
+						tail = node.previous;
+					}
+					node.previous.next = node.next;
+					if (node.next)
+					{
+						node.next.previous = node.previous;
+					}
+					// insert at head
+					node.next = head;
+					head.previous = node;
+					node.previous = null;
+					head = node;
+				}
+			}
+		}
+		
+		/**
+		 * Performs a merge sort on the node list. In general, merge sort is more efficient than insertion sort
+		 * with long lists that are very unsorted.
+		 * 
+		 * <p>The sort function takes two nodes and returns a Number.</p>
+		 * 
+		 * <p><code>function sortFunction( node1 : MockNode, node2 : MockNode ) : Number</code></p>
+		 * 
+		 * <p>If the returned number is less than zero, the first node should be before the second. If it is greater
+		 * than zero the second node should be before the first. If it is zero the order of the nodes doesn't matter.</p>
+		 * 
+		 * <p>This merge sort implementation creates and uses a single Vector during the sort operation.</p>
+		 */
+		public function mergeSort( sortFunction : Function ) : void
+		{
+			if( head == tail )
+			{
+				return;
+			}
+			var lists : Vector.<Node> = new Vector.<Node>;
+			// disassemble the list
+			var start : Node = head;
+			var end : Node;
+			while( start )
+			{
+				end = start;
+				while( end.next && sortFunction( end, end.next ) <= 0 )
+				{
+					end = end.next;
+				}
+				var next : Node = end.next;
+				start.previous = end.next = null;
+				lists.push( start );
+				start = next;
+			}
+			// reassemble it in order
+			while( lists.length > 1 )
+			{
+				lists.push( merge( lists.shift(), lists.shift(), sortFunction ) );
+			}
+			// find the tail
+			tail = head = lists[0];
+			while( tail.next )
+			{
+				tail = tail.next;	
+			}
+		}
+		
+		private function merge( head1 : Node, head2 : Node, sortFunction : Function ) : Node
+		{
+			var node : Node;
+			var head : Node;
+			if( sortFunction( head1, head2 ) <= 0 )
+			{
+				head = node = head1;
+				head1 = head1.next;
+			}
+			else
+			{
+				head = node = head2;
+				head2 = head2.next;
+			}
+			while( head1 && head2 )
+			{
+				if( sortFunction( head1, head2 ) <= 0 )
+				{
+					node.next = head1;
+					head1.previous = node;
+					node = head1;
+					head1 = head1.next;
+				}
+				else
+				{
+					node.next = head2;
+					head2.previous = node;
+					node = head2;
+					head2 = head2.next;
+				}
+			}
+			if( head1 )
+			{
+				node.next = head1;
+				head1.previous = node;
+			}
+			else
+			{
+				node.next = head2;
+				head2.previous = node;
+			}
+			return head;
+		}
 	}
 }
