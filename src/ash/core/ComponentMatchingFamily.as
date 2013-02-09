@@ -20,6 +20,13 @@ package ash.core
 		private var nodePool : NodePool;
 		private var engine : Engine;
 
+		/**
+		 * The constructor. Creates a ComponentMatchingFamily to provide a NodeList for the
+		 * given node class.
+		 * 
+		 * @param nodeClass The type of node to create and manage a NodeList for.
+		 * @param engine The engine that this family is managing teh NodeList for.
+		 */
 		public function ComponentMatchingFamily( nodeClass : Class, engine : Engine )
 		{
 			this.nodeClass = nodeClass;
@@ -27,6 +34,10 @@ package ash.core
 			init();
 		}
 
+		/**
+		 * Initialises the class. Creates the nodelist and other tools. Analyses the node to determine
+		 * what component types the node requires.
+		 */
 		private function init() : void
 		{
 			nodePool = new NodePool( nodeClass );
@@ -47,21 +58,39 @@ package ash.core
 			}
 		}
 		
+		/**
+		 * The nodelist managed by this family. This is a reference that remains valid always
+		 * since it is retained and reused by Systems that use the list. i.e. we never recreate the list,
+		 * we always modify it in place.
+		 */
 		public function get nodeList() : NodeList
 		{
 			return nodes;
 		}
 
+		/**
+		 * Called by the engine when an entity has been added to it. We check if the entity should be in
+		 * this family's NodeList and add it if appropriate.
+		 */
 		public function newEntity( entity : Entity ) : void
 		{
 			addIfMatch( entity );
 		}
 		
+		/**
+		 * Called by the engine when a component has been added to an entity. We check if the entity is not in
+		 * this family's NodeList and should be, and add it if appropriate.
+		 */
 		public function componentAddedToEntity( entity : Entity, componentClass : Class ) : void
 		{
 			addIfMatch( entity );
 		}
 		
+		/**
+		 * Called by the engine when a component has been removed from an entity. We check if the removed component
+		 * is required by this family's NodeList and if so, we check if the entity is in this this NodeList and
+		 * remove it if so.
+		 */
 		public function componentRemovedFromEntity( entity : Entity, componentClass : Class ) : void
 		{
 			if( components[componentClass] )
@@ -70,11 +99,19 @@ package ash.core
 			}
 		}
 		
+		/**
+		 * Called by the engine when an entity has been rmoved from it. We check if the entity is in
+		 * this family's NodeList and remove it if so.
+		 */
 		public function removeEntity( entity : Entity ) : void
 		{
 			removeIfMatch( entity );
 		}
 		
+		/**
+		 * If the entity is not in this family's NodeList, tests the components of the entity to see
+		 * if it should be in this NodeList and adds it if so.
+		 */
 		private function addIfMatch( entity : Entity ) : void
 		{
 			if( !entities[entity] )
@@ -98,6 +135,9 @@ package ash.core
 			}
 		}
 		
+		/**
+		 * Removes the entity if it is in this family's NodeList.
+		 */
 		private function removeIfMatch( entity : Entity ) : void
 		{
 			if( entities[entity] )
@@ -117,12 +157,19 @@ package ash.core
 			}
 		}
 		
+		/**
+		 * Releases the nodes that were added to the node pool during this engine update, so they can
+		 * be reused.
+		 */
 		private function releaseNodePoolCache() : void
 		{
 			engine.updateComplete.remove( releaseNodePoolCache );
 			nodePool.releaseCache();
 		}
 		
+		/**
+		 * Removes all nodes from the NodeList.
+		 */
 		public function cleanUp() : void
 		{
 			for( var node : Node = nodes.head; node; node = node.next )
