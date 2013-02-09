@@ -142,8 +142,9 @@ package ash.core
 		public function clone() : Entity
 		{
 			var copy : Entity = new Entity();
-			for each( var component : Object in components )
+			for ( var classRef : * in components )
 			{
+                var component : Object   = components[classRef]
 				var names : XMLList = describeType( component ).variable.@name;
 				var componentClass : Class = component.constructor as Class;
 				var newComponent : * = new componentClass();
@@ -151,7 +152,7 @@ package ash.core
 				{
 					newComponent[key] = component[key];
 				}
-				copy.add( newComponent );
+				copy.add( newComponent , classRef);
 			}
 			return copy;
 		}
