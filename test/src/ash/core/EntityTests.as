@@ -171,13 +171,21 @@ package ash.core
 			assertThat( clone == entity, isFalse() );
 		}
 
-		[Test]
-		public function cloneHasChildComponent() : void
-		{
-			entity.add( new MockComponent() );
-			var clone : Entity = entity.clone();
-			assertThat( clone.has( MockComponent ), isTrue() );
-		}
+        [Test]
+        public function cloneHasChildComponent() : void
+        {
+            entity.add( new MockComponent() );
+            var clone : Entity = entity.clone();
+            assertThat( clone.has( MockComponent ), isTrue() );
+        }
+
+        [Test]
+        public function cloneHasChildComponentAsBaseType() : void
+        {
+            entity.add( new MockComponentExtended(), MockComponent );
+            var clone : Entity = entity.clone();
+            assertThat( clone.has( MockComponent ), isTrue() );
+        }
 
 		[Test]
 		public function cloneChildComponentIsNewReference() : void
