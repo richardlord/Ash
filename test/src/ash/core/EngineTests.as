@@ -92,8 +92,8 @@ package ash.core
 			engine.addEntity( entity );
 			entity.add( new Point() );
 			entity.remove( Point );
-			assertThat( MockFamily.instances[0].componentAddedCalls, equalTo( 1 ) );
-			assertThat( MockFamily.instances[1].componentAddedCalls, equalTo( 1 ) );
+			assertThat( MockFamily.instances[0].componentRemovedCalls, equalTo( 1 ) );
+			assertThat( MockFamily.instances[1].componentRemovedCalls, equalTo( 1 ) );
 		}
 
 		[Test]
