@@ -162,48 +162,6 @@ package ash.core
 			entity.componentRemoved.add( async.add( testSignalContent, 10 ) );
 			entity.remove( MockComponent );
 		}
-
-		[Test]
-		public function cloneIsNewReference() : void
-		{
-			entity.add( new MockComponent() );
-			var clone : Entity = entity.clone();
-			assertThat( clone == entity, isFalse() );
-		}
-
-        [Test]
-        public function cloneHasChildComponent() : void
-        {
-            entity.add( new MockComponent() );
-            var clone : Entity = entity.clone();
-            assertThat( clone.has( MockComponent ), isTrue() );
-        }
-
-        [Test]
-        public function cloneHasChildComponentAsBaseType() : void
-        {
-            entity.add( new MockComponentExtended(), MockComponent );
-            var clone : Entity = entity.clone();
-            assertThat( clone.has( MockComponent ), isTrue() );
-        }
-
-		[Test]
-		public function cloneChildComponentIsNewReference() : void
-		{
-			entity.add( new MockComponent() );
-			var clone : Entity = entity.clone();
-			assertThat( clone.get( MockComponent ) == entity.get( MockComponent ), isFalse() );
-		}
-
-		[Test]
-		public function cloneChildComponentHasSameProperties() : void
-		{
-			var component : MockComponent = new MockComponent();
-			component.value = 5;
-			entity.add( component );
-			var clone : Entity = entity.clone();
-			assertThat( clone.get( MockComponent ).value, equalTo( 5 ) );
-		}
 		
 		private function testSignalContent( signalEntity : Entity, componentClass : Class ) : void
 		{

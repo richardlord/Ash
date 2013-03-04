@@ -2,7 +2,6 @@ package ash.core
 {
 	import ash.signals.Signal2;
 	import flash.utils.Dictionary;
-	import flash.utils.describeType;
 
 	/**
 	 * An entity is composed from components. As such, it is essentially a collection object for components. 
@@ -131,30 +130,6 @@ package ash.core
 		public function has( componentClass : Class ) : Boolean
 		{
 			return components[ componentClass ] != null;
-		}
-		
-		/**
-		 * Make a copy of the entity
-		 * 
-		 * @return A new entity with new components that are copies of the components on the
-		 * original entity.
-		 */
-		public function clone() : Entity
-		{
-			var copy : Entity = new Entity();
-			for ( var classRef : * in components )
-			{
-                var component : Object   = components[classRef]
-				var names : XMLList = describeType( component ).variable.@name;
-				var componentClass : Class = component.constructor as Class;
-				var newComponent : * = new componentClass();
-				for each( var key : String in names )
-				{
-					newComponent[key] = component[key];
-				}
-				copy.add( newComponent , classRef);
-			}
-			return copy;
 		}
 	}
 }
