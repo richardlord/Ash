@@ -1,9 +1,12 @@
 package ash.core
 {
-	import flash.geom.Point;
 	import org.hamcrest.assertThat;
 	import org.hamcrest.collection.hasItems;
 	import org.hamcrest.object.equalTo;
+	import org.hamcrest.object.nullValue;
+	import org.hamcrest.object.sameInstance;
+
+	import flash.geom.Point;
 
 	public class EngineTests
 	{
@@ -119,13 +122,50 @@ package ash.core
 			engine.releaseNodeList( MockNode );
 			assertThat( MockFamily.instances[0].cleanUpCalls, equalTo( 1 ) );
 		}
+		
+		[Test]
+		public function entityCanBeObtainedByName() : void
+		{
+			var entity : Entity = new Entity( "anything" );
+			engine.addEntity( entity );
+			var other : Entity = engine.getEntityByName( "anything" );
+			assertThat( other, sameInstance( entity ) );
+		}
+		
+		[Test]
+		public function getEntityByInvalidNameReturnsNull() : void
+		{
+			var entity : Entity = engine.getEntityByName( "anything" );
+			assertThat( entity, nullValue() );
+		}
+		
+		[Test]
+		public function entityCanBeObtainedByNameAfterRenaming() : void
+		{
+			var entity : Entity = new Entity( "anything" );
+			engine.addEntity( entity );
+			entity.name = "otherName";
+			var other : Entity = engine.getEntityByName( "otherName" );
+			assertThat( other, sameInstance( entity ) );
+		}
+		
+		[Test]
+		public function entityCannotBeObtainedByOldNameAfterRenaming() : void
+		{
+			var entity : Entity = new Entity( "anything" );
+			engine.addEntity( entity );
+			entity.name = "otherName";
+			var other : Entity = engine.getEntityByName( "anything" );
+			assertThat( other, nullValue() );
+		}
 	}
 }
+import ash.core.Engine;
 import ash.core.Entity;
 import ash.core.IFamily;
-import ash.core.Engine;
 import ash.core.Node;
 import ash.core.NodeList;
+
 import flash.geom.Matrix;
 import flash.geom.Point;
 

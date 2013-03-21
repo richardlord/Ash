@@ -1,16 +1,15 @@
 package ash.core
 {
 	import asunit.framework.IAsync;
+
 	import org.hamcrest.assertThat;
 	import org.hamcrest.collection.hasItems;
+	import org.hamcrest.number.greaterThan;
 	import org.hamcrest.object.equalTo;
 	import org.hamcrest.object.isFalse;
 	import org.hamcrest.object.isTrue;
 	import org.hamcrest.object.nullValue;
 	import org.hamcrest.object.sameInstance;
-
-
-
 
 	public class EntityTests
 	{
@@ -167,6 +166,44 @@ package ash.core
 		{
 			assertThat( signalEntity, sameInstance( entity ) );
 			assertThat( componentClass, sameInstance( MockComponent ) );
+		}
+		
+		[Test]
+		public function testEntityHasNameByDefault() : void
+		{
+			entity = new Entity();
+			assertThat( entity.name.length, greaterThan( 0 ) );
+		}
+		
+		[Test]
+		public function testEntityNameStoredAndReturned() : void
+		{
+			var name : String = "anything";
+			entity = new Entity( name );
+			assertThat( entity.name, equalTo( name ) );
+		}
+		
+		[Test]
+		public function testEntityNameCanBeChanged() : void
+		{
+			entity = new Entity( "anything" );
+			entity.name = "otherThing";
+			assertThat( entity.name, equalTo( "otherThing" ) );
+		}
+		
+		[Test]
+		public function testChangingEntityNameDispatchesSignal() : void
+		{
+			entity = new Entity( "anything" );
+			entity.nameChanged.add( async.add( testNameChangedSignal, 10 ) );
+			entity.name = "otherThing";
+		}
+
+		private function testNameChangedSignal( signalEntity : Entity, oldName : String ) : void
+		{
+			assertThat( signalEntity, sameInstance( entity ) );
+			assertThat( entity.name, equalTo( "otherThing" ) );
+			assertThat( oldName, equalTo( "anything" ) );
 		}
 	}
 }

@@ -9,6 +9,7 @@ package ash.core
 	 */
 	public class Engine
 	{
+		private var entityNames : Dictionary;
 		private var entityList : EntityList;
 		private var systemList : SystemList;
 		private var families : Dictionary;
@@ -37,6 +38,7 @@ package ash.core
 		public function Engine()
 		{
 			entityList = new EntityList();
+			entityNames = new Dictionary();
 			systemList = new SystemList();
 			families = new Dictionary();
 			updateComplete = new Signal0();
@@ -49,9 +51,15 @@ package ash.core
 		 */
 		public function addEntity( entity : Entity ) : void
 		{
+			if( entityNames[ entity.name ] )
+			{
+				throw new Error( "The entity name " + entity.name + " is already in use by another entity." );
+			}
 			entityList.add( entity );
+			entityNames[ entity.name ] = entity;
 			entity.componentAdded.add( componentAdded );
 			entity.componentRemoved.add( componentRemoved );
+			entity.nameChanged.add( entityNameChanged );
 			for each( var family : IFamily in families )
 			{
 				family.newEntity( entity );
@@ -67,11 +75,33 @@ package ash.core
 		{
 			entity.componentAdded.remove( componentAdded );
 			entity.componentRemoved.remove( componentRemoved );
+			entity.nameChanged.remove( entityNameChanged );
 			for each( var family : IFamily in families )
 			{
 				family.removeEntity( entity );
 			}
+			delete entityNames[ entity.name ];
 			entityList.remove( entity );
+		}
+		
+		private function entityNameChanged( entity : Entity, oldName : String ) : void
+		{
+			if( entityNames[ oldName ] == entity )
+			{
+				delete entityNames[ oldName ];
+				entityNames[ entity.name ] = entity;
+			}
+		}
+		
+		/**
+		 * Get an entity based n its name.
+		 * 
+		 * @param name The name of the entity
+		 * @return The entity, or null if no entity with that name exists on the engine
+		 */
+		public function getEntityByName( name : String ) : Entity
+		{
+			return entityNames[ name ];
 		}
 		
 		/**
