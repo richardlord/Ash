@@ -45,6 +45,7 @@ package ash.io.enginecodecs
 			entity.add( rectangle );
 			engine.addEntity( entity );
 			entity = new Entity();
+			entity.name = "third";
 			entity.add( secondPoint );
 			engine.addEntity( entity );
 			encodedData = endec.encodeEngine( engine );
@@ -81,17 +82,6 @@ package ash.io.enginecodecs
 				encodedData.entities[2].name
 			];
 			assertThat( names, hasItems( "first", "second" ) );
-		}
-
-		[Test]
-		public function unnamedEntityNamesAreEncodedWIthNull() : void
-		{
-			var names : Array = [
-				encodedData.entities[0].name,
-				encodedData.entities[1].name,
-				encodedData.entities[2].name
-			];
-			assertThat( names, hasItem( null ) );
 		}
 
 		[Test]
@@ -232,7 +222,7 @@ package ash.io.enginecodecs
 			var third : Object;
 			for each( var entity : Object in encodedData.entities )
 			{
-				if( entity.name == null )
+				if( entity.name == "third" )
 				{
 					third = entity;
 					break;

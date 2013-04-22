@@ -7,7 +7,6 @@ package ash.io.enginecodecs
 
 	import org.hamcrest.assertThat;
 	import org.hamcrest.collection.arrayWithSize;
-	import org.hamcrest.collection.hasItem;
 	import org.hamcrest.collection.hasItems;
 	import org.hamcrest.object.equalTo;
 	import org.hamcrest.object.instanceOf;
@@ -42,6 +41,7 @@ package ash.io.enginecodecs
 			entity.add( onlyComponent2 );
 			original.addEntity( entity );
 			entity = new Entity();
+			entity.name = "third";
 			entity.add( secondComponent1 );
 			original.addEntity( entity );
 			encodedData = endec.encodeEngine( original );
@@ -81,21 +81,9 @@ package ash.io.enginecodecs
 			{
 				names.push( entity.name );
 			}
-			assertThat( names, hasItems( "first", "second" ) );
+			assertThat( names, hasItems( "first", "second", "third" ) );
 		}
 
-		[Test]
-		public function decodedHasCorrectNullEntityNames() : void
-		{
-			var entities : Vector.<Entity> = engine.entities;
-			var names : Array = [];
-			for each( var entity : Entity in entities )
-			{
-				names.push( entity.name );
-			}
-			assertThat( names, hasItem( null ) );
-		}
-		
 		[Test]
 		public function firstEntityHasCorrectComponents() : void
 		{
@@ -141,7 +129,7 @@ package ash.io.enginecodecs
 			var third : Entity;
 			for each( var entity : Entity in entities )
 			{
-				if( entity.name == null )
+				if( entity.name == "third" )
 				{
 					third = entity;
 					break;
@@ -218,7 +206,7 @@ package ash.io.enginecodecs
 			var third : Entity;
 			for each( var entity : Entity in entities )
 			{
-				if( entity.name == null )
+				if( entity.name == "third" )
 				{
 					third = entity;
 					break;

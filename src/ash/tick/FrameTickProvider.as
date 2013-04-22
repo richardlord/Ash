@@ -15,6 +15,7 @@ package ash.tick
 		private var displayObject : DisplayObject;
 		private var previousTime : Number;
 		private var maximumFrameTime : Number;
+		private var isPlaying : Boolean = false;
 		
 		/**
 		 * Applies a time adjustement factor to the tick, so you can slow down or speed up the entire engine.
@@ -33,10 +34,12 @@ package ash.tick
 		{
 			previousTime = getTimer();
 			displayObject.addEventListener( Event.ENTER_FRAME, dispatchTick );
+			isPlaying = true;
 		}
 		
 		public function stop() : void
 		{
+			isPlaying = false;
 			displayObject.removeEventListener( Event.ENTER_FRAME, dispatchTick );
 		}
 		
@@ -50,6 +53,11 @@ package ash.tick
 				frameTime = maximumFrameTime;
 			}
 			dispatch( frameTime * timeAdjustment );
+		}
+
+		public function get playing() : Boolean
+		{
+			return isPlaying;
 		}
 	}
 }

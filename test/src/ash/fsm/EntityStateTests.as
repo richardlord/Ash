@@ -47,15 +47,28 @@ package ash.fsm
 			assertThat( provider, instanceOf( ComponentInstanceProvider ) );
 			assertThat( provider.getComponent(), equalTo( component ) );
 		}
-		
-		[Test]
-		public function addWithSingletonQualifierCreatesSingletonProvider() : void
-		{
-			state.add( MockComponent ).withSingleton( MockComponent );
-			var provider : IComponentProvider = state.providers[MockComponent];
-			assertThat( provider, instanceOf( ComponentSingletonProvider ) );
-			assertThat( provider.getComponent(), instanceOf( MockComponent ) );
-		}
+
+        [Test]
+        public function addWithSingletonQualifierCreatesSingletonProvider() : void
+        {
+            state.add( MockComponent ).withSingleton( MockComponent );
+            var provider : IComponentProvider = state.providers[MockComponent];
+            assertThat( provider, instanceOf( ComponentSingletonProvider ) );
+            assertThat( provider.getComponent(), instanceOf( MockComponent ) );
+        }
+
+        [Test]
+        public function addWithMethodQualifierCreatesDynamicProvider() : void
+        {
+            const dynamicProvider:Function = function():*
+            {
+               return new MockComponent();
+            };
+            state.add( MockComponent ).withMethod( dynamicProvider );
+            var provider : IComponentProvider = state.providers[MockComponent];
+            assertThat( provider, instanceOf( DynamicComponentProvider ) );
+            assertThat( provider.getComponent(), instanceOf( MockComponent ) );
+        }
 	}
 }
 

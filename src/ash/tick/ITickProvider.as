@@ -7,6 +7,8 @@ package ash.tick
 	 */
 	public interface ITickProvider
 	{
+		function get playing() : Boolean;
+		
 		function add( listener : Function ) : void;
 		function remove( listener : Function ) : void;
 		

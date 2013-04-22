@@ -4,6 +4,7 @@ package ash.core
 	import org.hamcrest.collection.hasItems;
 	import org.hamcrest.object.equalTo;
 	import org.hamcrest.object.isNull;
+	import org.hamcrest.object.nullValue;
 	import org.hamcrest.object.sameInstance;
 
 	import flash.geom.Point;
@@ -119,8 +120,8 @@ package ash.core
 			engine.addEntity( entity );
 			entity.add( new Point() );
 			entity.remove( Point );
-			assertThat( MockFamily.instances[0].componentAddedCalls, equalTo( 1 ) );
-			assertThat( MockFamily.instances[1].componentAddedCalls, equalTo( 1 ) );
+			assertThat( MockFamily.instances[0].componentRemovedCalls, equalTo( 1 ) );
+			assertThat( MockFamily.instances[1].componentRemovedCalls, equalTo( 1 ) );
 		}
 
 		[Test]
@@ -145,6 +146,42 @@ package ash.core
 			engine.getNodeList( MockNode );
 			engine.releaseNodeList( MockNode );
 			assertThat( MockFamily.instances[0].cleanUpCalls, equalTo( 1 ) );
+		}
+		
+		[Test]
+		public function entityCanBeObtainedByName() : void
+		{
+			var entity : Entity = new Entity( "anything" );
+			engine.addEntity( entity );
+			var other : Entity = engine.getEntityByName( "anything" );
+			assertThat( other, sameInstance( entity ) );
+		}
+		
+		[Test]
+		public function getEntityByInvalidNameReturnsNull() : void
+		{
+			var entity : Entity = engine.getEntityByName( "anything" );
+			assertThat( entity, nullValue() );
+		}
+		
+		[Test]
+		public function entityCanBeObtainedByNameAfterRenaming() : void
+		{
+			var entity : Entity = new Entity( "anything" );
+			engine.addEntity( entity );
+			entity.name = "otherName";
+			var other : Entity = engine.getEntityByName( "otherName" );
+			assertThat( other, sameInstance( entity ) );
+		}
+		
+		[Test]
+		public function entityCannotBeObtainedByOldNameAfterRenaming() : void
+		{
+			var entity : Entity = new Entity( "anything" );
+			engine.addEntity( entity );
+			entity.name = "otherName";
+			var other : Entity = engine.getEntityByName( "anything" );
+			assertThat( other, nullValue() );
 		}
 	}
 }

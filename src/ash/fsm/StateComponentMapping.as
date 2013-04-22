@@ -50,26 +50,40 @@ package ash.fsm
 			setProvider( new ComponentTypeProvider( type ) );
 			return this;
 		}
-		
-		/**
-		 * Creates a mapping for the component type to a single instance of the provided type.
-		 * The instance is not created until it is first requested. The type should be the same
-		 * as or extend the type for this mapping. A ComponentSingletonProvider is used for
-		 * the mapping.
-		 * 
-		 * @param The type of the single instance to be created. If omitted, the type of the
-		 * mapping is used.
-		 * @return This ComponentMapping, so more modifications can be applied
-		 */
-		public function withSingleton( type : Class = null ) : StateComponentMapping
-		{
-			if( !type )
-			{
-				type = componentType;
-			}
-			setProvider( new ComponentSingletonProvider( type ) );
-			return this;
-		}
+
+        /**
+         * Creates a mapping for the component type to a single instance of the provided type.
+         * The instance is not created until it is first requested. The type should be the same
+         * as or extend the type for this mapping. A ComponentSingletonProvider is used for
+         * the mapping.
+         *
+         * @param The type of the single instance to be created. If omitted, the type of the
+         * mapping is used.
+         * @return This ComponentMapping, so more modifications can be applied
+         */
+        public function withSingleton( type : Class = null ) : StateComponentMapping
+        {
+            if( !type )
+            {
+                type = componentType;
+            }
+            setProvider( new ComponentSingletonProvider( type ) );
+            return this;
+        }
+
+
+        /**
+         * Creates a mapping for the component type to a method call. A
+         * DynamicComponentProvider is used for the mapping.
+         *
+         * @param method The method to return the component instance
+         * @return This ComponentMapping, so more modifications can be applied
+         */
+        public function withMethod( method : Function ) : StateComponentMapping
+        {
+            setProvider( new DynamicComponentProvider( method ) );
+            return this;
+        }
 		
 		/**
 		 * Creates a mapping for the component type to any ComponentProvider.

@@ -1,8 +1,8 @@
 package ash.core
 {
 	import ash.signals.Signal2;
+
 	import flash.utils.Dictionary;
-	import flash.utils.describeType;
 
 	/**
 	 * An entity is composed from components. As such, it is essentially a collection object for components. 
@@ -24,10 +24,12 @@ package ash.core
 	 */
 	public class Entity
 	{
+		private static var nameCount : int = 0;
+		
 		/**
 		 * Optional, give the entity a name. This can help with debugging and with serialising the entity.
 		 */
-		public var name : String;
+		private var _name : String;
 		/**
 		 * This signal is dispatched when a component is added to the entity.
 		 */
@@ -36,16 +38,52 @@ package ash.core
 		 * This signal is dispatched when a component is removed from the entity.
 		 */
 		public var componentRemoved : Signal2;
+		/**
+		 * Dispatched when the name of the entity changes. Used internally by the engine to track entities based on their names.
+		 */
+		internal var nameChanged : Signal2;
 		
 		internal var previous : Entity;
 		internal var next : Entity;
 		internal var components : Dictionary;
 
-		public function Entity()
+		/**
+		 * The constructor
+		 * 
+		 * @param name The name for the entity. If left blank, a default name is assigned with the form _entityN where N is an integer.
+		 */
+		public function Entity( name : String = "" )
 		{
 			componentAdded = new Signal2( Entity, Class );
 			componentRemoved = new Signal2( Entity, Class );
+			nameChanged = new Signal2( Entity, String );
 			components = new Dictionary();
+			if( name )
+			{
+				_name = name;
+			}
+			else
+			{
+				_name = "_entity" + (++nameCount);
+			}
+		}
+		
+		/**
+		 * All entities have a name. If no name is set, a default name is used. Names are used to
+		 * fetch specific entities from the engine, and can also help to identify an entity when debugging.
+		 */
+		public function get name() : String
+		{
+			return _name;
+		}
+		public function set name( value : String ) : void
+		{
+			if( _name != value )
+			{
+				var previous : String = _name;
+				_name = value;
+				nameChanged.dispatch( this, previous );
+			}
 		}
 
 		/**
@@ -131,30 +169,6 @@ package ash.core
 		public function has( componentClass : Class ) : Boolean
 		{
 			return components[ componentClass ] != null;
-		}
-		
-		/**
-		 * Make a copy of the entity
-		 * 
-		 * @return A new entity with new components that are copies of the components on the
-		 * original entity.
-		 */
-		public function clone() : Entity
-		{
-			var copy : Entity = new Entity();
-			for ( var classRef : * in components )
-			{
-                var component : Object   = components[classRef]
-				var names : XMLList = describeType( component ).variable.@name;
-				var componentClass : Class = component.constructor as Class;
-				var newComponent : * = new componentClass();
-				for each( var key : String in names )
-				{
-					newComponent[key] = component[key];
-				}
-				copy.add( newComponent , classRef);
-			}
-			return copy;
 		}
 	}
 }
