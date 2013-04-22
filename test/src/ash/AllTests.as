@@ -9,7 +9,8 @@ package ash
 	import ash.fsm.ComponentInstanceProviderTests;
 	import ash.fsm.ComponentSingletonProviderTests;
 	import ash.fsm.ComponentTypeProviderTests;
-	import ash.fsm.EntityStateMachineTests;
+import ash.fsm.DynamicComponentProviderTests;
+import ash.fsm.EntityStateMachineTests;
 	import ash.fsm.EntityStateTests;
 	import ash.signals.SignalTest;
 	import ash.tools.ComponentPoolTest;
@@ -32,5 +33,6 @@ package ash
 		public var componentInstanceProviderTests : ComponentInstanceProviderTests;
 		public var componentTypeProviderTests : ComponentTypeProviderTests;
 		public var componentSingletonProviderTests : ComponentSingletonProviderTests;
+        public var dynamicComponentProviderTests : DynamicComponentProviderTests
 	}
 }
