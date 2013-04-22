@@ -19,6 +19,7 @@ package ash.signals
 		private var toAddHead : ListenerNode;
 		private var toAddTail : ListenerNode;
 		private var dispatching : Boolean;
+		private var _numListeners : int = 0;
 
 		public function SignalBase()
 		{
@@ -51,6 +52,11 @@ package ash.signals
 				toAddTail = null;
 			}
 			listenerNodePool.releaseCache();
+		}
+		
+		public function get numListeners() : int
+		{
+			return _numListeners;
 		}
 
 		public function add( listener : Function ) : void
@@ -106,6 +112,7 @@ package ash.signals
 					tail = node;
 				}
 			}
+			_numListeners++;
 		}
 
 		public function remove( listener : Function ) : void
@@ -146,6 +153,7 @@ package ash.signals
 				{
 					listenerNodePool.dispose( node );
 				}
+				_numListeners--;
 			}
 		}
 		
@@ -161,6 +169,7 @@ package ash.signals
 			tail = null;
 			toAddHead = null;
 			toAddTail = null;
+			_numListeners = 0;
 		}
 	}
 }

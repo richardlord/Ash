@@ -26,9 +26,15 @@ package ash.signals
 		}
 
 		[Test]
-		public function newSignalHasNoListeners():void
+		public function newSignalHasNullHead():void
 		{
 			assertThat( signal.head, nullValue() );
+		}	
+
+		[Test]
+		public function newSignalHasListenersCountZero():void
+		{
+			assertThat( signal.numListeners, equalTo( 0 ) );
 		}	
 		
 		[Test]
@@ -39,12 +45,27 @@ package ash.signals
 		}
 
 		[Test]
+		public function addListenerThenListenersCountIsOne():void
+		{
+			signal.add( newEmptyHandler() );
+			assertThat( signal.numListeners, equalTo( 1 ) );
+		}	
+		
+		[Test]
 		public function addListenerThenRemoveThenDispatchShouldNotCallListener() : void
 		{
 			signal.add( failIfCalled );
 			signal.remove( failIfCalled );
 			dispatchSignal();
 		}
+
+		[Test]
+		public function addListenerThenRemoveThenListenersCountIsZero():void
+		{
+			signal.add( failIfCalled );
+			signal.remove( failIfCalled );
+			assertThat( signal.numListeners, equalTo( 0 ) );
+		}	
 
 		[Test]
 		public function removeFunctionNotInListenersShouldNotThrowError() : void
@@ -70,6 +91,14 @@ package ash.signals
 		}
 
 		[Test]
+		public function add2ListenersThenListenersCountIsTwo():void
+		{
+			signal.add( newEmptyHandler() );
+			signal.add( newEmptyHandler() );
+			assertThat( signal.numListeners, equalTo( 2 ) );
+		}	
+
+		[Test]
 		public function add2ListenersRemove1stThenDispatchShouldCall2ndNot1stListener() : void
 		{
 			signal.add( failIfCalled );
@@ -88,6 +117,15 @@ package ash.signals
 		}
 		
 		[Test]
+		public function add2ListenersThenRemove1ThenListenersCountIsOne():void
+		{
+			signal.add( newEmptyHandler() );
+			signal.add( failIfCalled );
+			signal.remove( failIfCalled );
+			assertThat( signal.numListeners, equalTo( 1 ) );
+		}	
+
+		[Test]
 		public function addSameListenerTwiceShouldOnlyAddItOnce() : void
 		{
 			var count : int = 0;
@@ -105,6 +143,14 @@ package ash.signals
 			signal.add( listener );
 			signal.add( listener );
 		}
+		
+		[Test]
+		public function addSameListenerTwiceThenListenersCountIsOne():void
+		{
+			signal.add( failIfCalled );
+			signal.add( failIfCalled );
+			assertThat( signal.numListeners, equalTo( 1 ) );
+		}	
 
 		[Test]
 		public function dispatch2Listeners1stListenerRemovesItselfThen2ndListenerIsStillCalled() : void
@@ -140,6 +186,21 @@ package ash.signals
 		}
 
 		[Test]
+		public function addingAListenerDuringDispatchIncrementsListenersCount() : void
+		{
+			signal.add( addListenerDuringDispatchToTestCount );
+			dispatchSignal();
+			assertThat( signal.numListeners, equalTo( 2 ) );
+		}
+
+		private function addListenerDuringDispatchToTestCount() : void
+		{
+			assertThat( signal.numListeners, equalTo( 1 ) );
+			signal.add( newEmptyHandler() );
+			assertThat( signal.numListeners, equalTo( 2 ) );
+		}
+
+		[Test]
 		public function dispatch2Listeners2ndListenerRemoves1stThen1stListenerIsNotCalled() : void
 		{
 			signal.add( async.add( removeFailListener, 10 ) );
@@ -159,6 +220,15 @@ package ash.signals
 			signal.add( newEmptyHandler() );
 			signal.removeAll();
 			assertThat( signal.head, nullValue() );
+		}
+		
+		[Test]
+		public function add2ListenersThenRemoveAllThenListenerCountIsZero():void
+		{
+			signal.add( newEmptyHandler() );
+			signal.add( newEmptyHandler() );
+			signal.removeAll();
+			assertThat( signal.numListeners, equalTo( 0 ) );
 		}
 		
 		[Test]
