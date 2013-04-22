@@ -33,6 +33,6 @@ import ash.fsm.EntityStateMachineTests;
 		public var componentInstanceProviderTests : ComponentInstanceProviderTests;
 		public var componentTypeProviderTests : ComponentTypeProviderTests;
 		public var componentSingletonProviderTests : ComponentSingletonProviderTests;
-        public var dynamicComponentProviderTests : DynamicComponentProviderTests
+        public var dynamicComponentProviderTests : DynamicComponentProviderTests;
 	}
 }

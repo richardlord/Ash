@@ -79,7 +79,6 @@ package ash.fsm
          * @param method The method to return the component instance
          * @return This ComponentMapping, so more modifications can be applied
          */
-
         public function withMethod( method : Function ) : StateComponentMapping
         {
             setProvider( new DynamicComponentProvider( method ) );

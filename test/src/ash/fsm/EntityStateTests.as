@@ -63,7 +63,7 @@ package ash.fsm
             const dynamicProvider:Function = function():*
             {
                return new MockComponent();
-            }
+            };
             state.add( MockComponent ).withMethod( dynamicProvider );
             var provider : IComponentProvider = state.providers[MockComponent];
             assertThat( provider, instanceOf( DynamicComponentProvider ) );
