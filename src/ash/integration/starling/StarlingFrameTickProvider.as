@@ -14,6 +14,7 @@ package ash.integration.starling
 	{
 		private var juggler : Juggler;
 		private var maximumFrameTime : Number;
+		private var isPlaying : Boolean = false;
 		
 		/**
 		 * Applies a time adjustement factor to the tick, so you can slow down or speed up the entire engine.
@@ -31,10 +32,12 @@ package ash.integration.starling
 		public function start() : void
 		{
 			juggler.add( this );
+			isPlaying = true;
 		}
 		
 		public function stop() : void
 		{
+			isPlaying = false;
 			juggler.remove( this );
 		}
 		
@@ -45,6 +48,11 @@ package ash.integration.starling
 				frameTime = maximumFrameTime;
 			}
 			dispatch( frameTime * timeAdjustment );
+		}
+
+		public function get playing() : Boolean
+		{
+			return isPlaying;
 		}
 	}
 }
