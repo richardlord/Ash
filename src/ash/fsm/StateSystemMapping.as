@@ -31,7 +31,7 @@ internal class StateSystemMapping
      * SystemInstanceProvider is used for the mapping.
      *
      * @param system The System instance to use for the mapping
-     * @return This ComponentMapping, so more modifications can be applied
+     * @return This StateSystemMapping, so more modifications can be applied
      */
     public function withInstance( system:System ):StateSystemMapping
     {
@@ -47,7 +47,7 @@ internal class StateSystemMapping
      *
      * @param type The type of the single instance to be created. If omitted, the type of the
      * mapping is used.
-     * @return This ComponentMapping, so more modifications can be applied
+     * @return This StateSystemMapping, so more modifications can be applied
      */
     public function withSingleton( type:Class = null ):StateSystemMapping
     {
@@ -62,14 +62,15 @@ internal class StateSystemMapping
 
     /**
      * Creates a mapping for the System type to a method call.
-     * The method should return a System instance.
+     * The method should return a System instance. A DynamicSystemProvider is used for
+     * the mapping.
      *
      * @param method The method to provide the System instance.
-     * @return This ComponentMapping, so more modifications can be applied.
+     * @return This StateSystemMapping, so more modifications can be applied.
      */
     public function withMethod( method:Function ):StateSystemMapping
     {
-        setProvider( new SystemMethodProvider( method ) );
+        setProvider( new DynamicSystemProvider( method ) );
         return this;
     }
 
@@ -77,7 +78,7 @@ internal class StateSystemMapping
      * Applies the priority to the provider that the System will be.
      *
      * @param priority The component provider to use.
-     * @return This ComponentMapping, so more modifications can be applied.
+     * @return This StateSystemMapping, so more modifications can be applied.
      */
     public function withPriority( priority:int ):StateSystemMapping
     {
@@ -89,7 +90,7 @@ internal class StateSystemMapping
      * Creates a mapping for the System type to any ComponentProvider.
      *
      * @param provider The component provider to use.
-     * @return This ComponentMapping, so more modifications can be applied.
+     * @return This StateSystemMapping, so more modifications can be applied.
      */
     public function withProvider( provider:ISystemProvider ):StateSystemMapping
     {
@@ -103,7 +104,7 @@ internal class StateSystemMapping
      * so that a fluent interface can be used when configuring entity states.
      *
      * @param type The type of System to add a mapping to the state for
-     * @return The new ComponentMapping for that type
+     * @return The new StateSystemMapping for that type
      */
     public function add( type:Class ):StateSystemMapping
     {

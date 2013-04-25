@@ -62,7 +62,7 @@ import org.hamcrest.assertThat;
 
             state.add( MockSystem ).withMethod( methodProvider );
             var provider : ISystemProvider = state.providers[MockSystem];
-            assertThat( provider, instanceOf( SystemMethodProvider) );
+            assertThat( provider, instanceOf( DynamicSystemProvider) );
             assertThat( provider.getSystem(), instanceOf( MockSystem ) );
         }
 

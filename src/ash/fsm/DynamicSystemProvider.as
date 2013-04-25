@@ -6,7 +6,7 @@ import ash.core.System;
  * This System provider returns results of a method call. The method
  * is passed to the provider at initialisation.
  */
-public class SystemMethodProvider implements ISystemProvider
+public class DynamicSystemProvider implements ISystemProvider
 {
     private var method:Function;
     private var systemPriority:int = 0;
@@ -17,7 +17,7 @@ public class SystemMethodProvider implements ISystemProvider
      *
      * @param method The method that returns the System instance;
      */
-    public function SystemMethodProvider( method:Function )
+    public function DynamicSystemProvider( method:Function )
     {
         this.method = method;
     }
