@@ -1,17 +1,22 @@
 package ash
 {
 	import ash.core.ComponentMatchingFamilyTests;
-	import ash.core.EntityTests;
-	import ash.core.EngineAndFamilyIntegrationTests;
 	import ash.core.EngineTests;
+	import ash.core.EngineAndFamilyIntegrationTests;
+	import ash.core.EntityTests;
 	import ash.core.NodeListTests;
 	import ash.core.SystemTests;
 	import ash.fsm.ComponentInstanceProviderTests;
 	import ash.fsm.ComponentSingletonProviderTests;
 	import ash.fsm.ComponentTypeProviderTests;
-import ash.fsm.DynamicComponentProviderTests;
-import ash.fsm.EntityStateMachineTests;
+	import ash.fsm.DynamicComponentProviderTests;
+	import ash.fsm.EntityStateMachineTests;
 	import ash.fsm.EntityStateTests;
+	import ash.fsm.SystemInstanceProviderTests;
+	import ash.fsm.SystemMethodProviderTests;
+	import ash.fsm.SystemSingletonProviderTests;
+	import ash.fsm.SystemStateMachineTests;
+	import ash.fsm.SystemStateTests;
 	import ash.signals.SignalTest;
 	import ash.tools.ComponentPoolTest;
 	import ash.tools.ListIteratingSystemTest;
@@ -34,5 +39,10 @@ import ash.fsm.EntityStateMachineTests;
 		public var componentTypeProviderTests : ComponentTypeProviderTests;
 		public var componentSingletonProviderTests : ComponentSingletonProviderTests;
 		public var dynamicComponentProviderTests : DynamicComponentProviderTests;
+		public var systemInstanceProviderTests : SystemInstanceProviderTests;
+		public var systemSingletonProviderTests : SystemSingletonProviderTests;
+		public var systemMethodProviderTests : SystemMethodProviderTests;
+		public var systemStateTests : SystemStateTests;
+		public var systemStateMachineTests : SystemStateMachineTests;
 	}
 }
