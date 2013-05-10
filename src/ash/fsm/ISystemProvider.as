@@ -1,16 +1,15 @@
 package ash.fsm
 {
-import ash.core.System;
+	import ash.core.System;
 
-public interface ISystemProvider
-{
+	public interface ISystemProvider
+	{
+		function getSystem() : System;
 
-    function getSystem():System;
+		function get identifier() : *;
 
-    function get identifier():*;
+		function get priority() : int;
 
-    function get priority():int;
-
-    function set priority( value:int ):void;
-}
+		function set priority( value : int ) : void;
+	}
 }

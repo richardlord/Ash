@@ -1,20 +1,19 @@
 package ash.fsm
 {
-import ash.core.System;
-import ash.fsm.ISystemProvider;
+	import ash.core.System;
 
-import org.hamcrest.assertThat;
+	import org.hamcrest.assertThat;
 	import org.hamcrest.object.equalTo;
 	import org.hamcrest.object.instanceOf;
 
 	public class SystemStateTests
 	{
-		private var state : SystemState;
+		private var state : EngineState;
 
 		[Before]
 		public function createState() : void
 		{
-			state = new SystemState();
+			state = new EngineState();
 		}
 
 		[After]
@@ -24,64 +23,45 @@ import org.hamcrest.assertThat;
 		}
 		
 		[Test]
-		public function addWithNoQualifierCreatesSingletonProvider() : void
-		{
-			state.add( MockSystem );
-			var provider : ISystemProvider = state.providers[MockSystem];
-			assertThat( provider, instanceOf( SystemSingletonProvider ) );
-			assertThat( provider.getSystem(), instanceOf( MockSystem ) );
-		}
-
-		[Test]
-		public function addWithInstanceQualifierCreatesInstanceProvider() : void
+		public function addInstanceCreatesInstanceProvider() : void
 		{
 			var component : MockSystem = new MockSystem();
-			state.add( MockSystem ).withInstance( component );
-			var provider : ISystemProvider = state.providers[MockSystem];
+			state.addInstance( component );
+			var provider : ISystemProvider = state.providers[0];
 			assertThat( provider, instanceOf( SystemInstanceProvider ) );
 			assertThat( provider.getSystem(), equalTo( component ) );
 		}
 
         [Test]
-        public function addWithSingletonQualifierCreatesSingletonProvider() : void
+        public function addSingletonCreatesSingletonProvider() : void
         {
-            state.add( MockSystem ).withSingleton( MockSystem );
-            var provider : ISystemProvider = state.providers[MockSystem];
+            state.addSingleton( MockSystem );
+            var provider : ISystemProvider = state.providers[0];
             assertThat( provider, instanceOf( SystemSingletonProvider ) );
             assertThat( provider.getSystem(), instanceOf( MockSystem ) );
         }
 
         [Test]
-        public function addWithMethodQualifierCreatesMethodProvider() : void
+        public function addMethodCreatesMethodProvider() : void
         {
             const instance:System = new MockSystem();
 
             const methodProvider:Function = function():System{
                  return instance;
-            }
+            };
 
-            state.add( MockSystem ).withMethod( methodProvider );
-            var provider : ISystemProvider = state.providers[MockSystem];
+            state.addMethod( methodProvider );
+            var provider : ISystemProvider = state.providers[0];
             assertThat( provider, instanceOf( DynamicSystemProvider) );
             assertThat( provider.getSystem(), instanceOf( MockSystem ) );
         }
 
         [Test]
-        public function withPriorityCalledLastSetsPriorityOnProvider() : void
+        public function withPrioritySetsPriorityOnProvider() : void
         {
             var priority:int = 10;
-            state.add( MockSystem ).withSingleton( MockSystem ).withPriority( priority );
-            var provider : ISystemProvider = state.providers[MockSystem];
-            assertThat( provider.priority, equalTo( priority ) );
-
-        }
-
-        [Test]
-        public function withPriorityCalledFirstSetsPriorityOnProvider() : void
-        {
-            var priority:int = 10;
-            state.add( MockSystem ).withPriority( priority ).withSingleton( MockSystem );
-            var provider : ISystemProvider = state.providers[MockSystem];
+            state.addSingleton( MockSystem ).withPriority( priority );
+            var provider : ISystemProvider = state.providers[0];
             assertThat( provider.priority, equalTo( priority ) );
 
         }
@@ -93,9 +73,4 @@ import ash.core.System;
 class MockSystem extends System
 {
 
-}
-
-class MockSystem2 extends System
-{
-	
 }

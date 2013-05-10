@@ -3,38 +3,12 @@ package ash.fsm
 	import ash.core.System;
 
 	/**
-	 * Used by the SystemState class to create the mappings of Systems to providers via a fluent interface.
+	 * Represents a state for a SystemStateMachine. The state contains any number of SystemProviders which
+	 * are used to add Systems to the Engine when this state is entered.
 	 */
-	internal class StateSystemMapping
+	public class EngineState
 	{
-		private var creatingState : EngineState;
-		private var provider : ISystemProvider;
-
-		/**
-		 * Used internally, the constructor creates a component mapping. The constructor
-		 * creates a SystemSingletonProvider as the default mapping, which will be replaced
-		 * by more specific mappings if other methods are called.
-		 *
-		 * @param creatingState The SystemState that the mapping will belong to
-		 * @param type The System type for the mapping
-		 */
-		public function StateSystemMapping( creatingState : EngineState, provider : ISystemProvider )
-		{
-			this.creatingState = creatingState;
-			this.provider = provider;
-		}
-
-		/**
-		 * Applies the priority to the provider that the System will be.
-		 *
-		 * @param priority The component provider to use.
-		 * @return This StateSystemMapping, so more modifications can be applied.
-		 */
-		public function withPriority( priority : int ) : StateSystemMapping
-		{
-			provider.priority = priority;
-			return this;
-		}
+		internal var providers : Vector.<ISystemProvider> = new Vector.<ISystemProvider>();
 
 		/**
 		 * Creates a mapping for the System type to a specific System instance. A
@@ -45,7 +19,7 @@ package ash.fsm
 		 */
 		public function addInstance( system : System ) : StateSystemMapping
 		{
-			return creatingState.addInstance( system );
+			return addProvider( new SystemInstanceProvider( system ) );
 		}
 
 		/**
@@ -60,7 +34,7 @@ package ash.fsm
 		 */
 		public function addSingleton( type : Class ) : StateSystemMapping
 		{
-			return creatingState.addSingleton( type );
+			return addProvider( new SystemSingletonProvider( type ) );
 
 		}
 
@@ -74,19 +48,20 @@ package ash.fsm
 		 */
 		public function addMethod( method : Function ) : StateSystemMapping
 		{
-			return creatingState.addMethod( method );
+			return addProvider( new DynamicSystemProvider( method ) );
 		}
 
 		/**
-		 * Maps through to the addProvider method of the SystemState that this mapping belongs to
-		 * so that a fluent interface can be used when configuring entity states.
+		 * Adds any SystemProvider.
 		 *
 		 * @param provider The component provider to use.
 		 * @return This StateSystemMapping, so more modifications can be applied.
 		 */
 		public function addProvider( provider : ISystemProvider ) : StateSystemMapping
 		{
-			return creatingState.addProvider( provider );
+			var mapping : StateSystemMapping = new StateSystemMapping( this, provider );
+			providers.push( provider );
+			return mapping;
 		}
 	}
 }
