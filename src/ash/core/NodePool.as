@@ -1,5 +1,6 @@
 package ash.core
 {
+	import flash.utils.Dictionary;
 	/**
 	 * This internal class maintains a pool of deleted nodes for reuse by the framework. This reduces the overhead
 	 * from object creation and garbage collection.
@@ -13,13 +14,15 @@ package ash.core
 		private var tail : Node;
 		private var nodeClass : Class;
 		private var cacheTail : Node;
+		private var components : Dictionary;
 
 		/**
 		 * Creates a pool for the given node class.
 		 */
-		public function NodePool( nodeClass : Class )
+		public function NodePool( nodeClass : Class, components : Dictionary )
 		{
 			this.nodeClass = nodeClass;
+			this.components = components;
 		}
 
 		/**
@@ -45,6 +48,12 @@ package ash.core
 		 */
 		internal function dispose( node : Node ) : void
 		{
+			for each( var componentName : String in components )
+			{
+				node[ componentName ] = null;
+			}
+			node.entity = null;
+			
 			node.next = null;
 			node.previous = tail;
 			tail = node;
@@ -68,9 +77,7 @@ package ash.core
 			{
 				var node : Node = cacheTail;
 				cacheTail = node.previous;
-				node.next = null;
-				node.previous = tail;
-				tail = node;
+				dispose( node );
 			}
 		}
 	}
