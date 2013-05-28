@@ -15,7 +15,7 @@ package ash
 	import ash.fsm.SystemInstanceProviderTests;
 	import ash.fsm.SystemMethodProviderTests;
 	import ash.fsm.SystemSingletonProviderTests;
-	import ash.fsm.SystemStateMachineTests;
+	import ash.fsm.EngineStateMachineTests;
 	import ash.fsm.SystemStateTests;
 	import ash.signals.SignalTest;
 	import ash.tools.ComponentPoolTest;
@@ -43,6 +43,6 @@ package ash
 		public var systemSingletonProviderTests : SystemSingletonProviderTests;
 		public var systemMethodProviderTests : SystemMethodProviderTests;
 		public var systemStateTests : SystemStateTests;
-		public var systemStateMachineTests : SystemStateMachineTests;
+		public var systemStateMachineTests : EngineStateMachineTests;
 	}
 }

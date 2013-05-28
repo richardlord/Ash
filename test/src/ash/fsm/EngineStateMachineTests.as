@@ -9,7 +9,7 @@ package ash.fsm
 	import org.hamcrest.object.nullValue;
 	import org.hamcrest.object.sameInstance;
 
-	public class SystemStateMachineTests
+	public class EngineStateMachineTests
 	{
 		[Inject]
 		public var async : IAsync;
