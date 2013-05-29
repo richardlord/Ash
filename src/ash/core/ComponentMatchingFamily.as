@@ -40,11 +40,11 @@ package ash.core
 		 */
 		private function init() : void
 		{
-			nodePool = new NodePool( nodeClass );
 			nodes = new NodeList();
 			entities = new Dictionary();
-
 			components = new Dictionary();
+			nodePool = new NodePool( nodeClass, components );
+			
 			nodePool.dispose( nodePool.get() ); // create a dummy instance to ensure describeType works.
 
 			var variables : XMLList = describeType( nodeClass ).factory.variable;

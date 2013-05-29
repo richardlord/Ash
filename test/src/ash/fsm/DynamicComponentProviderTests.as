@@ -47,8 +47,8 @@ public class DynamicComponentProviderTests
             return instance;
         }
 
-        var provider1:ComponentInstanceProvider = new ComponentInstanceProvider( providerMethod1 );
-        var provider2:ComponentInstanceProvider = new ComponentInstanceProvider( providerMethod2 );
+        var provider1:DynamicComponentProvider = new DynamicComponentProvider( providerMethod1 );
+        var provider2:DynamicComponentProvider = new DynamicComponentProvider( providerMethod2 );
         assertThat( provider1.identifier, not( provider2.identifier ) );
     }
 }
