@@ -161,10 +161,12 @@ package ash.signals
 		{
 			while( head )
 			{
-				var listener : ListenerNode = head;
+				var node : ListenerNode = head;
 				head = head.next;
-				listener.previous = null;
-				listener.next = null;
+				delete nodes[ node.listener ];
+				listenerNodePool.dispose( node );
+				node.previous = null;
+				node.next = null;
 			}
 			tail = null;
 			toAddHead = null;

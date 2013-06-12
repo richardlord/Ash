@@ -223,6 +223,16 @@ package ash.signals
 		}
 		
 		[Test]
+		public function addListenerThenRemoveAllThenAddAgainShouldAddListener():void
+		{
+			var handler : Function = newEmptyHandler();
+			signal.add( handler );
+			signal.removeAll();
+			signal.add( handler );
+			assertThat( signal.numListeners, equalTo( 1 ) );
+		}
+		
+		[Test]
 		public function add2ListenersThenRemoveAllThenListenerCountIsZero():void
 		{
 			signal.add( newEmptyHandler() );
