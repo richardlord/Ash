@@ -18,7 +18,7 @@ package ash.io.objectcodecs
 
 		public function decodeIntoObject( target : Object, object : Object, codecManager : CodecManager ) : void
 		{
-			throw( new Error( "Can't decode into a native object because the object is passed by value, not by reference, se we're decoding into a local copy not the original." ) );
+			throw( new Error( "Can't decode into a native object because the object is passed by value, not by reference, so we're decoding into a local copy not the original." ) );
 		}
 
 		public function decodeIntoProperty( parent : Object, property : String, object : Object, codecManager : CodecManager ) : void
