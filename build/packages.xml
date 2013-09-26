@@ -34,6 +34,12 @@ that make them hard to manage and simplifying them. The entity system architectu
 		<package name="ash.integration.swiftsuspenders">
 			<shortDescription><![CDATA[Integration with the Swift Suspenders dependency injection library.]]></shortDescription>
 		</package>
+		<package name="ash.io.enginecodecs">
+			<shortDescription><![CDATA[Classes for serialization/deserialization of a game.]]></shortDescription>
+		</package>
+		<package name="ash.io.objectcodecs">
+			<shortDescription><![CDATA[Classes used by engine codecs for serialization/deserialization of properties of a game.]]></shortDescription>
+		</package>
 		<package name="ash.signals">
 			<shortDescription><![CDATA[A simpler and more performant version of AS3-signals. Used internally in Ash and available for use in your game too.]]></shortDescription>
 		</package>
