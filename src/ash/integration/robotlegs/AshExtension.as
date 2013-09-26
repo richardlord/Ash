@@ -1,5 +1,6 @@
 package ash.integration.robotlegs
 {
+	import org.swiftsuspenders.Injector;
 	import ash.core.Engine;
 	import ash.integration.swiftsuspenders.SwiftSuspendersEngine;
 	import robotlegs.bender.framework.api.IContext;
@@ -18,7 +19,7 @@ package ash.integration.robotlegs
 
 		public function extend( context : IContext ) : void
 		{
-			context.injector.map( Engine ).toValue( new SwiftSuspendersEngine( context.injector ) );
+			context.injector.map( Engine ).toValue( new SwiftSuspendersEngine( context.injector as Injector ) );
 		}
 
 		public function toString() : String
