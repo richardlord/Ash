@@ -45,7 +45,7 @@ package ash.core
 			{
 				entity.next.previous = entity.previous;
 			}
-			// N.B. Don't set node.next and node.previous to null because that will break the list iteration if node is the current node in the iteration.
+			// N.B. Don't set entity.next and entity.previous to null because that will break the list iteration if node is the current node in the iteration.
 		}
 		
 		internal function removeAll() : void
