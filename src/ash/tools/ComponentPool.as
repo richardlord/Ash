@@ -64,7 +64,7 @@ package ash.tools
 			{
 				var type : Class = component.constructor as Class;
 				var pool:Array = getPool( type );
-				pool.push( component );
+				pool[ pool.length ] = component;
 			}
 		}
 		

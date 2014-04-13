@@ -12,7 +12,7 @@ package ash.io.objectcodecs
 			var codec : IObjectCodec;
 			for each( var value : Object in object )
 			{
-				values.push( codecManager.encodeObject( value ) );
+				values[ values.length ] = codecManager.encodeObject( value );
 			}
 			return { type:type, values:values };
 
@@ -25,7 +25,7 @@ package ash.io.objectcodecs
 			var decoded : Object = new type();
 			for each( var obj : Object in object.values )
 			{
-				decoded.push( codecManager.decodeObject( obj ) );
+				decoded[ decoded.length ] = codecManager.decodeObject( obj );
 			}
 			return decoded;
 		}
@@ -34,7 +34,7 @@ package ash.io.objectcodecs
 		{
 			for each( var obj : Object in object.values )
 			{
-				target.push( codecManager.decodeObject( obj ) );
+				target[ target.length ] = codecManager.decodeObject( obj );
 			}
 		}
 

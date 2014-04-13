@@ -155,7 +155,7 @@ package ash.core
 			var componentArray : Array = new Array();
 			for each( var component : * in components )
 			{
-				componentArray.push( component );
+				componentArray[ componentArray.length ] = component;
 			}
 			return componentArray;
 		}

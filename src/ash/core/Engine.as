@@ -123,7 +123,7 @@ package ash.core
 			var entities : Vector.<Entity> = new Vector.<Entity>();
 			for( var entity : Entity = entityList.head; entity; entity = entity.next )
 			{
-				entities.push( entity );
+				entities[ entities.length ] = entity;
 			}
 			return entities;
 		}
@@ -235,7 +235,7 @@ package ash.core
 			var systems : Vector.<System> = new Vector.<System>();
 			for( var system : System = systemList.head; system; system = system.next )
 			{
-				systems.push( system );
+				systems[ systems.length ] = system;
 			}
 			return systems;
 		}

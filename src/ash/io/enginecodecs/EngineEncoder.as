@@ -50,13 +50,13 @@ package ash.io.enginecodecs
 				var encodedComponent : Object = encodeComponent( component );
 				if( encodedComponent )
 				{
-					componentIds.push( encodedComponent );
+					componentIds[ componentIds.length ] = encodedComponent;
 				}
 			}
-			encodedEntities.push( {
+			encodedEntities[ encodedEntities.length ] = {
 				name : entity.name,
 				components : componentIds
-			} );
+			};
 		}
 
 		private function encodeComponent( component : Object ) : uint
@@ -70,7 +70,7 @@ package ash.io.enginecodecs
 			{
 				encoded.id = nextComponentId++;
 				componentEncodingMap[ component ] = encoded;
-				encodedComponents.push( encoded );
+				encodedComponents[ encodedComponents.length ] = encoded;
 				return encoded.id;
 			}
 			return 0;

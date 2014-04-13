@@ -60,7 +60,7 @@ package ash.fsm
 		public function addProvider( provider : ISystemProvider ) : StateSystemMapping
 		{
 			var mapping : StateSystemMapping = new StateSystemMapping( this, provider );
-			providers.push( provider );
+			providers[ providers.length ] = provider;
 			return mapping;
 		}
 	}
