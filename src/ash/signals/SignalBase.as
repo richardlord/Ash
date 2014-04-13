@@ -165,8 +165,6 @@ package ash.signals
 				head = head.next;
 				delete nodes[ node.listener ];
 				listenerNodePool.dispose( node );
-				node.previous = null;
-				node.next = null;
 			}
 			tail = null;
 			toAddHead = null;
