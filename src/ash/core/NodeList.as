@@ -282,7 +282,7 @@ package ash.core
 			// reassemble it in order
 			while( lists.length > 1 )
 			{
-				lists[ lists.length ] = merge( lists.shift(), lists.shift(), sortFunction );
+				lists.push( merge( lists.shift(), lists.shift(), sortFunction ) );
 			}
 			// find the tail
 			tail = head = lists[0];
