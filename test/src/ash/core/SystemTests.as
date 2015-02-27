@@ -178,6 +178,18 @@ package ash.core
 		}
 		
 		[Test]
+		public function removeAllSystemsSetsNextToNull() : void
+		{
+			var system1 : System = new System();
+			engine.addSystem( system1, 1 );
+			var system2 : System = new System();
+			engine.addSystem( system2, 2 );
+			assertThat( system1.next, sameInstance( system2 ) );
+			engine.removeAllSystems();
+			assertThat( system1.next, nullValue() );
+		}
+		
+		[Test]
 		public function removeSystemAndAddItAgainDontCauseInvalidLinkedList() : void
 		{
 			var systemB : System = new System();

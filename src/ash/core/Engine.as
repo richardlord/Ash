@@ -258,8 +258,13 @@ package ash.core
 		{
 			while( systemList.head )
 			{
-				removeSystem( systemList.head );
+				var system : System = systemList.head;
+				systemList.head = systemList.head.next;
+				system.previous = null;
+				system.next = null;
+				system.removeFromEngine( this );
 			}
+			systemList.tail = null;
 		}
 
 		/**
