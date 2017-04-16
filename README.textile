@@ -16,9 +16,9 @@ There is no formal documentation as yet, but much of the source code contains as
 
 I've also written a few blog posts explaining how Ash works.
 
-* "Ash - a new entity framework for Actionscript games.":http://www.richardlord.net/blog/introducing-ash
-* "What is an entity framework for game development.":http://www.richardlord.net/blog/what-is-an-entity-framework
-* "Why use an entity framework for game development.":http://www.richardlord.net/blog/why-use-an-entity-framework
+* "Ash - a new entity framework for Actionscript games.":http://www.richardlord.net/blog/ecs/introducing-ash.html
+* "What is an entity framework for game development.":http://www.richardlord.net/blog/ecs/what-is-an-entity-framework.html
+* "Why use an entity framework for game development.":http://www.richardlord.net/blog/ecs/why-use-an-entity-framework.html
 
 h3. Join the discussion
 
